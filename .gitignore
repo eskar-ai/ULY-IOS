@@ -31,3 +31,4 @@ harmonyos/**/oh_modules/
 *.apk
 *.aab
 
+harmonyos/smoke-output.txt

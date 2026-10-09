@@ -2,7 +2,11 @@
 
 Offline Uyghur Latin (ULY) input method for **HarmonyOS NEXT** (ArkTS). Same lexicon and suggestion pipeline as iOS / web / Android, implemented as an `InputMethodExtensionAbility`.
 
-> Platform work lives on **`cursor/harmonyos-uly-keyboard-9edd`** — not on `main` until release-ready. See [`PLATFORM.md`](PLATFORM.md).
+[![HarmonyOS CI](https://github.com/eskar-ai/ULY-IOS/actions/workflows/harmonyos-ci.yml/badge.svg?branch=cursor/harmonyos-uly-keyboard-9edd)](https://github.com/eskar-ai/ULY-IOS/actions/workflows/harmonyos-ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](../LICENSE)
+
+> Platform work lives on **`cursor/harmonyos-uly-keyboard-9edd`** — not on `main` until release-ready.  
+> [`PLATFORM.md`](PLATFORM.md) · [`TESTING.md`](TESTING.md) · [`QUALITY.md`](QUALITY.md) · [`CONTRIBUTING.md`](CONTRIBUTING.md)
 
 ## Modules
 

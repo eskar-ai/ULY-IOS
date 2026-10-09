@@ -1,0 +1,35 @@
+name: HarmonyOS bug
+description: Report a problem with the HarmonyOS NEXT keyboard (this platform branch)
+title: "[HarmonyOS] "
+labels: ["harmonyos", "bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping. HarmonyOS work lives on `cursor/harmonyos-uly-keyboard-9edd`.
+  - type: input
+    id: device
+    attributes:
+      label: Device / HarmonyOS version
+      placeholder: "Mate 60 / HarmonyOS NEXT"
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected vs actual
+    validations:
+      required: true
+  - type: checkboxes
+    id: tests
+    attributes:
+      label: Local checks
+      options:
+        - label: I rebuilt the HAP in DevEco
+        - label: I re-enabled the input method in system settings

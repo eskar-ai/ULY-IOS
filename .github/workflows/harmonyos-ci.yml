@@ -27,4 +27,11 @@ jobs:
       - name: Sync lexicon + smoke
         run: |
           chmod +x scripts/*.sh
-          ./scripts/run-unit-tests.sh
+          ./scripts/check-quality.sh
+      - name: Upload smoke log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: harmonyos-engine-smoke
+          path: harmonyos/ime/src/main/resources/rawfile/lexicon.json
+          if-no-files-found: ignore
