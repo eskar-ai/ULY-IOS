@@ -1,0 +1,15 @@
+node_modules/
+web/dist/
+.DS_Store
+*.xcodeproj/
+*.xcworkspace/
+ios/UyghurLatin.xcodeproj/
+DerivedData/
+.swiftpm/
+.build/
+__pycache__/
+*.pyc
+.venv/
+data/raw/
+agent-tools/
+.cursor/

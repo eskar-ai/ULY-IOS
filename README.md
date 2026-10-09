@@ -1,3 +1,61 @@
-# iphone-iphone
+# ULY Künupka — Offline Uyghur Latin (ULY) Keyboard for iPhone
 
-This project was created by a Cursor cloud agent.
+System keyboard for **Uyghur Latin Yëziqi (2008)** with offline **prefix suggestions**, **next-word prediction**, and **spell-check / corrections**. Built from public MIT lexicons (UyghurEdit++ imla + imlalughet), converted with `umsc`.
+
+## What’s included
+
+| Path | Description |
+|------|-------------|
+| `ios/` | Host app + **Custom Keyboard Extension** (XcodeGen) |
+| `Sources/UyghurLatinKit/` | Shared Swift engine (Trie, spell, n-grams) |
+| `web/` | Offline browser playground (same engine in TypeScript) |
+| `tools/build_lexicon.py` | Rebuilds `data/generated/lexicon.json` from open sources |
+| `data/generated/` | Bundled 120k-word ULY lexicon + corrections + bigrams |
+
+## Quick demo (web, any OS)
+
+```bash
+cd web
+npm install
+npm run dev
+```
+
+Open **http://localhost:3847** — try typing `uygh` or `bugun`.
+
+## Install on iPhone (requires Mac + Xcode)
+
+```bash
+python3 -m pip install -r tools/requirements.txt
+python3 tools/build_lexicon.py   # optional refresh
+
+cd ios
+brew install xcodegen            # once
+xcodegen generate
+open UyghurLatin.xcodeproj
+```
+
+1. Select your **Team** for targets `UyghurLatin` and `UyghurLatinKeyboard`.
+2. Run on your iPhone.
+3. **Settings → General → Keyboard → Keyboards → Add New Keyboard… → ULY Künupka**.
+
+The extension sets `RequestsOpenAccess = false`. All prediction and spell-check stay on device.
+
+### Typing tips
+
+- Long-press **e / o / u** → `ë ö ü`
+- Long-press **c / s / z / g / n** → `ch sh zh gh ng`
+- Tap the suggestion bar to complete, predict the next word, or apply a correction
+- Host app can clear personal learned words
+
+## Rebuild lexicon
+
+```bash
+pip install -r tools/requirements.txt
+python3 tools/build_lexicon.py
+```
+
+Copies outputs into `web/public/data/` and `ios/UyghurLatinKeyboard/Resources/`.
+
+## License & data
+
+App code in this repository is provided for you to use and modify. Lexicon sources remain under their upstream licenses — see [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).

@@ -1,0 +1,13 @@
+{
+  "version": "1.0.0",
+  "script": "ULY-2008",
+  "wordCount": 120000,
+  "correctionCount": 3404,
+  "bigramCount": 13699,
+  "sources": [
+    "https://github.com/gheyret/UyghurEditPP (MIT)",
+    "https://github.com/gheyret/imlalughet (MIT)",
+    "https://github.com/neouyghur/Uyghur-Multi-Script-Converter / umsc (Apache-2.0)"
+  ],
+  "notes": "Arabic lemmas converted with umsc UAS→ULS; é normalized to ë (2008 ULY)."
+}

@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ug-Latn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#1a3a32" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>ULY Künupka — Uyghur Latin Keyboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="app">
+      <header class="top">
+        <p class="brand">ULY Künupka</p>
+        <p class="tag">Offline Uyghur Latin (Yëziqi) — spell check & suggestions</p>
+      </header>
+
+      <section class="editor-wrap">
+        <label class="sr-only" for="editor">Text</label>
+        <textarea
+          id="editor"
+          spellcheck="false"
+          autocomplete="off"
+          autocorrect="off"
+          autocapitalize="off"
+          placeholder="Yëzing… mesilen: uygh / bugun"
+        ></textarea>
+        <div id="status" class="status" aria-live="polite">Lexicon yükliniwatidu…</div>
+      </section>
+
+      <div class="keyboard-shell">
+        <div id="candidates" class="candidates" role="listbox" aria-label="Suggestions"></div>
+        <div id="keyboard" class="keyboard" aria-label="ULY keyboard"></div>
+      </div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
