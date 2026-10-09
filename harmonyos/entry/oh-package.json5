@@ -1,0 +1,11 @@
+{
+  name: "entry",
+  version: "0.1.0",
+  description: "Host app for Uyghur ULY keyboard",
+  main: "",
+  author: "eskar-ai",
+  license: "MIT",
+  dependencies: {
+    uly_engine: "file:../uly_engine",
+  },
+}

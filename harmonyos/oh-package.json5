@@ -1,0 +1,12 @@
+{
+  name: "uyghur-uly-keyboard",
+  version: "0.1.0",
+  description: "Uyghur ULY keyboard for HarmonyOS NEXT — offline Latin IME",
+  main: "",
+  author: "eskar-ai",
+  license: "MIT",
+  dependencies: {},
+  devDependencies: {
+    "@ohos/hypium": "1.0.19",
+  },
+}

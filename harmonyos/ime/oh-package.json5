@@ -1,0 +1,11 @@
+{
+  name: "ime",
+  version: "0.1.0",
+  description: "Uyghur ULY Input Method Extension",
+  main: "",
+  author: "eskar-ai",
+  license: "MIT",
+  dependencies: {
+    uly_engine: "file:../uly_engine",
+  },
+}
