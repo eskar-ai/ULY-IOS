@@ -27,11 +27,11 @@ jobs:
       - name: Sync lexicon + smoke
         run: |
           chmod +x scripts/*.sh
-          ./scripts/check-quality.sh
+          ./scripts/check-quality.sh | tee smoke-output.txt
       - name: Upload smoke log
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: harmonyos-engine-smoke
-          path: harmonyos/ime/src/main/resources/rawfile/lexicon.json
+          path: harmonyos/smoke-output.txt
           if-no-files-found: ignore
