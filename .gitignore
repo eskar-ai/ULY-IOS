@@ -24,11 +24,18 @@ harmonyos/**/build/
 harmonyos/.hvigor/
 harmonyos/local.properties
 harmonyos/.idea/
+<<<<<<< HEAD
 harmonyos/oh_modules/
 harmonyos/**/oh_modules/
+=======
+>>>>>>> 3d89460 (Add Android ULY keyboard scaffold with offline engine and IME)
 *.hap
 *.app
 *.apk
 *.aab
+<<<<<<< HEAD
 
 harmonyos/smoke-output.txt
+=======
+!android/gradle/wrapper/gradle-wrapper.jar
+>>>>>>> 3d89460 (Add Android ULY keyboard scaffold with offline engine and IME)
