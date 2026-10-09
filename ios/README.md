@@ -23,6 +23,10 @@ open UyghurLatin.xcodeproj
 
 The keyboard extension sets `RequestsOpenAccess = false` and runs entirely offline.
 
+## App language (UI only)
+
+The host app can switch **English · 简体中文 · ئۇيغۇرچە · Uyghurche (ULY)** from the language picker. This changes menus, privacy, and credits — not the typing alphabet (always ULY).
+
 ## Appearance
 
 - Follows the system Light/Dark appearance by default.

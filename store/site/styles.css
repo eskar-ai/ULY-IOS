@@ -1,0 +1,98 @@
+:root {
+  --fg: #1c1c1e;
+  --muted: #6c6c70;
+  --bg: #f2f2f7;
+  --card: #ffffff;
+  --link: #007aff;
+  --radius: 12px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans Arabic",
+    "Noto Naskh Arabic", sans-serif;
+  line-height: 1.55;
+  color: var(--fg);
+  background: var(--bg);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  max-width: 42rem;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 3rem;
+}
+
+h1 {
+  font-size: 1.75rem;
+  margin: 0.5rem 0 0.25rem;
+}
+
+h2 {
+  font-size: 1.15rem;
+  margin-top: 0;
+}
+
+.tag {
+  color: var(--muted);
+  margin-top: 0;
+}
+
+a {
+  color: var(--link);
+}
+
+.lang-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.85rem;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.lang-bar a {
+  text-decoration: none;
+  color: var(--muted);
+}
+
+.lang-bar a.active {
+  color: var(--fg);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+nav.page-nav {
+  margin: 1.25rem 0;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+section,
+.card {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  margin: 1rem 0;
+}
+
+.note {
+  background: var(--bg);
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+
+ol,
+ul {
+  padding-inline-start: 1.25rem;
+}
+
+html[dir="rtl"] body {
+  text-align: right;
+}
+
+html[dir="rtl"] .lang-bar,
+html[dir="rtl"] nav.page-nav {
+  flex-direction: row-reverse;
+}

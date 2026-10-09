@@ -78,7 +78,9 @@ Pre-submit materials live in [`store/`](store/):
 | [store/marketing/app-icon-1024.png](store/marketing/app-icon-1024.png) | App icon master |
 | [store/marketing/screenshots/](store/marketing/screenshots/) | 6.7" marketing frames |
 
-Host app includes **English + 简体中文** UI strings, launch background, accent color, and privacy manifests.
+Host app UI languages: **English · 简体中文 · ئۇيغۇرچە · Uyghurche (ULY)** (in-app picker; software chrome only — typing stays ULY). Launch background, accent color, and privacy manifests included.
+
+GitHub Pages one-click deploy for marketing/privacy/support: see [`store/site/README.md`](store/site/README.md) (workflow [`.github/workflows/pages.yml`](.github/workflows/pages.yml)).
 
 Run `python3 tools/validate_release.py` before archiving.
 

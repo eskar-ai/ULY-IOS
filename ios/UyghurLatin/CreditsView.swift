@@ -1,27 +1,34 @@
 import SwiftUI
 
 struct CreditsView: View {
-    private let text: String
+    @EnvironmentObject private var language: LanguageStore
 
-    init() {
+    private var noticeText: String {
+        let name = language.activeLanguage.lprojName
+            ?? language.resolvedSystemLanguage.lprojName
+            ?? "en"
+        if let url = Bundle.main.url(forResource: name, withExtension: "md", subdirectory: "notices"),
+           let s = try? String(contentsOf: url, encoding: .utf8) {
+            return s
+        }
         if let url = Bundle.main.url(forResource: "THIRD_PARTY_NOTICES", withExtension: "md"),
            let s = try? String(contentsOf: url, encoding: .utf8) {
-            text = s
-        } else {
-            text = "Third-party notices file not found in app bundle."
+            return s
         }
+        return language.string("credits_missing")
     }
 
     var body: some View {
         ScrollView {
-            Text(text)
+            Text(noticeText)
                 .font(.footnote)
                 .foregroundStyle(.secondary)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding()
                 .textSelection(.enabled)
         }
-        .navigationTitle("Credits")
+        .navigationTitle(language.string("credits_title"))
         .navigationBarTitleDisplayMode(.inline)
+        .environment(\.layoutDirection, language.activeLanguage.layoutDirection)
     }
 }

@@ -1,0 +1,62 @@
+"app_title" = "ULY Künupka";
+"app_tagline" = "Uyghur Latin Yëziqi (ULY) künupkisi — torsiz teklip we imla tekshürüsh.";
+"nav_keyboard" = "Künupka";
+
+"section_language" = "Yumtal tili";
+"language_picker_footer" = "Peqet bash yumtalning tizimlik we yardem tékistini özgertidu. Kirgüzüsh yenila Uyghur Latin (ULY) bolidu.";
+"language_system" = "Sistémigha egishish";
+"language_en" = "English";
+"language_zh" = "简体中文";
+"language_ug" = "ئۇيغۇرچە";
+"language_uly" = "Uyghurche (ULY)";
+
+"section_enable" = "Qozghitish";
+"enable_step_1" = "Tengshek → Adettiki → Künupka → Künupkilar";
+"enable_step_2" = "Yéngi künupka qoshush…";
+"enable_step_3" = "ULY Künupka";
+"open_settings" = "Tengshekni échish";
+
+"section_appearance" = "Körünüsh";
+"appearance_body" = "Süküt boyiche iPhone ning yoruq / qarangghu körünüshige egishidu.";
+"appearance_hint" = "Künupka teklip baldighida ◐ ni bésip Sistema → Yoruq → Qarangghu arisida almashturung. Mayilliq künupka ichide saqlanidu.";
+
+"section_typing" = "Kirgüzüsh";
+"typing_1" = "e / o / u ni uzun bésip ë ö ü kirgüzüng";
+"typing_2" = "c / s / z / g / n ni uzun bésip ch / sh / zh / gh / ng kirgüzüng";
+"typing_3" = "ëöü künupkisi qoshmaq herp we ayrish belgisi (') ni achidu";
+"typing_4" = "Teklip baldighi sistema künupkisige oxshash: bésip toldurung yaki tüziting";
+
+"section_dictionary" = "Lughët";
+"dictionary_privacy" = "Shexsiy sözler künupka qum sanduqida qalidu (toluq ziyaret yoq, tor yoq).";
+"meta_fallback" = "Künupka ichige texminen 120 ming sözlük ULY lughiti oralghan.";
+"meta_format" = "%d söz · %@ · v%@";
+
+"section_privacy" = "Shexsiyet";
+"privacy_body" = "Kirgüzüsh, teklip we imla tekshürüsh pütünley üskünide ijra bolidu. Bu künupka «toluq ziyaret» telep qilmaydu.";
+"privacy_nav_title" = "Shexsiyet siyasiti";
+"privacy_open" = "Toluq shexsiyet siyasiti";
+"privacy_updated" = "Axirqi yéngilash: 2026-yil 10-ayning 9-küni";
+"privacy_summary_title" = "Qisqiche";
+"privacy_summary_1" = "Kirgüzüsh, teklip we imla tekshürüsh üsküningizde ijra bolidu.";
+"privacy_summary_2" = "Sükütte «toluq ziyaret» étik.";
+"privacy_summary_3" = "Nöwettiki neshride hésabat, élan yaki analiz SDK yoq.";
+"privacy_summary_4" = "Teklip lughiti yumtalgha torsiz oralghan.";
+"privacy_not_collect_title" = "Biz toplimaydighan sanliq melumat";
+"privacy_not_collect_body" = "Biz künupka bésish, uchur mezmuni, alaqidash, orun yaki élan perqlendürgüchini toplimaymiz, yollimaymiz yaki satmaymiz.";
+"privacy_local_title" = "Üsküne ichide saqlash";
+"privacy_local_body" = "Uslub mayillighi we teklipin qobul qilghan sözler künupka qum sanduqida yerlikte saqlinishi mumkin. Yumtal bu sanliq melumatni yükliméydu.";
+"privacy_network_title" = "Tor ziyariti";
+"privacy_network_body" = "Kirgüzüsh iqtidari torsiz ishleydü. Teklip yaki imla tekshürüsh üchün tor ketmeydu.";
+"privacy_children_title" = "Balilar shexsiyiti";
+"privacy_children_body" = "Bu yumtal adettiki ishletküchilerge mas kélidu, balilardin sanliq melumat toplashni nishanlimaydu.";
+"privacy_choices_title" = "Sizning tallishingiz";
+"privacy_choices_body" = "Tengshek → Adettiki → Künupka din künupkini öchürüng, yaki yumtalni öchürüp yerlik sanliq melumatni tazilang.";
+"privacy_contact_title" = "Alaqe";
+"privacy_contact_body" = "Shexsiyet soalliri üchün App Store bétidiki qollash adresini ishliting (béketni igelligende CONTACT_EMAIL ni almashturung).";
+
+"section_about" = "Heqqide";
+"credits_open" = "Ochuq menbe we lughët teshhekküri";
+"credits_title" = "Teshhekkür";
+"credits_missing" = "Yumtal boghchisida üchinchi terep uqturushi tépilmidi.";
+"about_sources" = "Lughët menbesi: UyghurEdit++ we imlalughet (MIT), umsc (Apache-2.0). Tepsilati teshhekkür bétide.";
+"version_format" = "Neshri %@ (%@)";

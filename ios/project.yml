@@ -33,6 +33,8 @@ targets:
       - path: UyghurLatin/PrivacyInfo.xcprivacy
       - path: UyghurLatin/en.lproj
       - path: UyghurLatin/zh-Hans.lproj
+      - path: UyghurLatin/ug.lproj
+      - path: UyghurLatin/ug-Latn.lproj
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: org.uyghurlatin.app
@@ -45,6 +47,12 @@ targets:
         INFOPLIST_KEY_LSApplicationCategoryType: public.app-category.productivity
         INFOPLIST_KEY_CFBundleDisplayName: ULY Künupka
         INFOPLIST_KEY_NSHumanReadableCopyright: "Copyright © 2026 ULY Künupka contributors"
+        KNOWN_REGIONS:
+          - en
+          - zh-Hans
+          - ug
+          - ug-Latn
+          - Base
     dependencies:
       - target: UyghurLatinKeyboard
         embed: true
@@ -52,6 +60,11 @@ targets:
       path: UyghurLatin/Info.plist
       properties:
         CFBundleDevelopmentRegion: en
+        CFBundleLocalizations:
+          - en
+          - zh-Hans
+          - ug
+          - ug-Latn
 
   UyghurLatinKeyboard:
     type: app-extension
@@ -68,6 +81,8 @@ targets:
       - path: UyghurLatinKeyboard/PrivacyInfo.xcprivacy
       - path: UyghurLatinKeyboard/en.lproj
       - path: UyghurLatinKeyboard/zh-Hans.lproj
+      - path: UyghurLatinKeyboard/ug.lproj
+      - path: UyghurLatinKeyboard/ug-Latn.lproj
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: org.uyghurlatin.app.keyboard

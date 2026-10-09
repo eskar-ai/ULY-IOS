@@ -13,7 +13,7 @@ Everything you need before submitting **ULY Künupka**.
 | [SCREENSHOTS.md](SCREENSHOTS.md) | Shot list & pixel sizes |
 | [marketing/app-icon-1024.png](marketing/app-icon-1024.png) | App icon master (also wired in Xcode) |
 | [marketing/screenshots/](marketing/screenshots/) | 6.7" / 6.5" / 6.1" frames |
-| [site/](site/) | Static HTML for GitHub Pages (privacy, support) |
+| [site/](site/) | Multilingual static site + [one-click GitHub Pages](site/README.md) |
 | [REMAINING.md](REMAINING.md) | Done vs your action items |
 | [AGE_RATING.md](AGE_RATING.md) | Age rating answers |
 | [EXPORT_COMPLIANCE.md](EXPORT_COMPLIANCE.md) | Encryption questionnaire |

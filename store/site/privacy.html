@@ -3,34 +3,54 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Privacy — ULY Künupka</title>
-    <style>
-      body { font-family: -apple-system, sans-serif; max-width: 42rem; margin: 0 auto; padding: 2rem 1.25rem; line-height: 1.55; color: #1c1c1e; }
-      h1 { font-size: 1.5rem; }
-      a { color: #007aff; }
-      .note { background: #f2f2f7; padding: 0.75rem 1rem; border-radius: 8px; font-size: 0.9rem; }
-    </style>
+    <title data-i18n-title="privacyTitle">Privacy — ULY Künupka</title>
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <p><a href="index.html">← ULY Künupka</a></p>
-    <h1>Privacy Policy</h1>
-    <p><strong>Last updated:</strong> October 9, 2026</p>
-    <p class="note">Before App Store submit: replace <code>CONTACT_EMAIL</code> below with your real address (search in this file).</p>
+    <p class="lang-bar">
+      <a href="?lang=en" data-lang-switch="en">English</a>
+      <a href="?lang=zh" data-lang-switch="zh">中文</a>
+      <a href="?lang=ug" data-lang-switch="ug">ئۇيغۇرچە</a>
+      <a href="?lang=uly" data-lang-switch="uly">Uyghurche</a>
+    </p>
 
-    <h2>Summary</h2>
-    <ul>
-      <li>Typing, suggestions, and spell check run <strong>on your device</strong>.</li>
-      <li>The keyboard does <strong>not</strong> request Full Access by default.</li>
-      <li>No account, no ads, no analytics SDK in the current app.</li>
-    </ul>
+    <p><a href="index.html" data-lang-link data-i18n="back">← ULY Künupka</a></p>
+    <h1 data-i18n="privacyTitle">Privacy Policy</h1>
+    <p><strong data-i18n="privacyUpdated">Last updated: October 9, 2026</strong></p>
+    <p class="note" data-i18n="privacyNote">
+      Before App Store submit: replace CONTACT_EMAIL below with your real address (search in this file).
+    </p>
 
-    <h2>Data we do not collect</h2>
-    <p>We do not collect, transmit, or sell keystrokes, message contents, contacts, location, or advertising identifiers.</p>
+    <section>
+      <h2 data-i18n="privacySummary">Summary</h2>
+      <ul>
+        <li data-i18n="privacyS1">Typing, suggestions, and spell check run on your device.</li>
+        <li data-i18n="privacyS2">The keyboard does not request Full Access by default.</li>
+        <li data-i18n="privacyS3">No account, no ads, no analytics SDK in the current app.</li>
+      </ul>
+    </section>
 
-    <h2>On-device storage</h2>
-    <p>Theme preference and words you accept into suggestions may be stored locally in the keyboard sandbox.</p>
+    <section>
+      <h2 data-i18n="privacyNoCollectTitle">Data we do not collect</h2>
+      <p data-i18n="privacyNoCollect">
+        We do not collect, transmit, or sell keystrokes, message contents, contacts, location, or
+        advertising identifiers.
+      </p>
+    </section>
 
-    <h2>Contact</h2>
-    <p>CONTACT_EMAIL</p>
+    <section>
+      <h2 data-i18n="privacyLocalTitle">On-device storage</h2>
+      <p data-i18n="privacyLocal">
+        Theme preference and words you accept into suggestions may be stored locally in the keyboard
+        sandbox.
+      </p>
+    </section>
+
+    <section>
+      <h2 data-i18n="privacyContactTitle">Contact</h2>
+      <p>CONTACT_EMAIL</p>
+    </section>
+
+    <script src="i18n.js"></script>
   </body>
 </html>

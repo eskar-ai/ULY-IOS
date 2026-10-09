@@ -1,24 +1,62 @@
 "app_title" = "ULY 维吾尔语拉丁键盘";
 "app_tagline" = "维吾尔语拉丁字母（ULY）输入法 — 离线联想与拼写检查。";
 "nav_keyboard" = "键盘";
+
+"section_language" = "软件语言";
+"language_picker_footer" = "仅切换主机 App 的菜单与说明文字。输入始终为维吾尔语拉丁文（ULY）。";
+"language_system" = "跟随系统";
+"language_en" = "English";
+"language_zh" = "简体中文";
+"language_ug" = "ئۇيغۇرچە";
+"language_uly" = "Uyghurche (ULY)";
+
 "section_enable" = "启用";
 "enable_step_1" = "设置 → 通用 → 键盘 → 键盘";
 "enable_step_2" = "添加新键盘…";
 "enable_step_3" = "ULY Künupka";
 "open_settings" = "打开设置";
+
 "section_appearance" = "外观";
 "appearance_body" = "默认跟随 iPhone 的浅色 / 深色外观。";
 "appearance_hint" = "在键盘候选栏点 ◐ 可在「跟随系统 → 浅色 → 深色」之间切换。偏好保存在键盘本地。";
+
 "section_typing" = "输入";
 "typing_1" = "长按 e / o / u 输入 ë ö ü";
 "typing_2" = "长按 c / s / z / g / n 输入 ch / sh / zh / gh / ng";
 "typing_3" = "ëöü 键可输入更多字母与隔音符号 (')";
 "typing_4" = "候选栏类似系统输入法：点选即可补全或纠错";
+
 "section_dictionary" = "词库";
 "dictionary_privacy" = "个人词保存在键盘沙盒内（不请求「完全访问」，不联网）。";
 "meta_fallback" = "键盘内置约 12 万词 ULY 离线词库。";
 "meta_format" = "%d 词 · %@ · v%@";
-"section_about" = "关于";
-"about_sources" = "词库来源：UyghurEdit++、imlalughet（MIT），umsc（Apache-2.0）。详见 THIRD_PARTY_NOTICES.md。";
+
 "section_privacy" = "隐私";
 "privacy_body" = "打字、联想与拼写检查均在设备本地完成。本键盘不请求「允许完全访问」。";
+"privacy_nav_title" = "隐私政策";
+"privacy_open" = "完整隐私政策";
+"privacy_updated" = "最近更新：2026 年 10 月 9 日";
+"privacy_summary_title" = "摘要";
+"privacy_summary_1" = "打字、联想与拼写检查均在您的设备上运行。";
+"privacy_summary_2" = "默认关闭「完全访问」。";
+"privacy_summary_3" = "当前版本无账号、无广告、无分析 SDK。";
+"privacy_summary_4" = "联想词库随应用离线打包。";
+"privacy_not_collect_title" = "我们不收集的数据";
+"privacy_not_collect_body" = "我们不会收集、传输或出售击键内容、消息正文、通讯录、位置或广告标识符。";
+"privacy_local_title" = "设备本地存储";
+"privacy_local_body" = "主题偏好以及您从候选中采纳的词可能保存在键盘沙盒本地。应用不会上传这些数据。";
+"privacy_network_title" = "网络访问";
+"privacy_network_body" = "输入功能可离线使用。联想与拼写检查不需要联网。";
+"privacy_children_title" = "儿童隐私";
+"privacy_children_body" = "本应用面向普通用户，不会以收集数据为目的面向儿童。";
+"privacy_choices_title" = "您的选择";
+"privacy_choices_body" = "可在「设置 → 通用 → 键盘」中移除本键盘，或删除应用以清除本地数据。";
+"privacy_contact_title" = "联系方式";
+"privacy_contact_body" = "隐私相关问题请通过 App Store 页面上的支持网址联系（托管站点时请替换 CONTACT_EMAIL）。";
+
+"section_about" = "关于";
+"credits_open" = "开源与词库致谢";
+"credits_title" = "致谢";
+"credits_missing" = "应用包中未找到第三方声明文件。";
+"about_sources" = "词库来源：UyghurEdit++、imlalughet（MIT），umsc（Apache-2.0）。详见致谢页。";
+"version_format" = "版本 %@（%@）";

@@ -1,24 +1,62 @@
 "app_title" = "ULY Künupka";
 "app_tagline" = "Uyghur Latin Yëziqi keyboard — offline suggestions and spell check.";
 "nav_keyboard" = "Keyboard";
+
+"section_language" = "App language";
+"language_picker_footer" = "Changes the host app’s menus and help text only. Typing stays Uyghur Latin (ULY).";
+"language_system" = "Follow system";
+"language_en" = "English";
+"language_zh" = "简体中文";
+"language_ug" = "ئۇيغۇرچە";
+"language_uly" = "Uyghurche (ULY)";
+
 "section_enable" = "Enable";
 "enable_step_1" = "Settings → General → Keyboard → Keyboards";
 "enable_step_2" = "Add New Keyboard…";
 "enable_step_3" = "ULY Künupka";
 "open_settings" = "Open Settings";
+
 "section_appearance" = "Appearance";
 "appearance_body" = "Default follows your iPhone appearance (Light / Dark).";
 "appearance_hint" = "On the keyboard suggestion bar, tap ◐ to cycle System → Light → Dark. The override is stored on-device inside the keyboard.";
+
 "section_typing" = "Typing";
 "typing_1" = "Long-press e / o / u for ë ö ü";
 "typing_2" = "Long-press c / s / z / g / n for ch / sh / zh / gh / ng";
 "typing_3" = "ëöü opens digraphs and apostrophe (')";
 "typing_4" = "Suggestion bar matches system QuickType: tap to complete or correct";
+
 "section_dictionary" = "Dictionary";
 "dictionary_privacy" = "Personal words stay in the keyboard sandbox (no Full Access, no network).";
 "meta_fallback" = "120,000-word ULY lexicon bundled offline in the keyboard.";
 "meta_format" = "%d words · %@ · v%@";
-"section_about" = "About";
-"about_sources" = "Lexicon sources: UyghurEdit++ & imlalughet (MIT), umsc (Apache-2.0). See THIRD_PARTY_NOTICES.md.";
+
 "section_privacy" = "Privacy";
 "privacy_body" = "Typing, suggestions, and spell check run entirely on device. This keyboard does not request Full Access.";
+"privacy_nav_title" = "Privacy";
+"privacy_open" = "Full privacy policy";
+"privacy_updated" = "Last updated: October 9, 2026";
+"privacy_summary_title" = "Summary";
+"privacy_summary_1" = "Typing, suggestions, and spell check run on your device.";
+"privacy_summary_2" = "Full Access is off by default.";
+"privacy_summary_3" = "No account, no ads, no analytics SDK in the current app.";
+"privacy_summary_4" = "The suggestion dictionary is bundled offline.";
+"privacy_not_collect_title" = "Data we do not collect";
+"privacy_not_collect_body" = "We do not collect, transmit, or sell keystrokes, message contents, contacts, location, or advertising identifiers.";
+"privacy_local_title" = "On-device storage";
+"privacy_local_body" = "Theme preference and words you accept into suggestions may be stored locally in the keyboard sandbox. This data is not uploaded by the app.";
+"privacy_network_title" = "Internet access";
+"privacy_network_body" = "Typing features work offline. The app does not need network access for suggestions or spell check.";
+"privacy_children_title" = "Children’s privacy";
+"privacy_children_body" = "The app is suitable for general audiences and does not target children with data collection.";
+"privacy_choices_title" = "Your choices";
+"privacy_choices_body" = "Remove the keyboard in Settings → General → Keyboard, or delete the app to clear local data.";
+"privacy_contact_title" = "Contact";
+"privacy_contact_body" = "For privacy questions, use the Support URL listed on the App Store page (replace CONTACT_EMAIL when you host the site).";
+
+"section_about" = "About";
+"credits_open" = "Open source & lexicon credits";
+"credits_title" = "Credits";
+"credits_missing" = "Third-party notices file not found in the app bundle.";
+"about_sources" = "Lexicon sources: UyghurEdit++ & imlalughet (MIT), umsc (Apache-2.0). See Credits for details.";
+"version_format" = "Version %@ (%@)";

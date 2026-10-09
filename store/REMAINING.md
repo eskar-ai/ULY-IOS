@@ -8,9 +8,9 @@
 | Offline lexicon (~120k ULY words) | Done |
 | App icon 1024 + Xcode asset catalog | Done |
 | Privacy manifests (app + extension) | Done |
-| EN + 简体中文 host UI | Done |
+| Host UI: EN · 简体中文 · ئۇيغۇرچە · Uyghurche (ULY) | Done (in-app picker) |
 | App Store listing copy (EN + 中文) | [`APP_STORE_LISTING.md`](APP_STORE_LISTING.md) |
-| Privacy / support **drafts** + static HTML | [`site/`](site/) |
+| Privacy / support site (4 languages) + Pages workflow | [`site/`](site/), [`.github/workflows/pages.yml`](../.github/workflows/pages.yml) |
 | Marketing screenshots 6.7" + resized 6.1"/6.5" | [`marketing/screenshots/`](marketing/screenshots/) |
 | TestFlight notes, age rating, export compliance guides | `TESTFLIGHT.md`, `AGE_RATING.md`, `EXPORT_COMPLIANCE.md` |
 | Archive helper | [`../ios/ExportOptions.plist`](../ios/ExportOptions.plist) |
@@ -21,7 +21,7 @@
 1. **Apple Developer Program** enrollment ($99/year)  
 2. **Register Bundle IDs** matching `org.uyghurlatin.app` and `org.uyghurlatin.app.keyboard`  
 3. **Xcode Signing → Team** on both targets  
-4. **Host HTTPS pages** (or GitHub Pages from `store/site/`) and paste URLs into App Store Connect  
+4. **Enable GitHub Pages** (Actions source — see [`site/README.md`](site/README.md)) and paste HTTPS URLs into App Store Connect  
 5. **Replace contact email** in privacy/support (see [`CONTACT.example`](CONTACT.example))  
 6. **Archive & upload** build (Xcode Organizer or Transporter)  
 7. **App Store Connect** questionnaire (privacy, age rating, export) — answers in `AGE_RATING.md` / `EXPORT_COMPLIANCE.md`  

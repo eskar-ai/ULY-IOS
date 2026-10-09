@@ -3,29 +3,48 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Support — ULY Künupka</title>
-    <style>
-      body { font-family: -apple-system, sans-serif; max-width: 42rem; margin: 0 auto; padding: 2rem 1.25rem; line-height: 1.55; }
-      a { color: #007aff; }
-    </style>
+    <title data-i18n-title="supportTitle">Support — ULY Künupka</title>
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <p><a href="index.html">← ULY Künupka</a></p>
-    <h1>Support</h1>
-    <h2>Enable the keyboard</h2>
-    <ol>
-      <li>Settings → General → Keyboard → Keyboards → Add New Keyboard…</li>
-      <li>Select ULY Künupka</li>
-      <li>Use the globe key to switch keyboards while typing</li>
-    </ol>
-    <h2>Typing tips</h2>
-    <ul>
-      <li>Long-press e / o / u → ë ö ü</li>
-      <li>Long-press c / s / z / g / n → ch sh zh gh ng</li>
-      <li>Tap ◐ on the suggestion bar for System / Light / Dark theme</li>
-    </ul>
-    <h2>Contact</h2>
-    <p>Email: <strong>CONTACT_EMAIL</strong> (include iOS version and a short description).</p>
-    <p><a href="privacy.html">Privacy Policy</a></p>
+    <p class="lang-bar">
+      <a href="?lang=en" data-lang-switch="en">English</a>
+      <a href="?lang=zh" data-lang-switch="zh">中文</a>
+      <a href="?lang=ug" data-lang-switch="ug">ئۇيغۇرچە</a>
+      <a href="?lang=uly" data-lang-switch="uly">Uyghurche</a>
+    </p>
+
+    <p><a href="index.html" data-lang-link data-i18n="back">← ULY Künupka</a></p>
+    <h1 data-i18n="supportTitle">Support</h1>
+
+    <section>
+      <h2 data-i18n="enableTitle">Enable the keyboard</h2>
+      <ol>
+        <li data-i18n="enable2">Settings → General → Keyboard → Keyboards → Add New Keyboard…</li>
+        <li data-i18n="enable3">Choose ULY Künupka</li>
+        <li data-i18n="enable4">Tap the globe key while typing to switch</li>
+      </ol>
+    </section>
+
+    <section>
+      <h2 data-i18n="tipsTitle">Typing tips</h2>
+      <ul>
+        <li data-i18n="tip1">Long-press e / o / u → ë ö ü</li>
+        <li data-i18n="tip2">Long-press c / s / z / g / n → ch sh zh gh ng</li>
+        <li data-i18n="tip3">Tap ◐ on the suggestion bar for System / Light / Dark theme</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2 data-i18n="contactTitle">Contact</h2>
+      <p data-i18n="contactBody">
+        Email: CONTACT_EMAIL (include iOS version and a short description).
+      </p>
+      <p>
+        <a href="privacy.html" data-lang-link data-i18n="navPrivacy">Privacy</a>
+      </p>
+    </section>
+
+    <script src="i18n.js"></script>
   </body>
 </html>
