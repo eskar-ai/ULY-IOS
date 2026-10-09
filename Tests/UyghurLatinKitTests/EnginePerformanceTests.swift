@@ -1,5 +1,5 @@
 import XCTest
-@testable import UyghurLatinKit
+import UyghurLatinKit
 
 final class EnginePerformanceTests: XCTestCase {
     private func tinyLexiconJSON() -> Data {
