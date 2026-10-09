@@ -1,0 +1,44 @@
+name: Android Release APK
+
+# Publishes a debug-signed or release APK to GitHub Releases when a tag is pushed.
+# Tag format: android-v0.1.0
+on:
+  push:
+    tags:
+      - "android-v*"
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    defaults:
+      run:
+        working-directory: android
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+      - uses: android-actions/setup-android@v3
+      - name: Sync lexicon + assemble release
+        run: |
+          chmod +x scripts/*.sh gradlew
+          ./scripts/sync-lexicon.sh
+          ./gradlew :app:assembleRelease --stacktrace
+      - name: Package artifact
+        run: |
+          VERSION="${GITHUB_REF_NAME#android-v}"
+          mkdir -p dist
+          SRC=$(ls app/build/outputs/apk/release/*.apk | head -1)
+          DEST="dist/uyghur-uly-keyboard-android-v${VERSION}.apk"
+          cp "$SRC" "$DEST"
+          echo "APK=$DEST" >> "$GITHUB_ENV"
+          ./scripts/package-release-notes.sh "$VERSION" > dist/RELEASE_NOTES.md
+      - name: Upload GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: android/dist/*.apk
+          body_path: android/dist/RELEASE_NOTES.md
+          generate_release_notes: true

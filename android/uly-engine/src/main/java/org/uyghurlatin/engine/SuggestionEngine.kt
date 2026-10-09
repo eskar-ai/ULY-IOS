@@ -19,8 +19,30 @@ class SuggestionEngine(
 ) {
     val meta: LexiconMeta get() = store.meta
 
+    /** Tiny LRU-ish cache: same (partial|prev|limit) within a burst of key events. */
+    private var cacheKey: String? = null
+    private var cacheValue: SuggestionResult? = null
+
     fun suggest(partial: String, previousWord: String?, limit: Int = 3): SuggestionResult {
         val p = UlyNormalizer.lookupKey(partial)
+        val prevKey = previousWord?.let { UlyNormalizer.lookupKey(it) }
+        val key = "$p|${prevKey.orEmpty()}|$limit"
+        cacheValue?.let { cached ->
+            if (cacheKey == key) return cached
+        }
+
+        val result = suggestUncached(p, prevKey, limit)
+        cacheKey = key
+        cacheValue = result
+        return result
+    }
+
+    fun invalidateCache() {
+        cacheKey = null
+        cacheValue = null
+    }
+
+    private fun suggestUncached(p: String, previousWord: String?, limit: Int): SuggestionResult {
         if (p.isEmpty()) {
             val next = store.predictor.nextWords(previousWord, limit)
             return SuggestionResult(
@@ -30,6 +52,7 @@ class SuggestionEngine(
             )
         }
 
+        // Completions first — never pay for spell-check while the trie still matches.
         val comps = (
             personal.rankedPrefix(p, limit) +
                 store.trie.completions(p, limit * 3)
@@ -45,9 +68,12 @@ class SuggestionEngine(
             )
         }
 
-        val corr = store.spellChecker.suggestions(p, limit)
-        if (corr.isNotEmpty()) {
-            return SuggestionResult(corr, isMisspelled = true, mode = SuggestionMode.CORRECTION)
+        // No prefix hits: corrections (skipped for very short prefixes inside SpellChecker).
+        if (p.length >= 3) {
+            val corr = store.spellChecker.suggestions(p, limit)
+            if (corr.isNotEmpty()) {
+                return SuggestionResult(corr, isMisspelled = true, mode = SuggestionMode.CORRECTION)
+            }
         }
 
         return SuggestionResult(
@@ -57,11 +83,20 @@ class SuggestionEngine(
         )
     }
 
-    fun learnSelection(word: String) = personal.learn(word, 5)
+    fun learnSelection(word: String) {
+        personal.learn(word, 5)
+        invalidateCache()
+    }
 
-    fun addToDictionary(word: String) = personal.add(word)
+    fun addToDictionary(word: String) {
+        personal.add(word)
+        invalidateCache()
+    }
 
-    fun clearPersonalDictionary() = personal.clear()
+    fun clearPersonalDictionary() {
+        personal.clear()
+        invalidateCache()
+    }
 
     fun isKnown(word: String): Boolean =
         store.trie.contains(word) || personal.contains(word)

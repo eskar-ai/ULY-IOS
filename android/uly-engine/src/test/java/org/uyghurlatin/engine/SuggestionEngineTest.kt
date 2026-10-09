@@ -57,4 +57,15 @@ class SuggestionEngineTest {
         assertEquals(SuggestionMode.CORRECTION, result.mode)
         assertEquals("uyghur", result.candidates.first())
     }
+
+    @Test
+    fun suggest_cacheReturnsSameInstanceKey() {
+        val engine = SuggestionEngine(tinyStore())
+        val a = engine.suggest("uygh", null, 5)
+        val b = engine.suggest("uygh", null, 5)
+        assertEquals(a, b)
+        engine.learnSelection("uyghurche")
+        val c = engine.suggest("uygh", null, 5)
+        assertTrue(c.candidates.isNotEmpty())
+    }
 }

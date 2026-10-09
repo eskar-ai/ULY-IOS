@@ -12,6 +12,7 @@ class SpellChecker(
         for (w in vocabulary) {
             buckets.getOrPut(w.length) { mutableListOf() }.add(w)
         }
+        // Pre-sorted by frequency once at load — hot path must not re-sort.
         byLength = buckets.mapValues { (_, list) ->
             list.sortedByDescending { trie.frequency(it) }
         }
@@ -24,6 +25,12 @@ class SpellChecker(
         if (key.isEmpty()) return emptyList()
         if (trie.contains(key)) return listOf(key)
 
+        // Short tokens: correction map only (edit-distance over 120k words is too slow for IME).
+        if (key.length < 3) {
+            val mapped = corrections[key] ?: return emptyList()
+            return listOf(mapped)
+        }
+
         val ranked = mutableListOf<Pair<String, Int>>()
         val seen = mutableSetOf<String>()
 
@@ -32,18 +39,31 @@ class SpellChecker(
                 ranked.add(mapped to (1_000_000 + trie.frequency(mapped)))
             }
         }
-
-        val candidates = mutableListOf<String>()
-        for (len in maxOf(1, key.length - 2)..(key.length + 2)) {
-            candidates.addAll(byLength[len].orEmpty())
+        // Fast path: mapped correction is usually enough for the bar.
+        if (ranked.size >= limit) {
+            return ranked.sortedByDescending { it.second }.take(limit).map { it.first }
         }
-        val capped = candidates.take(3500)
-        for (cand in capped) {
-            if (cand in seen) continue
-            val d = editDistance(key, cand, 2)
-            if (d < 0 || d > 2) continue
-            seen.add(cand)
-            ranked.add(cand to (trie.frequency(cand) - d * 50_000))
+
+        val first = key[0]
+        val cap = if (key.length <= 4) 600 else 1200
+        var scanned = 0
+        for (len in maxOf(1, key.length - 2)..(key.length + 2)) {
+            val bucket = byLength[len] ?: continue
+            for (cand in bucket) {
+                if (scanned >= cap) break
+                if (cand[0] != first && kotlin.math.abs(cand.length - key.length) > 1) {
+                    // Cheap reject: different initial + length drift.
+                    continue
+                }
+                scanned++
+                if (cand in seen) continue
+                val d = editDistance(key, cand, 2)
+                if (d < 0 || d > 2) continue
+                seen.add(cand)
+                ranked.add(cand to (trie.frequency(cand) - d * 50_000))
+                if (ranked.size >= limit * 4) break
+            }
+            if (scanned >= cap || ranked.size >= limit * 4) break
         }
 
         if (ranked.size < limit) {
@@ -53,6 +73,7 @@ class SpellChecker(
                 if (foldDiacritics(cand) == folded) {
                     seen.add(cand)
                     ranked.add(cand to (trie.frequency(cand) + 10_000))
+                    if (ranked.size >= limit) break
                 }
             }
         }
