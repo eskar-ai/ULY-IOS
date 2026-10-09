@@ -1,1 +1,0 @@
-{"root":["./src/main.ts","./src/vite-env.d.ts","./src/engine/index.ts","./src/engine/lexicon.ts","./src/engine/ngram.ts","./src/engine/personal.ts","./src/engine/spell.ts","./src/engine/suggest.ts","./src/engine/trie.ts","./src/engine/uly.ts"],"version":"5.9.3"}
