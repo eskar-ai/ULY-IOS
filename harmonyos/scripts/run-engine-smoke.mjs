@@ -32,7 +32,7 @@ assert(Array.isArray(bundle.bigrams), 'bigrams missing');
 
 assert(lookupKey('ÉlÉm') === 'ëlëm', 'lookupKey fold failed');
 
-const prefixes = ['uygh', 'bugun', 'aq'];
+const prefixes = ['uygh', 'bügün', 'aq'];
 const found = {};
 for (const [w, f] of bundle.words) {
   const key = lookupKey(w);
