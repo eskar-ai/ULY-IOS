@@ -29,10 +29,10 @@ Work through this before you click **Submit for Review**.
 
 ## C. Privacy & legal
 
-- [ ] Host [`PRIVACY_POLICY.md`](PRIVACY_POLICY.md) at a public HTTPS URL
-- [ ] Paste Privacy Policy URL into App Store Connect
+- [ ] Enable GitHub Pages (**Settings → Pages → Source: GitHub Actions**) — see [`site/README.md`](site/README.md)
+- [ ] Replace `CONTACT_EMAIL` in [`site/`](site/) then confirm deploy
+- [ ] Paste Privacy Policy URL (`…/privacy.html`) and Support URL (`…/support.html`) into App Store Connect
 - [ ] Complete **App Privacy** questionnaire (recommended: no data collected)
-- [ ] Support URL ready (can be a simple page or GitHub Issues) — see [`SUPPORT.md`](SUPPORT.md)
 - [ ] Copyright / seller name correct on the store listing
 
 ## D. Store listing assets
@@ -43,7 +43,7 @@ Work through this before you click **Submit for Review**.
 - [ ] Primary category: Productivity
 - [ ] Upload screenshots for required device sizes (see [`SCREENSHOTS.md`](SCREENSHOTS.md))
 - [ ] Optional: app preview video
-- [x] App + listing copy prepared for Simplified Chinese (`zh-Hans` strings in the host app)
+- [x] Host app UI: English · 简体中文 · ئۇيغۇرچە · Uyghurche (ULY); site matches; App Store listing still EN + zh-Hans
 
 ## E. Reviewer instructions
 

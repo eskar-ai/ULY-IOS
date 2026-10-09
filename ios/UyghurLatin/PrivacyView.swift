@@ -47,6 +47,8 @@ struct PrivacyView: View {
         .listStyle(.insetGrouped)
         .navigationTitle(language.string("privacy_nav_title"))
         .navigationBarTitleDisplayMode(.inline)
+        .environment(\.layoutDirection, language.activeLanguage.layoutDirection)
+        .id(language.activeLanguage.rawValue)
     }
 
     private func bullet(_ key: String) -> some View {

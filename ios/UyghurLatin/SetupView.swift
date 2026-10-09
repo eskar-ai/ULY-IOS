@@ -40,7 +40,7 @@ struct SetupView: View {
                         set: { language.language = $0 }
                     )) {
                         ForEach(AppLanguage.allCases) { lang in
-                            Text(lang.nativeLabel).tag(lang)
+                            Text(pickerLabel(for: lang)).tag(lang)
                         }
                     } label: {
                         Text(language.string("section_language"))
@@ -122,6 +122,16 @@ struct SetupView: View {
         .environment(\.layoutDirection, language.activeLanguage.layoutDirection)
         .environment(\.locale, language.effectiveLocale)
         .id(language.activeLanguage.rawValue)
+    }
+
+    private func pickerLabel(for lang: AppLanguage) -> String {
+        switch lang {
+        case .system: return language.string("language_system")
+        case .english: return language.string("language_en")
+        case .chinese: return language.string("language_zh")
+        case .uyghurArabic: return language.string("language_ug")
+        case .uyghurLatin: return language.string("language_uly")
+        }
     }
 
     private func labeledStep(_ n: Int, _ text: String) -> some View {
