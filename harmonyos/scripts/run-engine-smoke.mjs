@@ -32,12 +32,20 @@ assert(Array.isArray(bundle.bigrams), 'bigrams missing');
 
 assert(lookupKey('ÉlÉm') === 'ëlëm', 'lookupKey fold failed');
 
-const sample = bundle.words.slice(0, 500);
-const hits = sample
-  .map(([w, f]) => [lookupKey(w), f])
-  .filter(([w]) => w.startsWith('uygh'))
-  .sort((a, b) => b[1] - a[1]);
-assert(hits.length > 0, 'expected uygh* words in lexicon sample');
+const prefixes = ['uygh', 'bugun', 'aq'];
+const found = {};
+for (const [w, f] of bundle.words) {
+  const key = lookupKey(w);
+  for (const p of prefixes) {
+    if (!found[p] && key.startsWith(p)) {
+      found[p] = { word: key, frequency: f };
+    }
+  }
+  if (Object.keys(found).length === prefixes.length) break;
+}
+for (const p of prefixes) {
+  assert(found[p], `expected word starting with "${p}"`);
+}
 
 console.log(
   JSON.stringify(
@@ -45,7 +53,7 @@ console.log(
       ok: true,
       version: bundle.meta.version,
       wordCount: bundle.meta.wordCount ?? bundle.words.length,
-      sampleHit: hits[0][0],
+      found,
     },
     null,
     2,
