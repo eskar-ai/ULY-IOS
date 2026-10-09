@@ -1,6 +1,14 @@
 "app_title" = "ULY 维吾尔语拉丁键盘";
-"app_tagline" = "维吾尔语拉丁字母（ULY）输入法 — 离线联想与拼写检查。";
+"app_tagline" = "维吾尔语拉丁字母（ULY）输入法 — 离线、注重隐私、开源。";
 "nav_keyboard" = "键盘";
+
+"section_trust" = "信任与安全";
+"trust_1" = "打字、联想与拼写检查均留在您的 iPhone 上";
+"trust_2" = "可离线使用 — 输入不需要联网";
+"trust_3" = "不请求完全访问，无账号、无广告、无分析 SDK";
+"trust_4" = "开源 — 您可以自行查看代码";
+"github_open" = "在 GitHub 查看开源代码";
+"github_footer" = "如需查看开源代码：github.com/eskar-ai/ULY-IOS";
 
 "section_language" = "软件语言";
 "language_picker_footer" = "仅切换主机 App 的菜单与说明文字。输入始终为维吾尔语拉丁文（ULY）。";
@@ -53,6 +61,8 @@
 "privacy_choices_body" = "可在「设置 → 通用 → 键盘」中移除本键盘，或删除应用以清除本地数据。";
 "privacy_contact_title" = "联系方式";
 "privacy_contact_body" = "隐私相关问题请发邮件至 mr.askar@icloud.com，或通过 App Store 页面上的支持网址联系。";
+"privacy_opensource_title" = "开源";
+"privacy_opensource_body" = "ULY Künupka 开源。任何人都可以在 GitHub 上查看键盘与隐私设计。";
 
 "section_about" = "关于";
 "credits_open" = "开源与词库致谢";

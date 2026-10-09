@@ -6,7 +6,7 @@
     <title>ULY Künupka</title>
     <meta
       name="description"
-      content="Offline Uyghur Latin (ULY) keyboard for iPhone with suggestions and spell check."
+      content="Offline Uyghur Latin (ULY) keyboard for iPhone — private, on-device, open source."
     />
     <link rel="stylesheet" href="styles.css" />
   </head>
@@ -19,13 +19,64 @@
     </p>
 
     <h1 data-i18n="brand">ULY Künupka</h1>
-    <p class="tag" data-i18n="tagline">Uyghur Latin Yëziqi keyboard for iPhone — offline.</p>
+    <p class="tag" data-i18n="tagline">
+      Uyghur Latin Yëziqi keyboard for iPhone — offline, private, open source.
+    </p>
 
     <nav class="page-nav">
       <a href="learn.html" data-lang-link data-i18n="navLearn">Learn ULY</a>
       <a href="privacy.html" data-lang-link data-i18n="navPrivacy">Privacy</a>
       <a href="support.html" data-lang-link data-i18n="navSupport">Support</a>
+      <a
+        href="https://github.com/eskar-ai/ULY-IOS"
+        rel="noopener noreferrer"
+        data-i18n="navGitHub"
+        >GitHub</a
+      >
     </nav>
+
+    <ul class="trust-strip" aria-label="Trust">
+      <li data-i18n="trustBadge1">On-device only</li>
+      <li data-i18n="trustBadge2">No Full Access</li>
+      <li data-i18n="trustBadge3">No ads or tracking</li>
+      <li data-i18n="trustBadge4">Open source</li>
+    </ul>
+
+    <section>
+      <h2 data-i18n="trustTitle">Private by design</h2>
+      <p class="muted" data-i18n="trustIntro">
+        Keyboards handle your private text. ULY Künupka is built so typing stays on your iPhone.
+      </p>
+      <ul class="trust-points">
+        <li data-i18n="trust1">Suggestions and spell check run offline on your device.</li>
+        <li data-i18n="trust2">Full Access is not requested — your keystrokes are not sent to us.</li>
+        <li data-i18n="trust3">No account, no ads, no analytics SDK in the current app.</li>
+        <li data-i18n="trust4">
+          Source code is public so anyone can review how the keyboard works.
+        </li>
+      </ul>
+    </section>
+
+    <section class="open-source">
+      <h2 data-i18n="githubTitle">Open source</h2>
+      <p data-i18n="githubBody">
+        If you want to see the open-sourced code, visit the GitHub repository.
+      </p>
+      <p>
+        <a
+          class="btn-github"
+          href="https://github.com/eskar-ai/ULY-IOS"
+          rel="noopener noreferrer"
+          data-i18n="githubCta"
+          >View code on GitHub</a
+        >
+      </p>
+      <p class="muted repo-url">
+        <a href="https://github.com/eskar-ai/ULY-IOS" rel="noopener noreferrer"
+          >github.com/eskar-ai/ULY-IOS</a
+        >
+      </p>
+    </section>
 
     <section>
       <h2 data-i18n="enableTitle">Enable the keyboard</h2>
@@ -36,6 +87,10 @@
         <li data-i18n="enable4">Tap the globe key while typing to switch</li>
       </ol>
     </section>
+
+    <footer class="site-footer">
+      <p data-i18n="footerTrust">MIT-licensed · Offline typing · Contact: mr.askar@icloud.com</p>
+    </footer>
 
     <script src="i18n.js"></script>
   </body>

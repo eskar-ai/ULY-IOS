@@ -43,6 +43,15 @@ struct PrivacyView: View {
                     .font(.footnote)
                     .foregroundStyle(.secondary)
             }
+
+            Section(language.string("privacy_opensource_title")) {
+                Text(language.string("privacy_opensource_body"))
+                if let url = URL(string: "https://github.com/eskar-ai/ULY-IOS") {
+                    Link(destination: url) {
+                        Label(language.string("github_open"), systemImage: "chevron.left.forwardslash.chevron.right")
+                    }
+                }
+            }
         }
         .listStyle(.insetGrouped)
         .navigationTitle(language.string("privacy_nav_title"))

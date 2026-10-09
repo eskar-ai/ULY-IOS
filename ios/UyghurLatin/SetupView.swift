@@ -49,6 +49,20 @@ struct SetupView: View {
                     Text(language.string("language_picker_footer"))
                 }
 
+                Section(language.string("section_trust")) {
+                    Label(language.string("trust_1"), systemImage: "lock.shield.fill")
+                    Label(language.string("trust_2"), systemImage: "wifi.slash")
+                    Label(language.string("trust_3"), systemImage: "eye.slash")
+                    Label(language.string("trust_4"), systemImage: "checkmark.seal.fill")
+                    if let url = URL(string: "https://github.com/eskar-ai/ULY-IOS") {
+                        Link(destination: url) {
+                            Label(language.string("github_open"), systemImage: "chevron.left.forwardslash.chevron.right")
+                        }
+                    }
+                } footer: {
+                    Text(language.string("github_footer"))
+                }
+
                 Section(language.string("section_enable")) {
                     labeledStep(1, language.string("enable_step_1"))
                     labeledStep(2, language.string("enable_step_2"))
@@ -99,6 +113,11 @@ struct SetupView: View {
                         CreditsView()
                     } label: {
                         Text(language.string("credits_open"))
+                    }
+                    if let url = URL(string: "https://github.com/eskar-ai/ULY-IOS") {
+                        Link(destination: url) {
+                            Label(language.string("github_open"), systemImage: "link")
+                        }
                     }
                     Text(language.string("about_sources"))
                         .font(.footnote)

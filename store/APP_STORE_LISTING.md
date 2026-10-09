@@ -21,19 +21,24 @@ ULY Künupka
 Offline Uyghur Latin keyboard
 
 ### Promotional text (170 chars, updatable anytime)
-Type Uyghur in Latin Yëziqi with offline suggestions and spell check — private, on-device, and familiar like the system keyboard.
+Type Uyghur in Latin Yëziqi offline — private, on-device, no Full Access. Open source on GitHub if you want to review the code.
 
 ### Description
 ULY Künupka is a custom keyboard for Uyghur Latin Yëziqi (ULY).
 
 Type `ë ö ü` and digraphs like `ch sh zh gh ng` with long-press keys. As you type, the suggestion bar offers word completions, next-word hints, and spelling corrections — all on your iPhone, with no account and no network required for typing.
 
+Privacy & trust:
+• Typing stays on device — suggestions and spell check are offline  
+• Does not request Full Access  
+• No account, no ads, no analytics SDK  
+• Open source — inspect the code at https://github.com/eskar-ai/ULY-IOS  
+
 Features:
 • Full ULY Latin layout with familiar QWERTY arrangement  
 • Offline dictionary (~120,000 words) for suggestions and spell check  
 • Appearance follows system Light/Dark (optional override on the keyboard)  
 • Looks and behaves like the built-in iOS keyboard  
-• No Full Access required; typing stays on device  
 
 How to enable:
 1. Open this app once after install  
@@ -41,7 +46,7 @@ How to enable:
 3. Choose ULY Künupka  
 4. Switch to it with the globe key while typing  
 
-Perfect for messaging, notes, email, and social apps when you want clear Latin Uyghur spelling.
+Perfect for messaging, notes, email, and social apps when you want clear Latin Uyghur spelling. If you want to see the open-sourced code, visit the GitHub repository above.
 
 ### Keywords (100 chars max, comma-separated, no spaces after commas ideally)
 uyghur,uighur,uly,latin,keyboard,ime,spellcheck,offline,yeziqi,uyghurche
@@ -60,19 +65,24 @@ ULY 维吾尔语拉丁键盘
 离线维吾尔语拉丁字母输入
 
 ### 宣传文本
-用维吾尔语拉丁字母（ULY）打字：离线联想、拼写检查，界面接近系统键盘，默认不上传、不联网。
+用维吾尔语拉丁字母（ULY）离线打字：本地联想与拼写检查，不请求完全访问。开源可查。
 
 ### 描述
 ULY Künupka 是一款面向维吾尔语拉丁字母（Uyghur Latin Yëziqi / ULY）的 iPhone 自定义键盘。
 
 支持长按输入 `ë ö ü`，以及 `ch sh zh gh ng` 等组合。输入时候选栏提供联想补全、下一词提示和拼写纠正。词库打包在本地，打字过程不需要登录、不需要网络。
 
+隐私与信任：
+• 打字留在设备本地，联想与拼写检查离线完成  
+• 不请求「允许完全访问」  
+• 无账号、无广告、无分析 SDK  
+• 开源：https://github.com/eskar-ai/ULY-IOS  
+
 功能亮点：
 • ULY 拉丁布局，接近系统 QWERTY 习惯  
 • 约 12 万词离线词典，支持联想与拼写检查  
 • 默认跟随系统浅色/深色外观  
 • 视觉与交互尽量贴近系统自带键盘  
-• 默认不请求「允许完全访问」  
 
 启用方法：
 1. 安装后打开一次本 App  
@@ -80,7 +90,7 @@ ULY Künupka 是一款面向维吾尔语拉丁字母（Uyghur Latin Yëziqi / UL
 3. 选择 ULY Künupka  
 4. 打字时用 🌐 切换到本键盘  
 
-适合聊天、备忘录、邮件等日常场景。
+适合聊天、备忘录、邮件等日常场景。若想查看开源代码，请访问上方 GitHub 仓库。
 
 ### 关键词
 维吾尔,维吾尔语,拉丁,输入法,键盘,拼写,离线,ULY,uyghur

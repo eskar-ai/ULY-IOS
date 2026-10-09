@@ -4,6 +4,8 @@
   --bg: #f2f2f7;
   --card: #ffffff;
   --link: #007aff;
+  --trust: #0b6b4a;
+  --trust-bg: #e8f5ef;
   --radius: 12px;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans Arabic",
     "Noto Naskh Arabic", sans-serif;
@@ -208,6 +210,64 @@ html[dir="rtl"] .alpha-row {
 
 html[dir="rtl"] .practice-card {
   direction: ltr;
+}
+
+.trust-strip {
+  list-style: none;
+  margin: 0 0 1rem;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.trust-strip li {
+  background: var(--trust-bg);
+  color: var(--trust);
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 0.35rem 0.65rem;
+  border-radius: 8px;
+}
+
+.trust-points {
+  margin: 0.75rem 0 0;
+}
+
+.trust-points li {
+  margin-bottom: 0.45rem;
+}
+
+.open-source {
+  border: 1px solid rgba(11, 107, 74, 0.22);
+}
+
+.btn-github {
+  display: inline-block;
+  margin-top: 0.35rem;
+  padding: 0.65rem 1rem;
+  border-radius: 10px;
+  background: #24292f;
+  color: #fff !important;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.btn-github:hover {
+  background: #1b1f23;
+}
+
+.repo-url {
+  margin-bottom: 0;
+  word-break: break-all;
+}
+
+.site-footer {
+  margin-top: 1.5rem;
+  padding-top: 0.5rem;
+  color: var(--muted);
+  font-size: 0.88rem;
 }
 
 @media (max-width: 480px) {
