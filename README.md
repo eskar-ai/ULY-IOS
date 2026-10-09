@@ -64,6 +64,21 @@ python3 tools/build_lexicon.py
 
 Copies outputs into `web/public/data/` and `ios/UyghurLatinKeyboard/Resources/`.
 
+## App Store launch pack
+
+Pre-submit materials live in [`store/`](store/):
+
+| File | Purpose |
+|------|---------|
+| [store/CHECKLIST.md](store/CHECKLIST.md) | Step-by-step launch checklist |
+| [store/APP_STORE_LISTING.md](store/APP_STORE_LISTING.md) | EN/ZH listing copy + review notes |
+| [store/PRIVACY_POLICY.md](store/PRIVACY_POLICY.md) | Privacy policy draft to host on HTTPS |
+| [store/SUPPORT.md](store/SUPPORT.md) | Support URL page draft |
+| [store/SCREENSHOTS.md](store/SCREENSHOTS.md) | Screenshot shot list & sizes |
+| [store/marketing/app-icon-1024.png](store/marketing/app-icon-1024.png) | App icon master |
+
+Before submit: replace placeholder emails/URLs, host the privacy & support pages, capture device screenshots in Xcode Simulator or on iPhone.
+
 ## License & data
 
 App code in this repository is provided for you to use and modify. Lexicon sources remain under their upstream licenses — see [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).

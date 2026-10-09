@@ -26,6 +26,7 @@ targets:
     resources:
       - path: UyghurLatin/Resources
       - path: UyghurLatin/Assets.xcassets
+      - path: UyghurLatin/PrivacyInfo.xcprivacy
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: org.uyghurlatin.app
@@ -34,6 +35,7 @@ targets:
         CURRENT_PROJECT_VERSION: 1
         MARKETING_VERSION: "1.0.0"
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        INFOPLIST_KEY_LSApplicationCategoryType: public.app-category.productivity
     dependencies:
       - target: UyghurLatinKeyboard
 
@@ -48,6 +50,7 @@ targets:
           - "**/*.md"
     resources:
       - path: UyghurLatinKeyboard/Resources
+      - path: UyghurLatinKeyboard/PrivacyInfo.xcprivacy
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: org.uyghurlatin.app.keyboard
