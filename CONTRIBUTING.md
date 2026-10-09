@@ -11,13 +11,16 @@ Thank you for your interest. Contributions of all kinds are welcome — bug repo
 
 ## Platforms
 
-| Platform | Branch | Notes |
-|----------|--------|-------|
-| iOS / web | `main` | Xcode + Vite demo |
-| Android | `cursor/android-uly-keyboard-9edd` | See `android/CONTRIBUTING.md` |
-| HarmonyOS NEXT | `cursor/harmonyos-uly-keyboard-9edd` | See `harmonyos/CONTRIBUTING.md` |
+See **[`PLATFORMS.md`](PLATFORMS.md)** for the canonical branch / PR map.
 
-Keep platform scaffolds on their branches until release-ready — do not land unfinished Android/HarmonyOS trees on `main`.
+| Platform | Branch | Where to contribute |
+|----------|--------|---------------------|
+| iOS / web / site | `main` | This repo default; [`ios/CONTRIBUTING.md`](ios/CONTRIBUTING.md) |
+| Android | [`cursor/android-uly-keyboard-9edd`](https://github.com/eskar-ai/ULY-IOS/tree/cursor/android-uly-keyboard-9edd) | `android/CONTRIBUTING.md` **on that branch** ([PR #2](https://github.com/eskar-ai/ULY-IOS/pull/2)) |
+| HarmonyOS NEXT | [`cursor/harmonyos-uly-keyboard-9edd`](https://github.com/eskar-ai/ULY-IOS/tree/cursor/harmonyos-uly-keyboard-9edd) | `harmonyos/CONTRIBUTING.md` **on that branch** ([PR #3](https://github.com/eskar-ai/ULY-IOS/pull/3)) |
+| iOS performance | [`cursor/ios-ime-performance-9edd`](https://github.com/eskar-ai/ULY-IOS/tree/cursor/ios-ime-performance-9edd) | [PR #5](https://github.com/eskar-ai/ULY-IOS/pull/5) |
+
+Keep Android / HarmonyOS scaffolds on their branches until release-ready — **do not** land unfinished `android/` or `harmonyos/` trees on `main`.
 
 ## Development quick start
 

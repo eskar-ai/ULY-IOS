@@ -15,11 +15,14 @@ System keyboard for **Uyghur Latin Yëziqi (2008)** with offline **prefix sugges
 
 ### Platforms (separate branches)
 
-| Platform | Branch | Notes |
-|----------|--------|-------|
-| iOS / web | `main` | This tree |
-| Android | `cursor/android-uly-keyboard-9edd` | Do not merge until release-ready |
-| HarmonyOS NEXT | `cursor/harmonyos-uly-keyboard-9edd` | Do not merge until release-ready |
+Full map (branches, PRs, checkout): **[`PLATFORMS.md`](PLATFORMS.md)**.
+
+| Platform | Branch | PR | Notes |
+|----------|--------|-----|--------|
+| iOS / web | [`main`](https://github.com/eskar-ai/ULY-IOS) | — | This tree |
+| Android | [`cursor/android-uly-keyboard-9edd`](https://github.com/eskar-ai/ULY-IOS/tree/cursor/android-uly-keyboard-9edd) | [#2](https://github.com/eskar-ai/ULY-IOS/pull/2) | Keep off `main` until release-ready |
+| HarmonyOS NEXT | [`cursor/harmonyos-uly-keyboard-9edd`](https://github.com/eskar-ai/ULY-IOS/tree/cursor/harmonyos-uly-keyboard-9edd) | [#3](https://github.com/eskar-ai/ULY-IOS/pull/3) | Keep off `main` until release-ready |
+| iOS IME performance | [`cursor/ios-ime-performance-9edd`](https://github.com/eskar-ai/ULY-IOS/tree/cursor/ios-ime-performance-9edd) | [#5](https://github.com/eskar-ai/ULY-IOS/pull/5) | Engine/keyboard latency |
 
 Contributions welcome — see [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
