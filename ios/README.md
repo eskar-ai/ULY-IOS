@@ -22,3 +22,9 @@ open UyghurLatin.xcodeproj
 3. Run the app, then on device: **Settings → General → Keyboard → Keyboards → Add New Keyboard → ULY Künupka**.
 
 The keyboard extension sets `RequestsOpenAccess = false` and runs entirely offline.
+
+## Appearance
+
+- Follows the system Light/Dark appearance by default.
+- Tap **◐** on the suggestion bar to override: System → Light → Dark.
+- Layout and chrome intentionally mirror the stock iOS keyboard (key colors, QuickType candidate bar, SF Symbols for shift/delete/globe).

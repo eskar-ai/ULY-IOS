@@ -6,18 +6,16 @@ final class KeyboardViewController: UIInputViewController {
     private var keyboardView: KeyboardView!
     private var heightConstraint: NSLayoutConstraint?
     private var shiftOn = false
-    private var layer: KeyboardView.Layer = .letters
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor(red: 0.16, green: 0.25, blue: 0.22, alpha: 1)
 
         keyboardView = KeyboardView(frame: .zero)
         keyboardView.translatesAutoresizingMaskIntoConstraints = false
         keyboardView.delegate = self
         view.addSubview(keyboardView)
 
-        let height = view.heightAnchor.constraint(equalToConstant: 280)
+        let height = view.heightAnchor.constraint(equalToConstant: preferredHeight)
         height.priority = .defaultHigh
         heightConstraint = height
 
@@ -29,23 +27,53 @@ final class KeyboardViewController: UIInputViewController {
             keyboardView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
 
+        applyChrome()
         loadEngine()
         refreshSuggestions()
     }
 
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        heightConstraint?.constant = preferredHeight
+    }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        applyChrome()
+        keyboardView.applyTheme(traits: traitCollection)
+    }
+
     override func textDidChange(_ textInput: UITextInput?) {
         super.textDidChange(textInput)
-        refreshSuggestions()
+        // Avoid drawing custom UI over secure fields.
+        if textDocumentProxy.isSecureTextEntry {
+            keyboardView.isHidden = true
+        } else {
+            keyboardView.isHidden = false
+            refreshSuggestions()
+        }
+    }
+
+    private var preferredHeight: CGFloat {
+        let compact = traitCollection.verticalSizeClass == .compact
+        let regular = traitCollection.horizontalSizeClass == .regular
+        if regular { return compact ? 300 : 320 }
+        return compact ? 230 : 276
+    }
+
+    private func applyChrome() {
+        let style = KeyboardThemePreference.current.resolvedStyle(for: traitCollection)
+        view.backgroundColor = KeyboardPalette.palette(style: style).background
     }
 
     private func loadEngine() {
         do {
             let store = try LexiconStore(bundle: .main)
             engine = SuggestionEngine(store: store)
-            keyboardView.setStatus("\(store.meta.wordCount) söz · offline")
         } catch {
-            keyboardView.setStatus("Lexicon load failed")
+            // Suggestions stay empty if lexicon fails; keys still work.
         }
+        refreshSuggestions()
     }
 
     private func context() -> (partial: String, previous: String?) {
@@ -54,7 +82,8 @@ final class KeyboardViewController: UIInputViewController {
         while i > before.startIndex {
             let prev = before.index(before: i)
             let ch = before[prev]
-            if !ULYNormalizer.isWordCharacter(ch.unicodeScalars.first!) { break }
+            guard let scalar = ch.unicodeScalars.first,
+                  ULYNormalizer.isWordCharacter(scalar) else { break }
             i = prev
         }
         let partial = String(before[i...])
@@ -106,11 +135,7 @@ final class KeyboardViewController: UIInputViewController {
         for _ in 0..<ctx.partial.count {
             textDocumentProxy.deleteBackward()
         }
-        if ctx.partial.isEmpty {
-            textDocumentProxy.insertText(word + " ")
-        } else {
-            textDocumentProxy.insertText(word + " ")
-        }
+        textDocumentProxy.insertText(word + " ")
         engine?.learnSelection(word)
         refreshSuggestions()
     }
@@ -120,6 +145,7 @@ extension KeyboardViewController: KeyboardViewDelegate {
     func keyboardView(_ view: KeyboardView, didTapKey key: KeyboardView.Key) {
         switch key {
         case .char(let s):
+            guard !s.isEmpty else { return }
             insert(s)
         case .backspace:
             deleteBackward()
@@ -131,20 +157,23 @@ extension KeyboardViewController: KeyboardViewDelegate {
             shiftOn.toggle()
             keyboardView.setShift(shiftOn)
         case .symbols:
-            layer = .symbols
             keyboardView.setLayer(.symbols)
         case .uly:
-            layer = .uly
             keyboardView.setLayer(.uly)
         case .letters:
-            layer = .letters
             keyboardView.setLayer(.letters)
         case .nextKeyboard:
             advanceToNextInputMode()
+        case .theme:
+            break
         }
     }
 
     func keyboardView(_ view: KeyboardView, didSelectCandidate word: String) {
         applyCandidate(word)
+    }
+
+    func keyboardViewDidChangeTheme(_ view: KeyboardView) {
+        applyChrome()
     }
 }

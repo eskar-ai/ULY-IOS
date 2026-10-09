@@ -40,12 +40,20 @@ open UyghurLatin.xcodeproj
 
 The extension sets `RequestsOpenAccess = false`. All prediction and spell-check stay on device.
 
+### Appearance
+
+- **Default: follow system** Light/Dark (same as the stock keyboard).
+- On the suggestion bar, tap **◐** to cycle **System → Light → Dark** (stored in the keyboard sandbox).
+- Visual style matches the system keyboard: gray chassis, white/dark keycaps, QuickType-style candidates.
+
+> This Cloud Agent environment is Linux and cannot run the iOS Simulator. Use Xcode Simulator / a device on a Mac for native install testing; use the web demo for theme and layout checks here.
+
 ### Typing tips
 
 - Long-press **e / o / u** → `ë ö ü`
 - Long-press **c / s / z / g / n** → `ch sh zh gh ng`
+- Tap **ëöü** for digraphs and apostrophe
 - Tap the suggestion bar to complete, predict the next word, or apply a correction
-- Host app can clear personal learned words
 
 ## Rebuild lexicon
 

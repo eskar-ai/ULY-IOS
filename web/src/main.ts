@@ -5,51 +5,47 @@ const editor = document.querySelector<HTMLTextAreaElement>("#editor")!;
 const statusEl = document.querySelector<HTMLElement>("#status")!;
 const candidatesEl = document.querySelector<HTMLElement>("#candidates")!;
 const keyboardEl = document.querySelector<HTMLElement>("#keyboard")!;
+const themeBtn = document.querySelector<HTMLButtonElement>("#themeCycle")!;
 
+type ThemePref = "system" | "light" | "dark";
 type KeyDef =
-  | { type: "char"; label: string; insert?: string; longPress?: string[] }
-  | { type: "action"; action: string; label: string; wide?: boolean; space?: boolean };
+  | { type: "char"; label: string; insert?: string; longPress?: string[]; flex?: number }
+  | { type: "action"; action: string; label: string; wide?: boolean; space?: boolean; flex?: number };
+
+const THEME_KEY = "uyghurlatin.themePreference";
 
 const LETTER_ROWS: KeyDef[][] = [
+  "qwertyuiop".split("").map((c) => {
+    const long =
+      c === "e" ? ["ë", "Ë"] : c === "u" ? ["ü", "Ü"] : c === "o" ? ["ö", "Ö"] : undefined;
+    return { type: "char" as const, label: c, longPress: long };
+  }),
   [
-    { type: "char", label: "q", longPress: ["Q"] },
-    { type: "char", label: "w", longPress: ["W"] },
-    { type: "char", label: "e", longPress: ["ë", "é", "E", "Ë"] },
-    { type: "char", label: "r", longPress: ["R"] },
-    { type: "char", label: "t", longPress: ["T"] },
-    { type: "char", label: "y", longPress: ["Y"] },
-    { type: "char", label: "u", longPress: ["ü", "U", "Ü"] },
-    { type: "char", label: "i", longPress: ["I"] },
-    { type: "char", label: "o", longPress: ["ö", "O", "Ö"] },
-    { type: "char", label: "p", longPress: ["P"] },
-  ],
-  [
-    { type: "char", label: "a", longPress: ["A"] },
-    { type: "char", label: "s", longPress: ["sh", "S"] },
-    { type: "char", label: "d", longPress: ["D"] },
-    { type: "char", label: "f", longPress: ["F"] },
-    { type: "char", label: "g", longPress: ["gh", "G"] },
-    { type: "char", label: "h", longPress: ["H"] },
-    { type: "char", label: "j", longPress: ["J"] },
-    { type: "char", label: "k", longPress: ["K"] },
-    { type: "char", label: "l", longPress: ["L"] },
-    { type: "char", label: "'", longPress: ["'"] },
+    { type: "char", label: "a" },
+    { type: "char", label: "s", longPress: ["sh"] },
+    { type: "char", label: "d" },
+    { type: "char", label: "f" },
+    { type: "char", label: "g", longPress: ["gh"] },
+    { type: "char", label: "h" },
+    { type: "char", label: "j" },
+    { type: "char", label: "k" },
+    { type: "char", label: "l" },
   ],
   [
     { type: "action", action: "shift", label: "⇧", wide: true },
-    { type: "char", label: "z", longPress: ["zh", "Z"] },
-    { type: "char", label: "x", longPress: ["X"] },
-    { type: "char", label: "c", longPress: ["ch", "C"] },
-    { type: "char", label: "v", longPress: ["V"] },
-    { type: "char", label: "b", longPress: ["B"] },
-    { type: "char", label: "n", longPress: ["ng", "N"] },
-    { type: "char", label: "m", longPress: ["M"] },
+    { type: "char", label: "z", longPress: ["zh"] },
+    { type: "char", label: "x" },
+    { type: "char", label: "c", longPress: ["ch"] },
+    { type: "char", label: "v" },
+    { type: "char", label: "b" },
+    { type: "char", label: "n", longPress: ["ng"] },
+    { type: "char", label: "m" },
     { type: "action", action: "backspace", label: "⌫", wide: true },
   ],
   [
     { type: "action", action: "symbols", label: "123", wide: true },
     { type: "action", action: "uly", label: "ëöü", wide: true },
-    { type: "action", action: "space", label: "boshluq", space: true },
+    { type: "action", action: "space", label: "space", space: true },
     { type: "action", action: "return", label: "return", wide: true },
   ],
 ];
@@ -64,37 +60,27 @@ const SYMBOL_ROWS: KeyDef[][] = [
   ],
   [
     { type: "action", action: "letters", label: "ABC", wide: true },
-    { type: "action", action: "space", label: "boshluq", space: true },
+    { type: "action", action: "space", label: "space", space: true },
     { type: "action", action: "return", label: "return", wide: true },
   ],
 ];
 
 const ULY_ROWS: KeyDef[][] = [
-  [
-    { type: "char", label: "ë" },
-    { type: "char", label: "ö" },
-    { type: "char", label: "ü" },
-    { type: "char", label: "Ë" },
-    { type: "char", label: "Ö" },
-    { type: "char", label: "Ü" },
-    { type: "char", label: "ch" },
-    { type: "char", label: "sh" },
-    { type: "char", label: "zh" },
-    { type: "char", label: "gh" },
-  ],
+  ["ë", "ö", "ü", "Ë", "Ö", "Ü", "ch", "sh", "zh", "gh"].map((c) => ({
+    type: "char" as const,
+    label: c,
+  })),
   [
     { type: "char", label: "ng" },
     { type: "char", label: "'" },
     { type: "char", label: "-" },
     { type: "char", label: "," },
     { type: "char", label: "." },
-    { type: "char", label: "?" },
-    { type: "char", label: "!" },
     { type: "action", action: "backspace", label: "⌫", wide: true },
   ],
   [
     { type: "action", action: "letters", label: "ABC", wide: true },
-    { type: "action", action: "space", label: "boshluq", space: true },
+    { type: "action", action: "space", label: "space", space: true },
     { type: "action", action: "return", label: "return", wide: true },
   ],
 ];
@@ -103,8 +89,28 @@ let engine: SuggestionEngine | null = null;
 let shift = false;
 let layer: "letters" | "symbols" | "uly" = "letters";
 let longPressTimer: number | null = null;
+let themePref: ThemePref = (localStorage.getItem(THEME_KEY) as ThemePref) || "system";
 
-function setStatus(text: string, kind: "ready" | "error" | "" = "") {
+function resolvedTheme(): "light" | "dark" {
+  if (themePref === "light" || themePref === "dark") return themePref;
+  return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+}
+
+function applyTheme() {
+  const resolved = resolvedTheme();
+  document.documentElement.dataset.theme = resolved;
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if (meta) meta.setAttribute("content", resolved === "dark" ? "#2c2c2e" : "#d1d3d9");
+  themeBtn.textContent = `Theme: ${themePref[0]!.toUpperCase()}${themePref.slice(1)}`;
+}
+
+function cycleTheme() {
+  themePref = themePref === "system" ? "light" : themePref === "light" ? "dark" : "system";
+  localStorage.setItem(THEME_KEY, themePref);
+  applyTheme();
+}
+
+function setStatus(text: string, kind: "error" | "" = "") {
   statusEl.textContent = text;
   statusEl.className = `status ${kind}`.trim();
 }
@@ -123,29 +129,48 @@ function getContext(): { partial: string; previous: string | null } {
   return { partial, previous };
 }
 
+function clearLongPressMenus() {
+  keyboardEl.querySelectorAll(".longpress-menu").forEach((el) => el.remove());
+}
+
 function renderCandidates() {
-  if (!engine) {
-    candidatesEl.innerHTML = "";
-    return;
-  }
-  const { partial, previous } = getContext();
-  const result = engine.suggest(partial, previous, 8);
   candidatesEl.innerHTML = "";
-  result.candidates.forEach((word, idx) => {
+  if (!engine) return;
+  const { partial, previous } = getContext();
+  const result = engine.suggest(partial, previous, 3);
+  const words = result.candidates.slice(0, 3);
+
+  const slots = [0, 1, 2];
+  slots.forEach((idx) => {
+    if (idx > 0) {
+      const sep = document.createElement("div");
+      sep.className = "cand-sep";
+      candidatesEl.appendChild(sep);
+    }
     const btn = document.createElement("button");
     btn.type = "button";
-    btn.className = `candidate${idx === 0 ? " primary" : ""}${result.isMisspelled ? " misspelled" : ""}`;
-    btn.textContent = word;
-    btn.addEventListener("click", () => applyCandidate(word, partial));
+    btn.className = `candidate${result.isMisspelled && idx === 0 ? " misspelled" : ""}`;
+    btn.textContent = words[idx] ?? "";
+    if (words[idx]) {
+      btn.addEventListener("click", () => applyCandidate(words[idx]!, partial));
+    } else {
+      btn.disabled = true;
+    }
     candidatesEl.appendChild(btn);
   });
-  if (result.mode === "correction" && result.candidates.length) {
-    setStatus(`Imla: «${partial}» → ${result.candidates.slice(0, 3).join(", ")}`, "ready");
+
+  const theme = document.createElement("button");
+  theme.type = "button";
+  theme.className = "theme-btn";
+  theme.title = "Cycle theme";
+  theme.textContent = themePref === "system" ? "◐" : themePref === "light" ? "☀︎" : "☾";
+  theme.addEventListener("click", cycleTheme);
+  candidatesEl.appendChild(theme);
+
+  if (result.mode === "correction" && words.length) {
+    setStatus(`Spelling: ${partial} → ${words.join(", ")}`);
   } else if (engine.meta) {
-    setStatus(
-      `Offline · ${engine.meta.wordCount.toLocaleString()} söz · ${engine.meta.script}`,
-      "ready",
-    );
+    setStatus(`Offline · ${engine.meta.wordCount.toLocaleString()} words · ${engine.meta.script}`);
   }
 }
 
@@ -155,10 +180,9 @@ function applyCandidate(word: string, partial: string) {
   const start = caret - partial.length;
   const before = value.slice(0, start);
   const after = value.slice(caret);
-  const insert = partial.length ? word : word + " ";
-  const needsSpace = partial.length > 0;
-  editor.value = before + insert + (needsSpace ? " " : "") + after;
-  const pos = (before + insert + (needsSpace ? " " : "")).length;
+  const insert = word + " ";
+  editor.value = before + insert + after;
+  const pos = (before + insert).length;
   editor.setSelectionRange(pos, pos);
   engine?.learnSelection(word);
   shift = false;
@@ -174,7 +198,7 @@ function insertText(text: string) {
   editor.value = value.slice(0, start) + text + value.slice(end);
   const pos = start + text.length;
   editor.setSelectionRange(pos, pos);
-  if (shift && text.length === 1 && /[a-zëöü]/.test(text)) {
+  if (shift && text.length === 1 && /[a-zëöü]/i.test(text)) {
     shift = false;
     renderKeyboard();
   }
@@ -209,10 +233,6 @@ function currentRows(): KeyDef[][] {
       return { ...key, label, insert: label };
     }),
   );
-}
-
-function clearLongPressMenus() {
-  keyboardEl.querySelectorAll(".longpress-menu").forEach((el) => el.remove());
 }
 
 function showLongPress(btn: HTMLElement, options: string[]) {
@@ -265,9 +285,9 @@ function handleAction(action: string) {
 
 function renderKeyboard() {
   keyboardEl.innerHTML = "";
-  for (const row of currentRows()) {
+  currentRows().forEach((row, rowIdx) => {
     const rowEl = document.createElement("div");
-    rowEl.className = "row";
+    rowEl.className = "row" + (layer === "letters" && rowIdx === 1 ? " indent" : "");
     for (const key of row) {
       const btn = document.createElement("button");
       btn.type = "button";
@@ -322,26 +342,29 @@ function renderKeyboard() {
       rowEl.appendChild(btn);
     }
     keyboardEl.appendChild(rowEl);
-  }
+  });
 }
+
+themeBtn.addEventListener("click", cycleTheme);
+window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
+  if (themePref === "system") applyTheme();
+});
 
 editor.addEventListener("input", () => renderCandidates());
 editor.addEventListener("click", () => renderCandidates());
 editor.addEventListener("keyup", () => renderCandidates());
 
+applyTheme();
 renderKeyboard();
 
 (async () => {
   try {
     const store = await LexiconStore.load("/data/lexicon.json");
     engine = new SuggestionEngine(store);
-    setStatus(
-      `Offline · ${store.meta.wordCount.toLocaleString()} söz · ${store.meta.script}`,
-      "ready",
-    );
+    setStatus(`Offline · ${store.meta.wordCount.toLocaleString()} words · ${store.meta.script}`);
     renderCandidates();
   } catch (err) {
     console.error(err);
-    setStatus("Lexicon yüklenmedi. tools/build_lexicon.py ni ishleting.", "error");
+    setStatus("Lexicon failed to load. Run tools/build_lexicon.py.", "error");
   }
 })();

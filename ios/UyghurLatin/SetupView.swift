@@ -5,80 +5,64 @@ struct SetupView: View {
 
     var body: some View {
         NavigationStack {
-            ScrollView {
-                VStack(alignment: .leading, spacing: 20) {
+            List {
+                Section {
                     VStack(alignment: .leading, spacing: 6) {
                         Text("ULY Künupka")
-                            .font(.system(size: 36, weight: .bold, design: .serif))
-                        Text("Offline Uyghur Latin Yëziqi keyboard for iPhone — suggestions, spell check, and corrections on device.")
+                            .font(.title.weight(.semibold))
+                        Text("Uyghur Latin Yëziqi keyboard — offline suggestions and spell check.")
+                            .font(.subheadline)
                             .foregroundStyle(.secondary)
                     }
-                    .padding(.top, 8)
+                    .padding(.vertical, 4)
+                }
 
-                    GroupBox("Enable the keyboard") {
-                        VStack(alignment: .leading, spacing: 10) {
-                            step(1, "Open Settings → General → Keyboard → Keyboards")
-                            step(2, "Tap Add New Keyboard…")
-                            step(3, "Choose ULY Künupka under Third-Party Keyboards")
-                            step(4, "Optional: tap the keyboard → allow Full Access only if you later need shared containers (not required)")
-                        }
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.vertical, 4)
-                    }
+                Section("Enable") {
+                    labeledStep(1, "Settings → General → Keyboard → Keyboards")
+                    labeledStep(2, "Add New Keyboard…")
+                    labeledStep(3, "ULY Künupka")
+                }
 
-                    GroupBox("How to type ULY") {
-                        VStack(alignment: .leading, spacing: 8) {
-                            Text("• Long-press e / o / u for ë ö ü")
-                            Text("• Long-press c s z g n for ch sh zh gh ng")
-                            Text("• Suggestion bar: completions, next word, and spell fixes")
-                            Text("• Tap a suggestion to replace the current word")
-                        }
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                    }
-
-                    GroupBox("Dictionary") {
-                        VStack(alignment: .leading, spacing: 10) {
-                            Text(metaText)
-                                .font(.subheadline)
-                                .foregroundStyle(.secondary)
-                            Text("Learned words stay inside the keyboard extension (no Full Access / no network). Remove the keyboard in Settings to reset them.")
-                                .font(.footnote)
-                                .foregroundStyle(.secondary)
-                        }
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                    }
-
-                    Text("Sources: UyghurEdit++ imla lexicon (MIT), imlalughet (MIT), umsc converter (Apache-2.0). See THIRD_PARTY_NOTICES.md.")
-                        .font(.caption)
+                Section("Appearance") {
+                    Text("Default follows your iPhone appearance (Light / Dark).")
+                    Text("On the keyboard suggestion bar, tap ◐ to cycle System → Light → Dark. The override is stored on-device inside the keyboard.")
+                        .font(.footnote)
                         .foregroundStyle(.secondary)
                 }
-                .padding()
+
+                Section("Typing") {
+                    Text("Long-press e / o / u for ë ö ü")
+                    Text("Long-press c / s / z / g / n for ch / sh / zh / gh / ng")
+                    Text("ëöü opens digraphs and apostrophe (')")
+                    Text("Suggestion bar matches system QuickType: tap to complete or correct")
+                }
+
+                Section("Dictionary") {
+                    Text(metaText)
+                    Text("Personal words stay in the keyboard sandbox (no Full Access, no network).")
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
+                }
+
+                Section("About") {
+                    Text("Lexicon sources are listed in THIRD_PARTY_NOTICES.md (MIT / Apache-2.0).")
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
+                }
             }
-            .background(
-                LinearGradient(
-                    colors: [
-                        Color(red: 0.91, green: 0.95, blue: 0.93),
-                        Color(red: 0.82, green: 0.90, blue: 0.87),
-                    ],
-                    startPoint: .topLeading,
-                    endPoint: .bottomTrailing
-                )
-                .ignoresSafeArea()
-            )
-            .navigationBarTitleDisplayMode(.inline)
+            .listStyle(.insetGrouped)
+            .navigationTitle("Keyboard")
+            .navigationBarTitleDisplayMode(.large)
             .onAppear(perform: loadMeta)
         }
     }
 
-    private func step(_ n: Int, _ text: String) -> some View {
-        HStack(alignment: .top, spacing: 10) {
-            Text("\(n)")
-                .font(.caption.weight(.bold))
-                .frame(width: 22, height: 22)
-                .background(Circle().fill(Color(red: 0.06, green: 0.42, blue: 0.34)))
-                .foregroundStyle(.white)
+    private func labeledStep(_ n: Int, _ text: String) -> some View {
+        HStack(alignment: .firstTextBaseline, spacing: 10) {
+            Text("\(n).")
+                .foregroundStyle(.secondary)
+                .frame(width: 20, alignment: .trailing)
             Text(text)
-                .font(.subheadline)
         }
     }
 
@@ -91,7 +75,7 @@ struct SetupView: View {
            let version = obj["version"] as? String {
             metaText = "\(count) words · \(script) · v\(version)"
         } else {
-            metaText = "120,000-word ULY lexicon bundled in the keyboard extension (offline)."
+            metaText = "120,000-word ULY lexicon bundled offline in the keyboard."
         }
     }
 }
