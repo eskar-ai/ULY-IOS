@@ -74,6 +74,11 @@ struct SetupView: View {
                 }
 
                 Section("section_about") {
+                    NavigationLink {
+                        CreditsView()
+                    } label: {
+                        Text("Open source & lexicon credits")
+                    }
                     Text("about_sources")
                         .font(.footnote)
                         .foregroundStyle(.secondary)

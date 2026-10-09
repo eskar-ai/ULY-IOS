@@ -1,0 +1,7 @@
+# Copy to CONTACT (gitignored) or set in App Store Connect / hosted pages
+
+SUPPORT_EMAIL=you@example.com
+PRIVACY_EMAIL=you@example.com
+MARKETING_URL=https://your-github-pages.github.io/uly-kunupka/
+SUPPORT_URL=https://your-github-pages.github.io/uly-kunupka/support.html
+PRIVACY_URL=https://your-github-pages.github.io/uly-kunupka/privacy.html

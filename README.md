@@ -80,7 +80,9 @@ Pre-submit materials live in [`store/`](store/):
 
 Host app includes **English + 简体中文** UI strings, launch background, accent color, and privacy manifests.
 
-Before submit: replace placeholder emails/URLs, host the privacy & support pages, prefer Simulator/device screenshots for the store.
+Run `python3 tools/validate_release.py` before archiving.
+
+**Still on you:** Apple Developer account, signing, replace `CONTACT_EMAIL` in hosted pages ([`store/site/`](store/site/)), upload build. See [`store/REMAINING.md`](store/REMAINING.md).
 
 ## License & data
 

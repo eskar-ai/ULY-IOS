@@ -1,8 +1,8 @@
 # Privacy Policy — ULY Künupka
 
-**Last updated:** 2026-04-09  
+**Last updated:** October 9, 2026  
 **Product:** ULY Künupka (iOS app + keyboard extension)  
-**Contact:** replace-with-your-email@example.com
+**Contact:** CONTACT_EMAIL *(replace before hosting)*
 
 This policy describes how ULY Künupka handles information. Host this page at a public HTTPS URL and paste that URL into App Store Connect → App Privacy / Privacy Policy URL.
 
@@ -52,7 +52,7 @@ We may update this policy. The “Last updated” date will change when we do. M
 
 ## Contact
 
-Questions about privacy: **replace-with-your-email@example.com**
+Questions about privacy: **CONTACT_EMAIL**
 
 ---
 

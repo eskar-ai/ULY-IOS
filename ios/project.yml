@@ -44,8 +44,10 @@ targets:
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
         INFOPLIST_KEY_LSApplicationCategoryType: public.app-category.productivity
         INFOPLIST_KEY_CFBundleDisplayName: ULY Künupka
+        INFOPLIST_KEY_NSHumanReadableCopyright: "Copyright © 2026 ULY Künupka contributors"
     dependencies:
       - target: UyghurLatinKeyboard
+        embed: true
     info:
       path: UyghurLatin/Info.plist
       properties:

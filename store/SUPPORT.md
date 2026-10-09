@@ -26,5 +26,5 @@ Typing and suggestions work offline. See our Privacy Policy: *(link)*.
 
 ### Contact
 
-Email: **replace-with-your-email@example.com**  
+Email: **CONTACT_EMAIL** *(replace before hosting)*  
 Please include your iOS version and a short description of the issue.

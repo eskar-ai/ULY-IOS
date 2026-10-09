@@ -1,5 +1,9 @@
 # App Store launch checklist — ULY Künupka
 
+See also **[REMAINING.md](REMAINING.md)** (what is already in the repo vs what only you can do).
+
+Run **`python3 tools/validate_release.py`** before archiving.
+
 Work through this before you click **Submit for Review**.
 
 ## A. Apple account & identifiers
