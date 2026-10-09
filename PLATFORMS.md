@@ -1,14 +1,15 @@
 # Platforms & branches
 
-`main` ships **iOS + web + marketing site**. Android and HarmonyOS NEXT are developed on **separate branches** and must **not** be merged into `main` until each platform is release-ready.
+`main` ships **iOS + web + marketing site**, plus the **Android** and **HarmonyOS NEXT** keyboard scaffolds after PRs #2–#5 landed.
 
-| Platform | Branch | Directory (on that branch) | Draft PR | Status |
-|----------|--------|----------------------------|----------|--------|
-| **iOS / web** | [`main`](https://github.com/eskar-ai/ULY-IOS/tree/main) | `ios/`, `web/`, `Sources/` | — | Live on `main` |
-| **iOS docs + Downloads hub** | [`cursor/ios-platform-and-downloads-9edd`](https://github.com/eskar-ai/ULY-IOS/tree/cursor/ios-platform-and-downloads-9edd) | `ios/PLATFORM.md`, `store/site/downloads.html` | [#4](https://github.com/eskar-ai/ULY-IOS/pull/4) | Ready for `main` |
-| **iOS IME performance** | [`cursor/ios-ime-performance-9edd`](https://github.com/eskar-ai/ULY-IOS/tree/cursor/ios-ime-performance-9edd) | `Sources/`, `ios/PERFORMANCE.md` | [#5](https://github.com/eskar-ai/ULY-IOS/pull/5) | Review / merge after #4 |
-| **Android** | [`cursor/android-uly-keyboard-9edd`](https://github.com/eskar-ai/ULY-IOS/tree/cursor/android-uly-keyboard-9edd) | `android/` | [#2](https://github.com/eskar-ai/ULY-IOS/pull/2) | Scaffold + perf; **keep off `main`** |
-| **HarmonyOS NEXT** | [`cursor/harmonyos-uly-keyboard-9edd`](https://github.com/eskar-ai/ULY-IOS/tree/cursor/harmonyos-uly-keyboard-9edd) | `harmonyos/` | [#3](https://github.com/eskar-ai/ULY-IOS/pull/3) | Scaffold + perf; **keep off `main`** |
+| Platform | Primary tree | Notes |
+|----------|--------------|-------|
+| **iOS / web / kit** | `ios/`, `web/`, `Sources/` | Live on `main`; IME perf via [#5](https://github.com/eskar-ai/ULY-IOS/pull/5) |
+| **Downloads / marketing** | `store/site/` | Pages: [downloads](https://eskar-ai.github.io/ULY-IOS/downloads.html) |
+| **Android** | `android/` | Scaffold + engine tests + Releases workflow (`android-v*`) — [#2](https://github.com/eskar-ai/ULY-IOS/pull/2) |
+| **HarmonyOS NEXT** | `harmonyos/` | Scaffold + smoke CI + AGC notes — [#3](https://github.com/eskar-ai/ULY-IOS/pull/3) |
+
+Feature work still uses `cursor/*-9edd` branches; open PRs against `main` unless a long-lived platform branch is needed.
 
 ## What lives where
 
@@ -16,32 +17,25 @@
 |---------|----------------|
 | Shared lexicon | `data/generated/lexicon.json` + `tools/build_lexicon.py` (all platforms) |
 | Engine spec (reference) | `Sources/UyghurLatinKit/` (Swift) · `web/src/engine/` (TypeScript) |
-| Android engine / IME | `android/` on Android branch only |
-| HarmonyOS engine / IME | `harmonyos/` on HarmonyOS branch only |
-| Downloads page (Pages) | `store/site/downloads.html` → https://eskar-ai.github.io/ULY-IOS/downloads.html |
-| Per-platform package / display / update / contribute | `*/PLATFORM.md` on each platform branch · [`ios/PLATFORM.md`](ios/PLATFORM.md) on this tree |
+| Android engine / IME | `android/` |
+| HarmonyOS engine / IME | `harmonyos/` |
+| Downloads page (Pages) | `store/site/downloads.html` |
+| Per-platform package / display / update / contribute | `android/PLATFORM.md` · `harmonyos/PLATFORM.md` · [`ios/PLATFORM.md`](ios/PLATFORM.md) |
 
 ## Checkout cheat sheet
 
 ```bash
-# iOS / web (default)
 git checkout main
 
-# Android only
-git checkout cursor/android-uly-keyboard-9edd
+# Android
 cd android && ./scripts/check-quality.sh
 
-# HarmonyOS only
-git checkout cursor/harmonyos-uly-keyboard-9edd
+# HarmonyOS
 cd harmonyos && ./scripts/check-quality.sh
-
-# iOS performance work
-git checkout cursor/ios-ime-performance-9edd
 ```
 
 ## Rules
 
-1. Open PRs against the **matching platform branch** (or `main` for iOS/web/site only).
-2. Do **not** land unfinished `android/` or `harmonyos/` trees on `main`.
-3. Do **not** mix Android and HarmonyOS changes in one PR.
-4. APK / HAP binaries ship via Releases or AppGallery — see Downloads on the site when published.
+1. Prefer focused PRs against `main` (one platform or one concern).
+2. Do **not** mix Android and HarmonyOS changes in one PR unless coordinating shared site/docs only.
+3. APK / HAP binaries ship via Releases or AppGallery — see Downloads on the site when published.
