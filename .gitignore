@@ -1,5 +1,7 @@
 node_modules/
 web/dist/
+web/tsconfig.tsbuildinfo
+*.tsbuildinfo
 .DS_Store
 *.xcodeproj/
 *.xcworkspace/
