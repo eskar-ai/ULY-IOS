@@ -2,12 +2,12 @@
 
 ## Supported surfaces
 
-| Surface | Branch | Notes |
-|---------|--------|-------|
-| iOS keyboard / host | `main` | No Full Access by default |
-| Web demo | `main` (`web/`) | Offline lexicon in browser |
-| Android IME | `cursor/android-uly-keyboard-9edd` | No network permission for typing |
-| HarmonyOS IME | `cursor/harmonyos-uly-keyboard-9edd` | On-device suggestions |
+| Surface | Location | Notes |
+|---------|----------|-------|
+| iOS keyboard / host | `ios/` · `Sources/` | No Full Access by default |
+| Web demo | `web/` | Offline lexicon in browser |
+| Android IME | `android/` | No network permission for typing |
+| HarmonyOS IME | `harmonyos/` | On-device suggestions |
 
 ## Reporting a vulnerability
 
@@ -22,10 +22,5 @@ Please **do not** open a public issue for exploitable keyboard/privacy flaws unt
 ## Hard rules for contributors
 
 - Do not add analytics, ads, or keystroke upload.
-<<<<<<< HEAD
-- Do not request unnecessary broad network for prediction.
-- Do not commit signing keys, profiles, or tokens.
-=======
 - Do not request unnecessary IME “full access” / broad network for prediction.
-- Do not commit signing keys, keystores, or tokens.
->>>>>>> e871523 (Android: expand engine tests and professional quality ecosystem)
+- Do not commit signing keys, keystores, profiles, or tokens.

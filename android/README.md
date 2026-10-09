@@ -2,7 +2,11 @@
 
 Offline Uyghur Latin (ULY) system keyboard for Android. Same lexicon and suggestion pipeline as the iOS / web engines, ported to Kotlin.
 
-> Platform work lives on **`cursor/android-uly-keyboard-9edd`** — not on `main` until release-ready. See [`PLATFORM.md`](PLATFORM.md).
+[![Android CI](https://github.com/eskar-ai/ULY-IOS/actions/workflows/android-ci.yml/badge.svg?branch=cursor/android-uly-keyboard-9edd)](https://github.com/eskar-ai/ULY-IOS/actions/workflows/android-ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](../LICENSE)
+
+> Platform work lives on **`cursor/android-uly-keyboard-9edd`** — not on `main` until release-ready.  
+> [`PLATFORM.md`](PLATFORM.md) · [`TESTING.md`](TESTING.md) · [`QUALITY.md`](QUALITY.md) · [`CONTRIBUTING.md`](CONTRIBUTING.md)
 
 ## Modules
 
