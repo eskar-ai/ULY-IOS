@@ -6,7 +6,7 @@ Offline Uyghur Latin (ULY) input method for **HarmonyOS NEXT** (ArkTS). Same lex
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](../LICENSE)
 
 > Platform work lives on **`cursor/harmonyos-uly-keyboard-9edd`** — not on `main` until release-ready.  
-> [`PLATFORM.md`](PLATFORM.md) · [`TESTING.md`](TESTING.md) · [`QUALITY.md`](QUALITY.md) · [`CONTRIBUTING.md`](CONTRIBUTING.md)
+> [`PLATFORM.md`](PLATFORM.md) · [`PERFORMANCE.md`](PERFORMANCE.md) · [`TESTING.md`](TESTING.md) · [`QUALITY.md`](QUALITY.md) · [`CONTRIBUTING.md`](CONTRIBUTING.md)
 
 ## Modules
 

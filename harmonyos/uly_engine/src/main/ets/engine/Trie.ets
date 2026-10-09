@@ -5,6 +5,7 @@ class TrieNode {
   isWord: boolean = false;
   frequency: number = 0;
   word: string = '';
+  bestFrequency: number = 0;
 }
 
 export class PrefixTrie {
@@ -13,6 +14,7 @@ export class PrefixTrie {
   insert(word: string, frequency: number): void {
     const key = lookupKey(word);
     let node = this.root;
+    const path: TrieNode[] = [node];
     for (let i = 0; i < key.length; i++) {
       const ch = key.charAt(i);
       let next = node.children.get(ch);
@@ -21,10 +23,14 @@ export class PrefixTrie {
         node.children.set(ch, next);
       }
       node = next;
+      path.push(node);
     }
     node.isWord = true;
     node.frequency = Math.max(node.frequency, frequency);
     node.word = key;
+    for (let i = 0; i < path.length; i++) {
+      path[i].bestFrequency = Math.max(path[i].bestFrequency, node.frequency);
+    }
   }
 
   contains(word: string): boolean {
@@ -37,19 +43,55 @@ export class PrefixTrie {
     return node && node.isWord ? node.frequency : 0;
   }
 
+  /**
+   * Bounded best-first completions — keeps IME candidate refresh cheap.
+   */
   completions(prefix: string, limit: number = 8): Array<[string, number]> {
+    if (limit <= 0) {
+      return [];
+    }
     const key = lookupKey(prefix);
     if (!key) {
       return [];
     }
-    const node = this.walk(key);
-    if (!node) {
+    const start = this.walk(key);
+    if (!start) {
       return [];
     }
-    const results: Array<[string, number]> = [];
-    this.collect(node, results, Math.max(limit * 4, 32));
-    results.sort((a, b) => b[1] - a[1] || (a[0] < b[0] ? -1 : a[0] > b[0] ? 1 : 0));
-    return results.slice(0, limit);
+
+    const heap: Array<[string, number]> = [];
+    const consider = (w: string, f: number): void => {
+      if (heap.length < limit) {
+        heap.push([w, f]);
+        heap.sort((a, b) => a[1] - b[1]);
+        return;
+      }
+      if (f > heap[0][1]) {
+        heap[0] = [w, f];
+        heap.sort((a, b) => a[1] - b[1]);
+      }
+    };
+
+    const stack: TrieNode[] = [start];
+    let visited = 0;
+    const visitCap = Math.max(limit * 64, 256);
+    while (stack.length > 0 && visited < visitCap) {
+      const node = stack.pop() as TrieNode;
+      visited++;
+      if (node.isWord && node.word) {
+        consider(node.word, node.frequency);
+      }
+      const kids = Array.from(node.children.values()).sort((a, b) => a.bestFrequency - b.bestFrequency);
+      for (let i = 0; i < kids.length; i++) {
+        const child = kids[i];
+        if (heap.length >= limit && child.bestFrequency <= heap[0][1]) {
+          continue;
+        }
+        stack.push(child);
+      }
+    }
+
+    return heap.sort((a, b) => b[1] - a[1] || (a[0] < b[0] ? -1 : a[0] > b[0] ? 1 : 0));
   }
 
   private walk(key: string): TrieNode | null {
@@ -62,24 +104,5 @@ export class PrefixTrie {
       node = next;
     }
     return node;
-  }
-
-  private collect(node: TrieNode, results: Array<[string, number]>, limit: number): void {
-    if (results.length >= limit) {
-      return;
-    }
-    if (node.isWord && node.word) {
-      results.push([node.word, node.frequency]);
-    }
-    const keys = Array.from(node.children.keys()).sort();
-    for (let i = 0; i < keys.length; i++) {
-      const child = node.children.get(keys[i]);
-      if (child) {
-        this.collect(child, results, limit);
-      }
-      if (results.length >= limit) {
-        return;
-      }
-    }
   }
 }

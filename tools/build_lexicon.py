@@ -15,6 +15,8 @@ RAW = ROOT / "data" / "raw"
 OUT = ROOT / "data" / "generated"
 WEB_PUBLIC = ROOT / "web" / "public" / "data"
 IOS_RES = ROOT / "ios" / "UyghurLatinKeyboard" / "Resources"
+ANDROID_ASSETS = ROOT / "android" / "app" / "src" / "main" / "assets"
+HARMONY_RAWFILE = ROOT / "harmonyos" / "ime" / "src" / "main" / "resources" / "rawfile"
 
 # Prefer local clones under /tmp from agent setup; fall back to data/raw.
 SOURCE_CANDIDATES = [
@@ -273,10 +275,16 @@ def write_outputs(
         json.dumps(meta, ensure_ascii=False, indent=2), encoding="utf-8"
     )
 
-    for dest in (WEB_PUBLIC, IOS_RES):
+    for dest in (WEB_PUBLIC, IOS_RES, ANDROID_ASSETS, HARMONY_RAWFILE):
+        # Skip platform trees that are absent on this checkout/branch.
+        if dest in (ANDROID_ASSETS, HARMONY_RAWFILE) and not dest.parent.exists():
+            # Create leaf only when the platform module already exists in-repo.
+            if not (ROOT / ("android" if dest == ANDROID_ASSETS else "harmonyos")).exists():
+                continue
         dest.mkdir(parents=True, exist_ok=True)
         shutil.copy2(OUT / "lexicon.json", dest / "lexicon.json")
-        shutil.copy2(OUT / "meta.json", dest / "meta.json")
+        if dest in (WEB_PUBLIC, IOS_RES):
+            shutil.copy2(OUT / "meta.json", dest / "meta.json")
 
 
 def main() -> None:

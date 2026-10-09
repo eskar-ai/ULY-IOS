@@ -82,6 +82,11 @@ export class SpellChecker {
       return [key];
     }
 
+    if (key.length < 3) {
+      const mappedOnly = this.corrections.get(key);
+      return mappedOnly ? [mappedOnly] : [];
+    }
+
     const ranked: Array<[string, number]> = [];
     const seen: Set<string> = new Set();
 
@@ -90,28 +95,43 @@ export class SpellChecker {
       seen.add(mapped);
       ranked.push([mapped, 1000000 + this.trie.frequency(mapped)]);
     }
+    if (ranked.length >= limit) {
+      return ranked.sort((a, b) => b[1] - a[1]).slice(0, limit).map((p) => p[0]);
+    }
 
-    const candidates: string[] = [];
+    const first = key.charAt(0);
+    const cap = key.length <= 4 ? 600 : 1200;
+    let scanned = 0;
     for (let len = Math.max(1, key.length - 2); len <= key.length + 2; len++) {
       const bucket = this.byLength.get(len);
-      if (bucket) {
-        for (let i = 0; i < bucket.length; i++) {
-          candidates.push(bucket[i]);
+      if (!bucket) {
+        continue;
+      }
+      for (let i = 0; i < bucket.length; i++) {
+        if (scanned >= cap) {
+          break;
+        }
+        const cand = bucket[i];
+        if (cand.charAt(0) !== first && Math.abs(cand.length - key.length) > 1) {
+          continue;
+        }
+        scanned++;
+        if (seen.has(cand)) {
+          continue;
+        }
+        const d = editDistance(key, cand, 2);
+        if (d < 0 || d > 2) {
+          continue;
+        }
+        seen.add(cand);
+        ranked.push([cand, this.trie.frequency(cand) - d * 50000]);
+        if (ranked.length >= limit * 4) {
+          break;
         }
       }
-    }
-    const capped = candidates.slice(0, 3500);
-    for (let i = 0; i < capped.length; i++) {
-      const cand = capped[i];
-      if (seen.has(cand)) {
-        continue;
+      if (scanned >= cap || ranked.length >= limit * 4) {
+        break;
       }
-      const d = editDistance(key, cand, 2);
-      if (d < 0 || d > 2) {
-        continue;
-      }
-      seen.add(cand);
-      ranked.push([cand, this.trie.frequency(cand) - d * 50000]);
     }
 
     if (ranked.length < limit) {
@@ -125,6 +145,9 @@ export class SpellChecker {
         if (foldDiacritics(cand) === folded) {
           seen.add(cand);
           ranked.push([cand, this.trie.frequency(cand) + 10000]);
+          if (ranked.length >= limit) {
+            break;
+          }
         }
       }
     }

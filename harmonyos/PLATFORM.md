@@ -81,6 +81,10 @@ CI：`.github/workflows/harmonyos-ci.yml`（仅本分支 / `harmonyos/**`）。
 
 引擎规格可对齐，**打包脚本、依赖、展示 CTA、更新渠道全部独立**，不在本分支提交 `android/` 大改，反之亦然。
 
+## 性能
+
+见 [`PERFORMANCE.md`](PERFORMANCE.md)（联想 debounce、拼写短路、词库异步加载）。
+
 ## 发布检查清单
 
 1. `sync-lexicon` + 版本 bump  

@@ -30,6 +30,8 @@ function unique(items: string[], limit: number): string[] {
 export class SuggestionEngine {
   private store: LexiconStore;
   private personal: PersonalDictionary = new PersonalDictionary();
+  private cacheKey: string = '';
+  private cacheValue: SuggestionResult | null = null;
 
   constructor(store: LexiconStore) {
     this.store = store;
@@ -41,6 +43,23 @@ export class SuggestionEngine {
 
   suggest(partial: string, previousWord: string | null, limit: number = 3): SuggestionResult {
     const p = lookupKey(partial);
+    const prevKey = previousWord ? lookupKey(previousWord) : '';
+    const key = `${p}|${prevKey}|${limit}`;
+    if (this.cacheValue && this.cacheKey === key) {
+      return this.cacheValue;
+    }
+    const result = this.suggestUncached(p, previousWord ? prevKey : null, limit);
+    this.cacheKey = key;
+    this.cacheValue = result;
+    return result;
+  }
+
+  invalidateCache(): void {
+    this.cacheKey = '';
+    this.cacheValue = null;
+  }
+
+  private suggestUncached(p: string, previousWord: string | null, limit: number): SuggestionResult {
     if (!p) {
       const next = this.store.predictor.nextWords(previousWord, limit);
       return {
@@ -65,9 +84,11 @@ export class SuggestionEngine {
       };
     }
 
-    const corr = this.store.spellChecker.suggestions(p, limit);
-    if (corr.length) {
-      return { candidates: corr, isMisspelled: true, mode: 'correction' };
+    if (p.length >= 3) {
+      const corr = this.store.spellChecker.suggestions(p, limit);
+      if (corr.length) {
+        return { candidates: corr, isMisspelled: true, mode: 'correction' };
+      }
     }
 
     return {
@@ -79,14 +100,17 @@ export class SuggestionEngine {
 
   learnSelection(word: string): void {
     this.personal.learn(word, 5);
+    this.invalidateCache();
   }
 
   addToDictionary(word: string): void {
     this.personal.add(word);
+    this.invalidateCache();
   }
 
   clearPersonalDictionary(): void {
     this.personal.clear();
+    this.invalidateCache();
   }
 
   isKnown(word: string): boolean {
