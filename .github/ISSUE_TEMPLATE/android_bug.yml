@@ -1,0 +1,35 @@
+name: Android bug
+description: Report a problem with the Android keyboard (this platform branch)
+title: "[Android] "
+labels: ["android", "bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping. Android work lives on `cursor/android-uly-keyboard-9edd`.
+  - type: input
+    id: device
+    attributes:
+      label: Device / Android version
+      placeholder: "Pixel 7 / Android 15"
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected vs actual
+    validations:
+      required: true
+  - type: checkboxes
+    id: tests
+    attributes:
+      label: Local checks
+      options:
+        - label: I tried a fresh install / re-enabled the IME
+        - label: I can share whether suggestions looked wrong (prefix / next-word / correction)
