@@ -4,18 +4,17 @@ import Foundation
 public final class SpellChecker {
     private let trie: PrefixTrie
     private var corrections: [String: String]
-    private var vocabulary: [String]
     private var byLength: [Int: [String]] = [:]
 
     public init(trie: PrefixTrie, vocabulary: [String], corrections: [String: String]) {
         self.trie = trie
-        self.vocabulary = vocabulary
         self.corrections = corrections
         var buckets: [Int: [String]] = [:]
         for w in vocabulary {
             buckets[w.count, default: []].append(w)
         }
         for (len, list) in buckets {
+            // Pre-sorted once at load — hot path must not re-sort.
             byLength[len] = list.sorted { trie.frequency(of: $0) > trie.frequency(of: $1) }
         }
     }
@@ -29,6 +28,12 @@ public final class SpellChecker {
         if key.isEmpty { return [] }
         if trie.contains(key) { return [key] }
 
+        // Short tokens: correction map only (edit-distance over 120k words is too slow for IME).
+        if key.count < 3 {
+            if let mapped = corrections[key] { return [mapped] }
+            return []
+        }
+
         var ranked: [(String, Int)] = []
         var seen = Set<String>()
 
@@ -36,23 +41,32 @@ public final class SpellChecker {
             seen.insert(mapped)
             ranked.append((mapped, 1_000_000 + trie.frequency(of: mapped)))
         }
-
-        let len = key.count
-        let candidates = Array(
-            (max(1, len - 2)...(len + 2))
-                .flatMap { byLength[$0] ?? [] }
-                .prefix(3500)
-        )
-        for cand in candidates {
-            if seen.contains(cand) { continue }
-            let d = editDistance(key, cand, max: 2)
-            if d < 0 || d > 2 { continue }
-            seen.insert(cand)
-            let score = trie.frequency(of: cand) - d * 50_000
-            ranked.append((cand, score))
+        if ranked.count >= limit {
+            return Array(ranked.sorted { $0.1 > $1.1 }.prefix(limit).map(\.0))
         }
 
-        // Diacritic-insensitive near matches (o/ö, u/ü, e/ë) — same-length only
+        let first = key.first
+        let cap = key.count <= 4 ? 600 : 1200
+        var scanned = 0
+        let len = key.count
+        for L in max(1, len - 2)...(len + 2) {
+            guard let bucket = byLength[L] else { continue }
+            for cand in bucket {
+                if scanned >= cap { break }
+                if let first, cand.first != first, abs(cand.count - len) > 1 {
+                    continue
+                }
+                scanned += 1
+                if seen.contains(cand) { continue }
+                let d = editDistance(key, cand, max: 2)
+                if d < 0 || d > 2 { continue }
+                seen.insert(cand)
+                ranked.append((cand, trie.frequency(of: cand) - d * 50_000))
+                if ranked.count >= limit * 4 { break }
+            }
+            if scanned >= cap || ranked.count >= limit * 4 { break }
+        }
+
         if ranked.count < limit {
             let folded = foldDiacritics(key)
             for cand in byLength[key.count] ?? [] {
@@ -60,6 +74,7 @@ public final class SpellChecker {
                 if foldDiacritics(cand) == folded {
                     seen.insert(cand)
                     ranked.append((cand, trie.frequency(of: cand) + 10_000))
+                    if ranked.count >= limit { break }
                 }
             }
         }
@@ -101,7 +116,7 @@ public final class SpellChecker {
                 rowMin = min(rowMin, cur[j])
             }
             if rowMin > max { return -1 }
-            prev = cur
+            swap(&prev, &cur)
         }
         let d = prev[m]
         return d > max ? -1 : d

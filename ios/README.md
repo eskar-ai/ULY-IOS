@@ -1,6 +1,6 @@
 # iOS app (Uyghur ULY keyboard)
 
-> [`PLATFORM.md`](PLATFORM.md) · [`CONTRIBUTING.md`](CONTRIBUTING.md) — package / display / update / scripts / deps.
+> [`PLATFORM.md`](PLATFORM.md) · [`PERFORMANCE.md`](PERFORMANCE.md) · [`CONTRIBUTING.md`](CONTRIBUTING.md)
 
 ## Requirements
 

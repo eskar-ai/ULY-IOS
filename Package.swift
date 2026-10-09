@@ -15,5 +15,10 @@ let package = Package(
             name: "UyghurLatinKit",
             path: "Sources/UyghurLatinKit"
         ),
+        .testTarget(
+            name: "UyghurLatinKitTests",
+            dependencies: ["UyghurLatinKit"],
+            path: "Tests/UyghurLatinKitTests"
+        ),
     ]
 )

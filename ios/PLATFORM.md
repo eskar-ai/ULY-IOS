@@ -81,9 +81,19 @@ python3 -m pip install -r tools/requirements.txt && python3 tools/build_lexicon.
 | Android | `cursor/android-uly-keyboard-9edd` | `android/` |
 | HarmonyOS NEXT | `cursor/harmonyos-uly-keyboard-9edd` | `harmonyos/` |
 
+## 性能
+
+见 [`PERFORMANCE.md`](PERFORMANCE.md)（异步词库、debounce 联想、拼写短路、上下文裁剪、suggestion cache）。
+
+引擎单测（Mac）：
+
+```bash
+swift test --package-path .
+```
+
 ## 发布检查清单
 
 1. `sync-lexicon` + XcodeGen  
-2. 模拟器/真机启用键盘；测建议与长按  
+2. 模拟器/真机启用键盘；测建议与长按（确认无按键卡顿）  
 3. Archive → TestFlight / App Store（`store/CHECKLIST.md`）  
 4. 确认 Pages `downloads.html` iOS 区块文案正确  
