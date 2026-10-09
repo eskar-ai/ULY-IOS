@@ -22,5 +22,10 @@ Please **do not** open a public issue for exploitable keyboard/privacy flaws unt
 ## Hard rules for contributors
 
 - Do not add analytics, ads, or keystroke upload.
+<<<<<<< HEAD
 - Do not request unnecessary broad network for prediction.
 - Do not commit signing keys, profiles, or tokens.
+=======
+- Do not request unnecessary IME “full access” / broad network for prediction.
+- Do not commit signing keys, keystores, or tokens.
+>>>>>>> e871523 (Android: expand engine tests and professional quality ecosystem)
