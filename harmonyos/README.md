@@ -2,37 +2,45 @@
 
 Offline Uyghur Latin (ULY) input method for **HarmonyOS NEXT** (ArkTS). Same lexicon and suggestion pipeline as iOS / web / Android, implemented as an `InputMethodExtensionAbility`.
 
-> This branch scaffolds the HarmonyOS project. Builds require **DevEco Studio** and the HarmonyOS NEXT SDK. HAP downloads will be linked from the site Downloads page when published.
+> Platform work lives on **`cursor/harmonyos-uly-keyboard-9edd`** — not on `main` until release-ready. See [`PLATFORM.md`](PLATFORM.md).
 
 ## Modules
 
 | Path | Role |
 |------|------|
-| `uly_engine/` | Shared ArkTS HAR — trie, spell, n-grams, suggestions |
-| `entry/` | Host setup ability (enable instructions + try field) |
+| `uly_engine/` | Shared ArkTS HAR — trie, spell, n-grams, suggestions + Hypium tests |
+| `entry/` | Host setup ability + ohosTest smoke |
 | `ime/` | Input Method Extension + keyboard panel UI |
+| `scripts/` | Lexicon sync, CI smoke, HAP release notes |
 
-Bundled lexicon: `ime/src/main/resources/rawfile/lexicon.json` (from `data/generated/lexicon.json`).
+Bundled lexicon: `ime/src/main/resources/rawfile/lexicon.json`.
 
-## Open in DevEco Studio
+## Quick scripts
 
-1. Install DevEco Studio with HarmonyOS NEXT SDK (API 12+).
-2. **Open** the `harmonyos/` folder as a project.
-3. Let ohpm / hvigor sync dependencies.
-4. Sign with your debug profile, then Run on a HarmonyOS NEXT device/emulator.
-5. Enable **Uyghur ULY keyboard** under system keyboard settings and switch to it while typing.
+```bash
+cd harmonyos
+chmod +x scripts/*.sh
+./scripts/sync-lexicon.sh
+./scripts/run-unit-tests.sh      # Node smoke (no DevEco required)
+./scripts/build-hap-notes.sh 0.1.0
+```
+
+Open `harmonyos/` in **DevEco Studio** to build HAP and run Hypium / ohosTest.
+
+## Testing
+
+| Kind | How |
+|------|-----|
+| Smoke (CI) | `./scripts/run-unit-tests.sh` |
+| Unit (Hypium) | DevEco → `uly_engine` tests |
+| UI / Ability | DevEco → `entry` ohosTest |
+| CI | `.github/workflows/harmonyos-ci.yml` on this branch |
 
 ## Privacy
 
 - Suggestions and spell check run on device from the bundled lexicon.
 - No network permission is required for typing.
-- Source stays open under MIT (see repo root).
 
-## Status
+## Contribute
 
-Early scaffold — engine port, IME extension stub, host page, and keyboard panel UI. Full IMEKit insert/delete wiring and signed HAP release come next on this branch (not on `main`).
-
-## Related branches
-
-- iOS / web: `main` (do not merge platform scaffolds into `main` until ready)
-- Android: `cursor/android-uly-keyboard-9edd`
+See [`CONTRIBUTING.md`](CONTRIBUTING.md) and [`PLATFORM.md`](PLATFORM.md).

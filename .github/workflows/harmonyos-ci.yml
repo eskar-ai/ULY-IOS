@@ -1,0 +1,30 @@
+name: HarmonyOS CI
+
+on:
+  push:
+    branches: ["cursor/harmonyos-uly-keyboard-9edd"]
+    paths:
+      - "harmonyos/**"
+      - "data/generated/lexicon.json"
+      - ".github/workflows/harmonyos-ci.yml"
+  pull_request:
+    branches: ["main"]
+    paths:
+      - "harmonyos/**"
+
+jobs:
+  engine-smoke:
+    name: lexicon / engine smoke
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: harmonyos
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Sync lexicon + smoke
+        run: |
+          chmod +x scripts/*.sh
+          ./scripts/run-unit-tests.sh
