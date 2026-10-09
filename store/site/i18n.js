@@ -408,7 +408,7 @@
       githubCta: "GitHub da kodni körüsh",
       platformsTitle: "Supa we tarmaqlar",
       platformsIntro:
-        "iOS main tarmiqida. Android we HarmonyOS NEXT ayrim tarmaqlarda ishlenidu — main gha balduur qoshulmaydu. Chüshürüsh béti we GitHub tarmaq jedwilini körüng.",
+        "iOS main tarmiqida. Android we HarmonyOS NEXT ayrim tarmaqlarda ishlenidu — main gha baldur qoshulmaydu. Chüshürüsh béti we GitHub tarmaq jedwilini körüng.",
       platformsIos: "iOS / web — main",
       platformsAndroid: "Android — cursor/android-uly-keyboard-9edd",
       platformsHarmony: "HarmonyOS NEXT — cursor/harmonyos-uly-keyboard-9edd",
