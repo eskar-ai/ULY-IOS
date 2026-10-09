@@ -27,6 +27,9 @@ jobs:
           java-version: "17"
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
+        with:
+          # `tools` package is obsolete and fails sdkmanager on current GitHub runners.
+          packages: platform-tools
       - name: Sync lexicon
         run: ./scripts/sync-lexicon.sh
       - name: Unit tests
