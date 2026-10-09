@@ -9,12 +9,12 @@ UI languages: **English · 简体中文 · ئۇيغۇرچە · Uyghurche (ULY)**
 1. Push `main` (workflow: [`.github/workflows/pages.yml`](../../.github/workflows/pages.yml)).
 2. GitHub → **Settings → Pages → Build and deployment → Source:** **GitHub Actions**.
 3. Open **Actions → Deploy GitHub Pages** and confirm the run succeeded (or use **Run workflow**).
-4. Site URL:
-   - Project site: `https://<user-or-org>.github.io/<repo>/`
+4. Site URL (this repo):
+   - Project site: `https://eskar-ai.github.io/ULY-IOS/`
    - Learn ULY (alphabet + tutorial): `…/learn.html`
-   - Privacy: `…/privacy.html`
-   - Support: `…/support.html`
-5. Replace every `CONTACT_EMAIL` in `privacy.html` / `support.html` / `i18n.js` before submit.
+   - Privacy: `https://eskar-ai.github.io/ULY-IOS/privacy.html`
+   - Support: `https://eskar-ai.github.io/ULY-IOS/support.html`
+5. Contact email on the site is `mr.askar@icloud.com`.
 6. Paste those HTTPS URLs into App Store Connect.
 
 Language switch: `?lang=en|zh|ug|uly` (remembered in `localStorage`).

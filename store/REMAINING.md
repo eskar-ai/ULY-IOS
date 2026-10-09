@@ -21,11 +21,13 @@
 1. **Apple Developer Program** enrollment ($99/year)  
 2. **Register Bundle IDs** matching `org.uyghurlatin.app` and `org.uyghurlatin.app.keyboard`  
 3. **Xcode Signing → Team** on both targets  
-4. **Enable GitHub Pages** (Actions source — see [`site/README.md`](site/README.md)) and paste HTTPS URLs into App Store Connect  
-5. **Replace contact email** in privacy/support (see [`CONTACT.example`](CONTACT.example))  
-6. **Archive & upload** build (Xcode Organizer or Transporter)  
-7. **App Store Connect** questionnaire (privacy, age rating, export) — answers in `AGE_RATING.md` / `EXPORT_COMPLIANCE.md`  
-8. **Optional but recommended:** replace marketing screenshots with Simulator/device captures before final submit  
+4. **Paste HTTPS URLs into App Store Connect** (site is live):  
+   - Privacy: `https://eskar-ai.github.io/ULY-IOS/privacy.html`  
+   - Support: `https://eskar-ai.github.io/ULY-IOS/support.html`  
+   - Contact email on site: `mr.askar@icloud.com`  
+5. **Archive & upload** build (Xcode Organizer or Transporter)  
+6. **App Store Connect** questionnaire (privacy, age rating, export) — answers in `AGE_RATING.md` / `EXPORT_COMPLIANCE.md`  
+7. **Optional but recommended:** replace marketing screenshots with Simulator/device captures before final submit  
 
 ## Recommended order
 

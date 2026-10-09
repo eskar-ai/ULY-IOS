@@ -31,9 +31,11 @@ python3 tools/make_store_screenshots.py
 
 Prefer replacing those frames with **real Simulator / device** screenshots before submit (see `SCREENSHOTS.md`).
 
-## Still replace before submit
+## Still do before submit
 
-1. Email placeholders in privacy + support pages  
-2. Public HTTPS URLs for Privacy Policy & Support  
-3. Bundle ID / Team in Xcode Signing  
-4. Real device screenshots if you want photoreal status bars  
+1. Paste Privacy / Support URLs into App Store Connect:  
+   `https://eskar-ai.github.io/ULY-IOS/privacy.html` · `https://eskar-ai.github.io/ULY-IOS/support.html`  
+2. Bundle ID / Team in Xcode Signing  
+3. Real device screenshots if you want photoreal status bars  
+
+Contact email on the site is already `mr.askar@icloud.com`.

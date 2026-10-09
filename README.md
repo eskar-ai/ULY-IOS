@@ -84,7 +84,7 @@ GitHub Pages one-click deploy for marketing/privacy/support: see [`store/site/RE
 
 Run `python3 tools/validate_release.py` before archiving.
 
-**Still on you:** Apple Developer account, signing, replace `CONTACT_EMAIL` in hosted pages ([`store/site/`](store/site/)), upload build. See [`store/REMAINING.md`](store/REMAINING.md).
+**Still on you:** Apple Developer account, signing, upload build. Hosted pages use `mr.askar@icloud.com` ([`store/site/`](store/site/)). See [`store/REMAINING.md`](store/REMAINING.md).
 
 ## License & data
 

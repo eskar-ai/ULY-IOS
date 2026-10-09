@@ -52,7 +52,7 @@
 "privacy_choices_title" = "Your choices";
 "privacy_choices_body" = "Remove the keyboard in Settings → General → Keyboard, or delete the app to clear local data.";
 "privacy_contact_title" = "Contact";
-"privacy_contact_body" = "For privacy questions, use the Support URL listed on the App Store page (replace CONTACT_EMAIL when you host the site).";
+"privacy_contact_body" = "For privacy questions, email mr.askar@icloud.com or use the Support URL on the App Store page.";
 
 "section_about" = "About";
 "credits_open" = "Open source & lexicon credits";

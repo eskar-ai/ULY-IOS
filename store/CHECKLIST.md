@@ -30,8 +30,8 @@ Work through this before you click **Submit for Review**.
 ## C. Privacy & legal
 
 - [ ] Enable GitHub Pages (**Settings → Pages → Source: GitHub Actions**) — see [`site/README.md`](site/README.md)
-- [ ] Replace `CONTACT_EMAIL` in [`site/`](site/) then confirm deploy
-- [ ] Paste Privacy Policy URL (`…/privacy.html`) and Support URL (`…/support.html`) into App Store Connect
+- [x] Contact email set to `mr.askar@icloud.com` in [`site/`](site/)
+- [ ] Paste Privacy Policy URL (`https://eskar-ai.github.io/ULY-IOS/privacy.html`) and Support URL (`https://eskar-ai.github.io/ULY-IOS/support.html`) into App Store Connect
 - [ ] Complete **App Privacy** questionnaire (recommended: no data collected)
 - [ ] Copyright / seller name correct on the store listing
 

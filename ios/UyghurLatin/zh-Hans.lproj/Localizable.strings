@@ -52,7 +52,7 @@
 "privacy_choices_title" = "您的选择";
 "privacy_choices_body" = "可在「设置 → 通用 → 键盘」中移除本键盘，或删除应用以清除本地数据。";
 "privacy_contact_title" = "联系方式";
-"privacy_contact_body" = "隐私相关问题请通过 App Store 页面上的支持网址联系（托管站点时请替换 CONTACT_EMAIL）。";
+"privacy_contact_body" = "隐私相关问题请发邮件至 mr.askar@icloud.com，或通过 App Store 页面上的支持网址联系。";
 
 "section_about" = "关于";
 "credits_open" = "开源与词库致谢";

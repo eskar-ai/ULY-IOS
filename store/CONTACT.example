@@ -1,7 +1,7 @@
-# Copy to CONTACT (gitignored) or set in App Store Connect / hosted pages
+# Live values for this repository (also set on store/site pages)
 
-SUPPORT_EMAIL=you@example.com
-PRIVACY_EMAIL=you@example.com
-MARKETING_URL=https://your-github-pages.github.io/uly-kunupka/
-SUPPORT_URL=https://your-github-pages.github.io/uly-kunupka/support.html
-PRIVACY_URL=https://your-github-pages.github.io/uly-kunupka/privacy.html
+SUPPORT_EMAIL=mr.askar@icloud.com
+PRIVACY_EMAIL=mr.askar@icloud.com
+MARKETING_URL=https://eskar-ai.github.io/ULY-IOS/
+SUPPORT_URL=https://eskar-ai.github.io/ULY-IOS/support.html
+PRIVACY_URL=https://eskar-ai.github.io/ULY-IOS/privacy.html

@@ -2,7 +2,7 @@
 
 **Last updated:** October 9, 2026  
 **Product:** ULY Künupka (iOS app + keyboard extension)  
-**Contact:** CONTACT_EMAIL *(replace before hosting)*
+**Contact:** mr.askar@icloud.com
 
 This policy describes how ULY Künupka handles information. Host this page at a public HTTPS URL and paste that URL into App Store Connect → App Privacy / Privacy Policy URL.
 
@@ -52,7 +52,7 @@ We may update this policy. The “Last updated” date will change when we do. M
 
 ## Contact
 
-Questions about privacy: **CONTACT_EMAIL**
+Questions about privacy: **mr.askar@icloud.com**
 
 ---
 
