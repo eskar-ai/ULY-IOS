@@ -5,12 +5,14 @@ options:
     iOS: "16.0"
   xcodeVersion: "15.0"
   createIntermediateGroups: true
+  developmentLanguage: en
 settings:
   base:
     SWIFT_VERSION: "5.0"
     TARGETED_DEVICE_FAMILY: "1,2"
     DEVELOPMENT_TEAM: ""
     CODE_SIGN_STYLE: Automatic
+    LOCALIZATION_PREFERS_STRING_CATALOGS: NO
 packages:
   UyghurLatinKit:
     path: ..
@@ -22,11 +24,15 @@ targets:
       - path: UyghurLatin
         excludes:
           - Resources/**
-          - "**/*.json"
+          - Assets.xcassets/**
+          - "**/*.lproj/**"
+          - PrivacyInfo.xcprivacy
     resources:
       - path: UyghurLatin/Resources
       - path: UyghurLatin/Assets.xcassets
       - path: UyghurLatin/PrivacyInfo.xcprivacy
+      - path: UyghurLatin/en.lproj
+      - path: UyghurLatin/zh-Hans.lproj
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: org.uyghurlatin.app
@@ -35,9 +41,15 @@ targets:
         CURRENT_PROJECT_VERSION: 1
         MARKETING_VERSION: "1.0.0"
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
         INFOPLIST_KEY_LSApplicationCategoryType: public.app-category.productivity
+        INFOPLIST_KEY_CFBundleDisplayName: ULY Künupka
     dependencies:
       - target: UyghurLatinKeyboard
+    info:
+      path: UyghurLatin/Info.plist
+      properties:
+        CFBundleDevelopmentRegion: en
 
   UyghurLatinKeyboard:
     type: app-extension
@@ -48,9 +60,12 @@ targets:
           - Resources/**
           - "**/*.json"
           - "**/*.md"
+          - "**/*.lproj/**"
     resources:
       - path: UyghurLatinKeyboard/Resources
       - path: UyghurLatinKeyboard/PrivacyInfo.xcprivacy
+      - path: UyghurLatinKeyboard/en.lproj
+      - path: UyghurLatinKeyboard/zh-Hans.lproj
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: org.uyghurlatin.app.keyboard
@@ -59,6 +74,7 @@ targets:
         CURRENT_PROJECT_VERSION: 1
         MARKETING_VERSION: "1.0.0"
         SKIP_INSTALL: true
+        INFOPLIST_KEY_CFBundleDisplayName: ULY Künupka
         LD_RUNPATH_SEARCH_PATHS:
           - "$(inherited)"
           - "@executable_path/Frameworks"

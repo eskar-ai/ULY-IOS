@@ -4,7 +4,11 @@ Use these drafts in [App Store Connect](https://appstoreconnect.apple.com). Edit
 
 Suggested product name: **ULY Künupka**  
 Subtitle (30 chars): **Uyghur Latin keyboard**  
-Primary language: English (U.S.) — add Chinese (Simplified) localization if you want.
+Primary language: English (U.S.) — Simplified Chinese localization strings are already in the iOS host app (`zh-Hans`).
+
+**Ready assets in repo**
+- Icon: `store/marketing/app-icon-1024.png`
+- Screenshots (6.7"): `store/marketing/screenshots/01`–`05`
 
 ---
 

@@ -76,8 +76,11 @@ Pre-submit materials live in [`store/`](store/):
 | [store/SUPPORT.md](store/SUPPORT.md) | Support URL page draft |
 | [store/SCREENSHOTS.md](store/SCREENSHOTS.md) | Screenshot shot list & sizes |
 | [store/marketing/app-icon-1024.png](store/marketing/app-icon-1024.png) | App icon master |
+| [store/marketing/screenshots/](store/marketing/screenshots/) | 6.7" marketing frames |
 
-Before submit: replace placeholder emails/URLs, host the privacy & support pages, capture device screenshots in Xcode Simulator or on iPhone.
+Host app includes **English + 简体中文** UI strings, launch background, accent color, and privacy manifests.
+
+Before submit: replace placeholder emails/URLs, host the privacy & support pages, prefer Simulator/device screenshots for the store.
 
 ## License & data
 

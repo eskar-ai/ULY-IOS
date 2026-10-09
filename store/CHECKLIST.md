@@ -33,11 +33,13 @@ Work through this before you click **Submit for Review**.
 
 ## D. Store listing assets
 
+- [x] App icon 1024×1024 in Xcode + `marketing/app-icon-1024.png`
+- [x] Draft screenshots in `marketing/screenshots/` (replace with Simulator captures if desired)
 - [ ] Copy from [`APP_STORE_LISTING.md`](APP_STORE_LISTING.md) pasted (name, subtitle, description, keywords)
 - [ ] Primary category: Productivity
-- [ ] Screenshots for required device sizes (see [`SCREENSHOTS.md`](SCREENSHOTS.md))
+- [ ] Upload screenshots for required device sizes (see [`SCREENSHOTS.md`](SCREENSHOTS.md))
 - [ ] Optional: app preview video
-- [ ] Optional: Simplified Chinese localization
+- [x] App + listing copy prepared for Simplified Chinese (`zh-Hans` strings in the host app)
 
 ## E. Reviewer instructions
 
