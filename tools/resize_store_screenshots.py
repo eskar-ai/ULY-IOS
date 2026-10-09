@@ -16,8 +16,14 @@ SIZES = {
 }
 
 
+def is_master(path: Path) -> bool:
+    """Only NN-slug.png masters — skip already-resized *-iphone-*.png."""
+    stem = path.stem
+    return "-iphone-" not in stem
+
+
 def main() -> None:
-    masters = sorted(SRC.glob("[0-9][0-9]-*.png"))
+    masters = sorted(p for p in SRC.glob("[0-9][0-9]-*.png") if is_master(p))
     if not masters:
         print("No masters in", SRC)
         return
@@ -25,13 +31,12 @@ def main() -> None:
         im = Image.open(path).convert("RGB")
         base = path.stem
         for tag, size in SIZES.items():
-            if im.size == size:
-                dest = OUT / f"{base}-{tag}.png"
-                im.save(dest, "PNG")
-                continue
-            fitted = im.resize(size, Image.Resampling.LANCZOS)
             dest = OUT / f"{base}-{tag}.png"
-            fitted.save(dest, "PNG")
+            if im.size == size:
+                im.save(dest, "PNG")
+            else:
+                fitted = im.resize(size, Image.Resampling.LANCZOS)
+                fitted.save(dest, "PNG")
             print("wrote", dest.name, size)
     print("done")
 
