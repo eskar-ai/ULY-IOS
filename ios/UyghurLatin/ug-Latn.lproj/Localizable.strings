@@ -1,4 +1,4 @@
-"app_title" = "ULY Künupka";
+"app_title" = "Uyghur ULY künupkisi";
 "app_tagline" = "Uyghur Latin Yëziqi (ULY) künupkisi — torsiz, shexsiy, ochuq menbe.";
 "nav_keyboard" = "Künupka";
 
@@ -9,6 +9,10 @@
 "trust_4" = "Ochuq menbe — kodni özingiz köreleysiz";
 "github_open" = "GitHub da ochuq menbe kodini körüsh";
 "github_footer" = "Ochuq menbe kodini körmekchi bolsingiz: github.com/eskar-ai/ULY-IOS";
+"section_contribute" = "Töhipe qoshushqa qarshi almaymiz";
+"contribute_body" = "Töhipe qoshushqa qarshi almaymiz — xataliq doklati, terjime, lughët tüzitish we Pull Request.";
+"contribute_open" = "GitHub da töhipe qoshush";
+"contribute_footer" = "Yétekchilik üchün ambardiki CONTRIBUTING.md ni körüng.";
 
 "section_language" = "Yumtal tili";
 "language_picker_footer" = "Peqet bash yumtalning tizimlik we yardem tékistini özgertidu. Kirgüzüsh yenila Uyghur Latin (ULY) bolidu.";
@@ -21,7 +25,7 @@
 "section_enable" = "Qozghitish";
 "enable_step_1" = "Tengshek → Adettiki → Künupka → Künupkilar";
 "enable_step_2" = "Yéngi künupka qoshush…";
-"enable_step_3" = "ULY Künupka";
+"enable_step_3" = "Uyghur ULY künupkisi";
 "open_settings" = "Tengshekni échish";
 
 "section_appearance" = "Körünüsh";
@@ -62,7 +66,7 @@
 "privacy_contact_title" = "Alaqe";
 "privacy_contact_body" = "Shexsiyet soalliri üchün mr.askar@icloud.com gha élxet yézing yaki App Store bétidiki qollash adresini ishliting.";
 "privacy_opensource_title" = "Ochuq menbe";
-"privacy_opensource_body" = "ULY Künupka ochuq menbe. Herqandaq kishi GitHub da künupka we shexsiyet lahiyesini köreleydü.";
+"privacy_opensource_body" = "Uyghur ULY künupkisi ochuq menbe. Herqandaq kishi GitHub da künupka we shexsiyet lahiyesini köreleydü.";
 
 "section_about" = "Heqqide";
 "credits_open" = "Ochuq menbe we lughët teshhekküri";

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Pre-release checks for ULY Künupka (run on any OS)."""
+"""Pre-release checks for Uyghur ULY keyboard (run on any OS)."""
 
 from __future__ import annotations
 
@@ -61,7 +61,7 @@ def main() -> int:
     if len(shots) < 3:
         WARNINGS.append("Few marketing screenshots; run tools/make_store_screenshots.py")
 
-    print("=== ULY Künupka release validation ===\n")
+    print("=== Uyghur ULY keyboard release validation ===\n")
     if ERRORS:
         print("ERRORS:")
         for e in ERRORS:

@@ -1,5 +1,5 @@
-"app_title" = "ULY Künupka";
-"app_tagline" = "Uyghur Latin Yëziqi keyboard — offline, private, and open source.";
+"app_title" = "Uyghur ULY keyboard";
+"app_tagline" = "Uyghur Latin (ULY) keyboard — offline, private, and open source.";
 "nav_keyboard" = "Keyboard";
 
 "section_trust" = "Trust & security";
@@ -9,6 +9,10 @@
 "trust_4" = "Open source — you can review the code yourself";
 "github_open" = "View open-source code on GitHub";
 "github_footer" = "If you want to see the open-sourced code: github.com/eskar-ai/ULY-IOS";
+"section_contribute" = "Contributing";
+"contribute_body" = "Contributions are welcome — bug reports, translations, lexicon fixes, and pull requests.";
+"contribute_open" = "How to contribute on GitHub";
+"contribute_footer" = "See CONTRIBUTING.md in the repository for guidelines.";
 
 "section_language" = "App language";
 "language_picker_footer" = "Changes the host app’s menus and help text only. Typing stays Uyghur Latin (ULY).";
@@ -21,7 +25,7 @@
 "section_enable" = "Enable";
 "enable_step_1" = "Settings → General → Keyboard → Keyboards";
 "enable_step_2" = "Add New Keyboard…";
-"enable_step_3" = "ULY Künupka";
+"enable_step_3" = "Uyghur ULY keyboard";
 "open_settings" = "Open Settings";
 
 "section_appearance" = "Appearance";
@@ -62,7 +66,7 @@
 "privacy_contact_title" = "Contact";
 "privacy_contact_body" = "For privacy questions, email mr.askar@icloud.com or use the Support URL on the App Store page.";
 "privacy_opensource_title" = "Open source";
-"privacy_opensource_body" = "ULY Künupka is open source. Anyone can inspect the keyboard and privacy design on GitHub.";
+"privacy_opensource_body" = "Uyghur ULY keyboard is open source. Anyone can inspect the keyboard and privacy design on GitHub.";
 
 "section_about" = "About";
 "credits_open" = "Open source & lexicon credits";

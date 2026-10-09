@@ -20,7 +20,7 @@ Optional sixth: long-press popup for `ë / ö / ü`.
 cd ios
 xcodegen generate
 open UyghurLatin.xcodeproj
-# Run on Simulator → open Notes → switch to ULY Künupka
+# Run on Simulator → open Notes → switch to Uyghur ULY keyboard
 # Device → Screenshot (⌘S) or File → Save Screen
 ```
 

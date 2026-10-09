@@ -1,4 +1,4 @@
-"app_title" = "ULY 维吾尔语拉丁键盘";
+"app_title" = "维吾尔语 ULY 键盘";
 "app_tagline" = "维吾尔语拉丁字母（ULY）输入法 — 离线、注重隐私、开源。";
 "nav_keyboard" = "键盘";
 
@@ -9,6 +9,10 @@
 "trust_4" = "开源 — 您可以自行查看代码";
 "github_open" = "在 GitHub 查看开源代码";
 "github_footer" = "如需查看开源代码：github.com/eskar-ai/ULY-IOS";
+"section_contribute" = "欢迎贡献";
+"contribute_body" = "欢迎参与贡献——缺陷反馈、翻译、词库修正与 Pull Request。";
+"contribute_open" = "在 GitHub 参与贡献";
+"contribute_footer" = "详见仓库中的 CONTRIBUTING.md。";
 
 "section_language" = "软件语言";
 "language_picker_footer" = "仅切换主机 App 的菜单与说明文字。输入始终为维吾尔语拉丁文（ULY）。";
@@ -21,7 +25,7 @@
 "section_enable" = "启用";
 "enable_step_1" = "设置 → 通用 → 键盘 → 键盘";
 "enable_step_2" = "添加新键盘…";
-"enable_step_3" = "ULY Künupka";
+"enable_step_3" = "维吾尔语 ULY 键盘";
 "open_settings" = "打开设置";
 
 "section_appearance" = "外观";
@@ -62,7 +66,7 @@
 "privacy_contact_title" = "联系方式";
 "privacy_contact_body" = "隐私相关问题请发邮件至 mr.askar@icloud.com，或通过 App Store 页面上的支持网址联系。";
 "privacy_opensource_title" = "开源";
-"privacy_opensource_body" = "ULY Künupka 开源。任何人都可以在 GitHub 上查看键盘与隐私设计。";
+"privacy_opensource_body" = "维吾尔语 ULY 键盘 开源。任何人都可以在 GitHub 上查看键盘与隐私设计。";
 
 "section_about" = "关于";
 "credits_open" = "开源与词库致谢";

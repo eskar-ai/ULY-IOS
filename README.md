@@ -1,4 +1,4 @@
-# ULY Künupka — Offline Uyghur Latin (ULY) Keyboard for iPhone
+# Uyghur ULY keyboard — Offline Uyghur Latin (ULY) Keyboard for iPhone
 
 System keyboard for **Uyghur Latin Yëziqi (2008)** with offline **prefix suggestions**, **next-word prediction**, and **spell-check / corrections**. Built from public MIT lexicons (UyghurEdit++ imla + imlalughet), converted with `umsc`.
 
@@ -11,6 +11,8 @@ System keyboard for **Uyghur Latin Yëziqi (2008)** with offline **prefix sugges
 | `web/` | Offline browser playground (same engine in TypeScript) |
 | `tools/build_lexicon.py` | Rebuilds `data/generated/lexicon.json` from open sources |
 | `data/generated/` | Bundled 120k-word ULY lexicon + corrections + bigrams |
+
+Contributions welcome — see [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
 ## Quick demo (web, any OS)
 
@@ -36,7 +38,7 @@ open UyghurLatin.xcodeproj
 
 1. Select your **Team** for targets `UyghurLatin` and `UyghurLatinKeyboard`.
 2. Run on your iPhone.
-3. **Settings → General → Keyboard → Keyboards → Add New Keyboard… → ULY Künupka**.
+3. **Settings → General → Keyboard → Keyboards → Add New Keyboard… → Uyghur ULY keyboard**.
 
 The extension sets `RequestsOpenAccess = false`. All prediction and spell-check stay on device.
 

@@ -1,6 +1,6 @@
 # App Store materials
 
-Everything you need before submitting **ULY Künupka**.
+Everything you need before submitting **Uyghur ULY keyboard**.
 
 ## Contents
 

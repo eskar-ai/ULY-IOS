@@ -30,7 +30,7 @@ mkdir uly-site && cp -a uly-src/store/site/. uly-site/
 cd uly-site
 git init
 git add .
-git commit -m "ULY Künupka marketing site"
+git commit -m "Uyghur ULY keyboard marketing site"
 gh repo create <you>/uly-kunupka-site --public --source=. --remote=origin --push
 ```
 

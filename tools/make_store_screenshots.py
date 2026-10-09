@@ -80,7 +80,7 @@ def compose(bg_color: tuple[int, int, int], capture: Path, title: str, subtitle:
 
     # footer brand
     brand = font(28, bold=True)
-    draw.text((80, TARGET[1] - 120), "ULY Künupka", fill=(120, 120, 125), font=brand)
+    draw.text((80, TARGET[1] - 120), "Uyghur ULY keyboard", fill=(120, 120, 125), font=brand)
 
     out.parent.mkdir(parents=True, exist_ok=True)
     canvas.save(out, "PNG")
@@ -96,7 +96,7 @@ def main() -> None:
             (242, 242, 247),
             shots_dir / "uly-theme-system.webp",
             "Enable in a minute",
-            "Settings → Keyboard → Add ULY Künupka",
+            "Settings → Keyboard → Add Uyghur ULY keyboard",
         ),
         (
             "02-keyboard-light.png",

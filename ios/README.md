@@ -1,4 +1,4 @@
-# iOS app (ULY Künupka)
+# iOS app (Uyghur ULY keyboard)
 
 ## Requirements
 
@@ -19,7 +19,7 @@ open UyghurLatin.xcodeproj
 
 1. Select the **UyghurLatin** scheme and your iPhone / Simulator.
 2. Set your Team under Signing for both `UyghurLatin` and `UyghurLatinKeyboard`.
-3. Run the app, then on device: **Settings → General → Keyboard → Keyboards → Add New Keyboard → ULY Künupka**.
+3. Run the app, then on device: **Settings → General → Keyboard → Keyboards → Add New Keyboard → Uyghur ULY keyboard**.
 
 The keyboard extension sets `RequestsOpenAccess = false` and runs entirely offline.
 

@@ -1,4 +1,4 @@
-# App Store launch checklist — ULY Künupka
+# App Store launch checklist — Uyghur ULY keyboard
 
 See also **[REMAINING.md](REMAINING.md)** (what is already in the repo vs what only you can do).
 

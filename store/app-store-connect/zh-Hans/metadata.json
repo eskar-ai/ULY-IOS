@@ -1,11 +1,11 @@
 {
-  "name": "ULY 维吾尔语拉丁键盘",
+  "name": "维吾尔语 ULY 键盘",
   "subtitle": "离线维吾尔语拉丁字母输入",
-  "promotional_text": "用维吾尔语拉丁字母（ULY）打字：离线联想、拼写检查，界面接近系统键盘，默认不上传、不联网。",
+  "promotional_text": "用维吾尔语拉丁字母（ULY）离线打字：本地联想与拼写检查，不请求完全访问。开源可查。",
   "keywords": "维吾尔,维吾尔语,拉丁,输入法,键盘,拼写,离线,ULY,uyghur",
   "primary_category": "PRODUCTIVITY",
   "secondary_category": "UTILITIES",
-  "privacy_policy_url": "SET_YOUR_HTTPS_URL/privacy.html",
-  "support_url": "SET_YOUR_HTTPS_URL/support.html",
-  "marketing_url": "SET_YOUR_HTTPS_URL/"
+  "privacy_policy_url": "https://eskar-ai.github.io/ULY-IOS/privacy.html",
+  "support_url": "https://eskar-ai.github.io/ULY-IOS/support.html",
+  "marketing_url": "https://eskar-ai.github.io/ULY-IOS/"
 }

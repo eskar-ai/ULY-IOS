@@ -2,15 +2,15 @@
 
 Host this (or a shorter version) at your Support URL in App Store Connect.
 
-## ULY Künupka Support
+## Uyghur ULY keyboard Support
 
-Thanks for using ULY Künupka.
+Thanks for using Uyghur ULY keyboard.
 
 ### Enable the keyboard
 
-1. Install and open **ULY Künupka** once  
+1. Install and open **Uyghur ULY keyboard** once  
 2. iPhone **Settings → General → Keyboard → Keyboards → Add New Keyboard…**  
-3. Select **ULY Künupka**  
+3. Select **Uyghur ULY keyboard**  
 4. While typing, tap the **globe** key to switch keyboards  
 
 ### Typing tips

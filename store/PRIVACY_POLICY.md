@@ -1,10 +1,10 @@
-# Privacy Policy — ULY Künupka
+# Privacy Policy — Uyghur ULY keyboard
 
 **Last updated:** October 9, 2026  
-**Product:** ULY Künupka (iOS app + keyboard extension)  
+**Product:** Uyghur ULY keyboard (iOS app + keyboard extension)  
 **Contact:** mr.askar@icloud.com
 
-This policy describes how ULY Künupka handles information. Host this page at a public HTTPS URL and paste that URL into App Store Connect → App Privacy / Privacy Policy URL.
+This policy describes how Uyghur ULY keyboard handles information. Host this page at a public HTTPS URL and paste that URL into App Store Connect → App Privacy / Privacy Policy URL.
 
 ## Summary
 

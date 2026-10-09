@@ -108,6 +108,17 @@ struct SetupView: View {
                     }
                 }
 
+                Section(language.string("section_contribute")) {
+                    Text(language.string("contribute_body"))
+                    if let url = URL(string: "https://github.com/eskar-ai/ULY-IOS/blob/main/CONTRIBUTING.md") {
+                        Link(destination: url) {
+                            Label(language.string("contribute_open"), systemImage: "person.3")
+                        }
+                    }
+                } footer: {
+                    Text(language.string("contribute_footer"))
+                }
+
                 Section(language.string("section_about")) {
                     NavigationLink {
                         CreditsView()
