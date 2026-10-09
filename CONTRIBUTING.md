@@ -9,6 +9,16 @@ Thank you for your interest. Contributions of all kinds are welcome — bug repo
 3. **Lexicon / corrections** — offline dictionary tooling lives under `tools/` and `data/`.
 4. **Pull requests** — keep changes focused; explain why the change helps users.
 
+## Platforms
+
+| Platform | Branch | Notes |
+|----------|--------|-------|
+| iOS / web | `main` | Xcode + Vite demo |
+| Android | `cursor/android-uly-keyboard-9edd` | See `android/CONTRIBUTING.md` |
+| HarmonyOS NEXT | `cursor/harmonyos-uly-keyboard-9edd` | See `harmonyos/CONTRIBUTING.md` |
+
+Keep platform scaffolds on their branches until release-ready — do not land unfinished Android/HarmonyOS trees on `main`.
+
 ## Development quick start
 
 Public web demo (no local setup): https://eskar-ai.github.io/ULY-IOS/demo/

@@ -12,6 +12,7 @@ UI languages: **English · 简体中文 · ئۇيغۇرچە · Uyghurche (ULY)**
 4. Site URL (this repo — use these fixed links, not localhost):
    - Project site: `https://eskar-ai.github.io/ULY-IOS/`
    - Offline typing demo: `https://eskar-ai.github.io/ULY-IOS/demo/`
+   - Downloads (iOS / Android / HarmonyOS): `https://eskar-ai.github.io/ULY-IOS/downloads.html`
    - Learn ULY: `https://eskar-ai.github.io/ULY-IOS/learn.html`
    - Privacy: `https://eskar-ai.github.io/ULY-IOS/privacy.html`
    - Support: `https://eskar-ai.github.io/ULY-IOS/support.html`
