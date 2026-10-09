@@ -35,6 +35,9 @@ jobs:
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
+        with:
+          # First run can create the Pages site when Settings → Pages is still unset.
+          enablement: true
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
