@@ -10,7 +10,7 @@
 | Debug APK | 本地 / CI | `./scripts/build-debug.sh` |
 | Release APK | 签名发布 | `./scripts/build-release.sh`（`ANDROID_RELEASE_STORE_FILE` 等） |
 | AAB | Play Store（后期） | `./gradlew :app:bundleRelease` |
-| GitHub Releases | 现阶段主分发 | `uyghur-uly-keyboard-android-vX.Y.Z.apk` |
+| GitHub Releases | 现阶段主分发 | 推送标签 `android-vX.Y.Z` → `.github/workflows/android-release.yml` |
 | Play Store | 后期 | 不阻塞 Releases |
 
 版本号：`app/build.gradle.kts` → `versionCode` / `versionName`。

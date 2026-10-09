@@ -6,7 +6,7 @@ Offline Uyghur Latin (ULY) system keyboard for Android. Same lexicon and suggest
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](../LICENSE)
 
 > Platform work lives on **`cursor/android-uly-keyboard-9edd`** — not on `main` until release-ready.  
-> [`PLATFORM.md`](PLATFORM.md) · [`TESTING.md`](TESTING.md) · [`QUALITY.md`](QUALITY.md) · [`CONTRIBUTING.md`](CONTRIBUTING.md)
+> [`PLATFORM.md`](PLATFORM.md) · [`PERFORMANCE.md`](PERFORMANCE.md) · [`TESTING.md`](TESTING.md) · [`QUALITY.md`](QUALITY.md) · [`CONTRIBUTING.md`](CONTRIBUTING.md)
 
 ## Modules
 
