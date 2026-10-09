@@ -89,40 +89,57 @@ def compose(bg_color: tuple[int, int, int], capture: Path, title: str, subtitle:
 
 def main() -> None:
     shots_dir = Path("/opt/cursor/artifacts/screenshots")
-    # Prefer latest theme captures; fall back to any available
+
+    def resolve(*names: str) -> Path:
+        for n in names:
+            p = shots_dir / n
+            if p.exists():
+                return p
+        # Prefer any recent capture
+        for pattern in ("uly-*.png", "uly-*.webp"):
+            alts = sorted(shots_dir.glob(pattern), key=lambda x: x.stat().st_mtime, reverse=True)
+            if alts:
+                return alts[0]
+        return shots_dir / names[0]
+
+    # Prefer PNG captures from tools/capture_demo_for_store.py; keep .webp fallbacks.
     mapping = [
         (
             "01-setup.png",
             (242, 242, 247),
-            shots_dir / "uly-theme-system.webp",
+            resolve("uly-theme-system.png", "uly-theme-light.png", "uly-theme-system.webp"),
             "Enable in a minute",
             "Settings → Keyboard → Add Uyghur ULY keyboard",
         ),
         (
             "02-keyboard-light.png",
             (242, 242, 247),
-            shots_dir / "uly-theme-light.webp",
+            resolve("uly-theme-light.png", "uly-theme-light.webp"),
             "Feels like the system keyboard",
             "Light appearance · offline ULY Latin",
         ),
         (
             "03-suggestions.png",
             (242, 242, 247),
-            shots_dir / "uly-theme-dark-suggestions.webp",
+            resolve(
+                "uly-theme-dark-suggestions.png",
+                "uly-theme-light-suggestions.png",
+                "uly-theme-dark-suggestions.webp",
+            ),
             "Suggestions as you type",
             "uygh → uyghur, uyghurche, …",
         ),
         (
             "04-spellcheck.png",
             (242, 242, 247),
-            shots_dir / "uly-corrected-bugun.webp",
+            resolve("uly-corrected-bugun.png", "uly-corrected-bugun.webp"),
             "Spell check on device",
             "bugun → bügün",
         ),
         (
             "05-keyboard-dark.png",
             (0, 0, 0),
-            shots_dir / "uly-theme-dark.webp",
+            resolve("uly-theme-dark.png", "uly-theme-dark.webp"),
             "Follows system Dark Mode",
             "Or lock Light / Dark from the keyboard",
         ),
@@ -134,10 +151,8 @@ def main() -> None:
         if "dark" in name and "suggestions" not in name:
             color = (0, 0, 0)
         dest = OUT / name
-        # fallback chain
         if not src.exists():
-            alts = sorted(shots_dir.glob("uly-*.webp"))
-            src = alts[0] if alts else src
+            print("warning: missing capture", src)
         compose(color, src, title, subtitle, dest)
         captions.append({"file": name, "title": title, "subtitle": subtitle, "source": str(src)})
 

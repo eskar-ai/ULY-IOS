@@ -1,5 +1,7 @@
 # iOS app (Uyghur ULY keyboard)
 
+> [`PLATFORM.md`](PLATFORM.md) · [`CONTRIBUTING.md`](CONTRIBUTING.md) — package / display / update / scripts / deps.
+
 ## Requirements
 
 - macOS with Xcode 15+
@@ -9,11 +11,11 @@
 
 ```bash
 # From repo root — refresh lexicon if needed
-python3 -m pip install umsc
+python3 -m pip install -r tools/requirements.txt
 python3 tools/build_lexicon.py
 
 cd ios
-xcodegen generate
+./scripts/generate.sh
 open UyghurLatin.xcodeproj
 ```
 

@@ -2,31 +2,31 @@
   {
     "file": "01-setup.png",
     "title": "Enable in a minute",
-    "subtitle": "Settings \u2192 Keyboard \u2192 Add ULY K\u00fcnupka",
-    "source": "/opt/cursor/artifacts/screenshots/uly-theme-system.webp"
+    "subtitle": "Settings \u2192 Keyboard \u2192 Add Uyghur ULY keyboard",
+    "source": "/opt/cursor/artifacts/screenshots/uly-theme-system.png"
   },
   {
     "file": "02-keyboard-light.png",
     "title": "Feels like the system keyboard",
     "subtitle": "Light appearance \u00b7 offline ULY Latin",
-    "source": "/opt/cursor/artifacts/screenshots/uly-theme-light.webp"
+    "source": "/opt/cursor/artifacts/screenshots/uly-theme-light.png"
   },
   {
     "file": "03-suggestions.png",
     "title": "Suggestions as you type",
     "subtitle": "uygh \u2192 uyghur, uyghurche, \u2026",
-    "source": "/opt/cursor/artifacts/screenshots/uly-theme-dark-suggestions.webp"
+    "source": "/opt/cursor/artifacts/screenshots/uly-theme-dark-suggestions.png"
   },
   {
     "file": "04-spellcheck.png",
     "title": "Spell check on device",
     "subtitle": "bugun \u2192 b\u00fcg\u00fcn",
-    "source": "/opt/cursor/artifacts/screenshots/uly-corrected-bugun.webp"
+    "source": "/opt/cursor/artifacts/screenshots/uly-corrected-bugun.png"
   },
   {
     "file": "05-keyboard-dark.png",
     "title": "Follows system Dark Mode",
     "subtitle": "Or lock Light / Dark from the keyboard",
-    "source": "/opt/cursor/artifacts/screenshots/uly-theme-dark.webp"
+    "source": "/opt/cursor/artifacts/screenshots/uly-theme-dark.png"
   }
 ]

@@ -6,11 +6,23 @@ System keyboard for **Uyghur Latin Yëziqi (2008)** with offline **prefix sugges
 
 | Path | Description |
 |------|-------------|
-| `ios/` | Host app + **Custom Keyboard Extension** (XcodeGen) |
+| `ios/` | Host app + **Custom Keyboard Extension** (XcodeGen) — see [`ios/PLATFORM.md`](ios/PLATFORM.md) |
 | `Sources/UyghurLatinKit/` | Shared Swift engine (Trie, spell, n-grams) |
 | `web/` | Offline browser playground (same engine in TypeScript) |
 | `tools/build_lexicon.py` | Rebuilds `data/generated/lexicon.json` from open sources |
 | `data/generated/` | Bundled 120k-word ULY lexicon + corrections + bigrams |
+| `store/site/` | Marketing + **Downloads** (GitHub Pages) |
+
+### Platforms (separate branches)
+
+Full map (branches, PRs, checkout): **[`PLATFORMS.md`](PLATFORMS.md)**.
+
+| Platform | Branch | PR | Notes |
+|----------|--------|-----|--------|
+| iOS / web | [`main`](https://github.com/eskar-ai/ULY-IOS) | — | This tree |
+| Android | [`cursor/android-uly-keyboard-9edd`](https://github.com/eskar-ai/ULY-IOS/tree/cursor/android-uly-keyboard-9edd) | [#2](https://github.com/eskar-ai/ULY-IOS/pull/2) | Keep off `main` until release-ready |
+| HarmonyOS NEXT | [`cursor/harmonyos-uly-keyboard-9edd`](https://github.com/eskar-ai/ULY-IOS/tree/cursor/harmonyos-uly-keyboard-9edd) | [#3](https://github.com/eskar-ai/ULY-IOS/pull/3) | Keep off `main` until release-ready |
+| iOS IME performance | [`cursor/ios-ime-performance-9edd`](https://github.com/eskar-ai/ULY-IOS/tree/cursor/ios-ime-performance-9edd) | [#5](https://github.com/eskar-ai/ULY-IOS/pull/5) | Engine/keyboard latency |
 
 Contributions welcome — see [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
@@ -18,6 +30,9 @@ Contributions welcome — see [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
 **Fixed public demo (always works):**  
 https://eskar-ai.github.io/ULY-IOS/demo/
+
+**Downloads hub:**  
+https://eskar-ai.github.io/ULY-IOS/downloads.html
 
 Try typing `uygh` or `bugun`. No local server required.
 
@@ -37,7 +52,7 @@ python3 tools/build_lexicon.py   # optional refresh
 
 cd ios
 brew install xcodegen            # once
-xcodegen generate
+./scripts/generate.sh
 open UyghurLatin.xcodeproj
 ```
 
