@@ -28,3 +28,7 @@ The keyboard extension sets `RequestsOpenAccess = false` and runs entirely offli
 - Follows the system Light/Dark appearance by default.
 - Tap **◐** on the suggestion bar to override: System → Light → Dark.
 - Layout and chrome intentionally mirror the stock iOS keyboard (key colors, QuickType candidate bar, SF Symbols for shift/delete/globe).
+
+## App Store
+
+See [`../store/CHECKLIST.md`](../store/CHECKLIST.md) for signing, privacy, screenshots, and submission steps. Both targets include `PrivacyInfo.xcprivacy`.
