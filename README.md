@@ -14,15 +14,20 @@ System keyboard for **Uyghur Latin Yëziqi (2008)** with offline **prefix sugges
 
 Contributions welcome — see [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
-## Quick demo (web, any OS)
+## Quick demo (web)
+
+**Fixed public demo (always works):**  
+https://eskar-ai.github.io/ULY-IOS/demo/
+
+Try typing `uygh` or `bugun`. No local server required.
+
+Optional local run (for development only — use the URL Vite prints; do not assume a fixed port):
 
 ```bash
 cd web
 npm install
 npm run dev
 ```
-
-Open **http://localhost:3847** — try typing `uygh` or `bugun`.
 
 ## Install on iPhone (requires Mac + Xcode)
 
@@ -48,7 +53,7 @@ The extension sets `RequestsOpenAccess = false`. All prediction and spell-check 
 - On the suggestion bar, tap **◐** to cycle **System → Light → Dark** (stored in the keyboard sandbox).
 - Visual style matches the system keyboard: gray chassis, white/dark keycaps, QuickType-style candidates.
 
-> This Cloud Agent environment is Linux and cannot run the iOS Simulator. Use Xcode Simulator / a device on a Mac for native install testing; use the web demo for theme and layout checks here.
+> This Cloud Agent environment is Linux and cannot run the iOS Simulator. Use Xcode Simulator / a device on a Mac for native install testing; use the public web demo (`/demo/`) for theme and layout checks.
 
 ### Typing tips
 

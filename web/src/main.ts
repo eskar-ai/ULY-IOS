@@ -359,7 +359,8 @@ renderKeyboard();
 
 (async () => {
   try {
-    const store = await LexiconStore.load("/data/lexicon.json");
+    const lexiconUrl = `${import.meta.env.BASE_URL}data/lexicon.json`;
+    const store = await LexiconStore.load(lexiconUrl);
     engine = new SuggestionEngine(store);
     setStatus(`Offline · ${store.meta.wordCount.toLocaleString()} words · ${store.meta.script}`);
     renderCandidates();

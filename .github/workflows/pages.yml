@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - "store/site/**"
+      - "web/**"
       - ".github/workflows/pages.yml"
   workflow_dispatch:
 
@@ -26,11 +27,25 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+
+      - name: Build offline web demo
+        working-directory: web
+        env:
+          VITE_BASE: /ULY-IOS/demo/
+        run: |
+          npm ci
+          npm run build
+
       - name: Prepare site artifact
         run: |
-          mkdir -p _site
+          mkdir -p _site/demo
           cp -a store/site/. _site/
-          # Optional: drop a CNAME if you later add a custom domain file
+          cp -a web/dist/. _site/demo/
           test -f store/site/CNAME && cp store/site/CNAME _site/ || true
 
       - name: Configure Pages

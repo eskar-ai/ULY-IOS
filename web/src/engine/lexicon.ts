@@ -45,7 +45,7 @@ export class LexiconStore {
     this.predictor = new NGramPredictor(bundle.bigrams, unigrams);
   }
 
-  static async load(url = "/data/lexicon.json"): Promise<LexiconStore> {
+  static async load(url = `${import.meta.env.BASE_URL}data/lexicon.json`): Promise<LexiconStore> {
     const res = await fetch(url);
     if (!res.ok) throw new Error(`Failed to load lexicon: ${res.status}`);
     const bundle = (await res.json()) as LexiconBundle;

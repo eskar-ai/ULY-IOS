@@ -9,9 +9,10 @@ UI languages: **English · 简体中文 · ئۇيغۇرچە · Uyghurche (ULY)**
 1. Push `main` (workflow: [`.github/workflows/pages.yml`](../../.github/workflows/pages.yml)).
 2. GitHub → **Settings → Pages → Build and deployment → Source:** **GitHub Actions**.
 3. Open **Actions → Deploy GitHub Pages** and confirm the run succeeded (or use **Run workflow**).
-4. Site URL (this repo):
+4. Site URL (this repo — use these fixed links, not localhost):
    - Project site: `https://eskar-ai.github.io/ULY-IOS/`
-   - Learn ULY (alphabet + tutorial): `…/learn.html`
+   - Offline typing demo: `https://eskar-ai.github.io/ULY-IOS/demo/`
+   - Learn ULY: `https://eskar-ai.github.io/ULY-IOS/learn.html`
    - Privacy: `https://eskar-ai.github.io/ULY-IOS/privacy.html`
    - Support: `https://eskar-ai.github.io/ULY-IOS/support.html`
 5. Contact email on the site is `mr.askar@icloud.com`.
@@ -69,15 +70,17 @@ jobs:
         uses: actions/deploy-pages@v4
 ```
 
-## Local preview
+## Local preview (optional)
+
+Prefer the public Pages URLs above. For a quick local check of marketing HTML only:
 
 ```bash
 cd store/site
-python3 -m http.server 3848
+python3 -m http.server
 ```
 
-Open http://localhost:3848/?lang=ug
+Then open the URL printed by Python (often `http://127.0.0.1:8000/?lang=ug`). Do not hardcode a port in docs or scripts.
 
 ## Other hosts
 
-Any static host works (Cloudflare Pages, Netlify): publish the `store/site` folder as the web root.
+Any static host works (Cloudflare Pages, Netlify): publish the `store/site` folder as the web root. The offline typing demo is built from `web/` into `/demo/` by the Pages workflow.

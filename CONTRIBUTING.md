@@ -11,8 +11,10 @@ Thank you for your interest. Contributions of all kinds are welcome — bug repo
 
 ## Development quick start
 
+Public web demo (no local setup): https://eskar-ai.github.io/ULY-IOS/demo/
+
 ```bash
-# Web demo
+# Local web demo (optional) — open the URL printed by Vite
 cd web && npm install && npm run dev
 
 # Lexicon rebuild (optional)
