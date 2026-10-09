@@ -1,0 +1,9 @@
+{
+  "string": [
+    { "name": "module_desc", "value": "Uyghur ULY input method" },
+    { "name": "ime_desc", "value": "Offline Uyghur Latin (ULY) keyboard" },
+    { "name": "ime_label", "value": "Uyghur ULY keyboard" },
+    { "name": "key_space", "value": "space" },
+    { "name": "key_return", "value": "return" }
+  ]
+}

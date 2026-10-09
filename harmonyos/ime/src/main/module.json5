@@ -1,0 +1,21 @@
+{
+  module: {
+    name: "ime",
+    type: "feature",
+    description: "$string:module_desc",
+    deviceTypes: ["phone", "tablet"],
+    deliveryWithInstall: true,
+    installationFree: false,
+    pages: "$profile:main_pages",
+    extensionAbilities: [
+      {
+        name: "UlyInputMethodAbility",
+        srcEntry: "./ets/ime/UlyInputMethodAbility.ets",
+        type: "inputMethod",
+        exported: true,
+        description: "$string:ime_desc",
+        label: "$string:ime_label",
+      },
+    ],
+  },
+}

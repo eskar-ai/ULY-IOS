@@ -11,16 +11,15 @@ Thank you for your interest. Contributions of all kinds are welcome — bug repo
 
 ## Platforms
 
-See **[`PLATFORMS.md`](PLATFORMS.md)** for the canonical branch / PR map.
+See **[`PLATFORMS.md`](PLATFORMS.md)** for the map.
 
-| Platform | Branch | Where to contribute |
-|----------|--------|---------------------|
-| iOS / web / site | `main` | This repo default; [`ios/CONTRIBUTING.md`](ios/CONTRIBUTING.md) |
-| Android | [`cursor/android-uly-keyboard-9edd`](https://github.com/eskar-ai/ULY-IOS/tree/cursor/android-uly-keyboard-9edd) | `android/CONTRIBUTING.md` **on that branch** ([PR #2](https://github.com/eskar-ai/ULY-IOS/pull/2)) |
-| HarmonyOS NEXT | [`cursor/harmonyos-uly-keyboard-9edd`](https://github.com/eskar-ai/ULY-IOS/tree/cursor/harmonyos-uly-keyboard-9edd) | `harmonyos/CONTRIBUTING.md` **on that branch** ([PR #3](https://github.com/eskar-ai/ULY-IOS/pull/3)) |
-| iOS performance | [`cursor/ios-ime-performance-9edd`](https://github.com/eskar-ai/ULY-IOS/tree/cursor/ios-ime-performance-9edd) | [PR #5](https://github.com/eskar-ai/ULY-IOS/pull/5) |
+| Platform | Where to contribute |
+|----------|---------------------|
+| iOS / web / site | [`ios/CONTRIBUTING.md`](ios/CONTRIBUTING.md) · `web/` · `store/site/` |
+| Android | [`android/CONTRIBUTING.md`](android/CONTRIBUTING.md) |
+| HarmonyOS NEXT | [`harmonyos/CONTRIBUTING.md`](harmonyos/CONTRIBUTING.md) |
 
-Keep Android / HarmonyOS scaffolds on their branches until release-ready — **do not** land unfinished `android/` or `harmonyos/` trees on `main`.
+Prefer focused PRs against `main` — one platform or one concern per PR.
 
 ## Development quick start
 

@@ -1,0 +1,9 @@
+{
+  name: "uly_engine",
+  version: "0.1.0",
+  description: "Shared ULY suggestion engine (ArkTS)",
+  main: "Index.ets",
+  author: "eskar-ai",
+  license: "MIT",
+  dependencies: {},
+}
