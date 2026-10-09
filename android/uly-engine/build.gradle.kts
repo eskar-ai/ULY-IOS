@@ -20,8 +20,15 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
+
+    testOptions {
+        unitTests.isIncludeAndroidResources = false
+        unitTests.isReturnDefaultValues = true
+    }
 }
 
 dependencies {
-    // org.json ships with the Android SDK
+    // Explicit org.json so JVM unit tests resolve without the full Android SDK jar.
+    implementation("org.json:json:20240303")
+    testImplementation("junit:junit:4.13.2")
 }
