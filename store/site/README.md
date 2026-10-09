@@ -11,6 +11,7 @@ UI languages: **English · 简体中文 · ئۇيغۇرچە · Uyghurche (ULY)**
 3. Open **Actions → Deploy GitHub Pages** and confirm the run succeeded (or use **Run workflow**).
 4. Site URL:
    - Project site: `https://<user-or-org>.github.io/<repo>/`
+   - Learn ULY (alphabet + tutorial): `…/learn.html`
    - Privacy: `…/privacy.html`
    - Support: `…/support.html`
 5. Replace every `CONTACT_EMAIL` in `privacy.html` / `support.html` / `i18n.js` before submit.

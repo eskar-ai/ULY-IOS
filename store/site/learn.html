@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title data-i18n-title="learnTitle">Learn ULY — ULY Künupka</title>
+    <meta
+      name="description"
+      content="Uyghur Arabic ↔ Latin (ULY) alphabet chart and a short learning tutorial."
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <p class="lang-bar">
+      <a href="?lang=en" data-lang-switch="en">English</a>
+      <a href="?lang=zh" data-lang-switch="zh">中文</a>
+      <a href="?lang=ug" data-lang-switch="ug">ئۇيغۇرچە</a>
+      <a href="?lang=uly" data-lang-switch="uly">Uyghurche</a>
+    </p>
+
+    <p><a href="index.html" data-lang-link data-i18n="back">← ULY Künupka</a></p>
+    <h1 data-i18n="learnTitle">Learn ULY</h1>
+    <p class="tag" data-i18n="learnTagline">
+      Arabic script ↔ Uyghur Latin (ULY 2008) — chart and a short tutorial.
+    </p>
+
+    <nav class="page-nav">
+      <a href="#chart" data-i18n="learnNavChart">Alphabet chart</a>
+      <a href="#tutorial" data-i18n="learnNavTutorial">Tutorial</a>
+      <a href="#practice" data-i18n="learnNavPractice">Practice</a>
+    </nav>
+
+    <section>
+      <h2 data-i18n="learnIntroTitle">What is ULY?</h2>
+      <p data-i18n="learnIntroBody">
+        ULY (Uyghur Latin Yëziqi, 2008) writes Uyghur with Latin letters. Each Arabic letter maps to
+        one Latin letter or digraph. This page helps you read both sides and start typing with ULY
+        Künupka.
+      </p>
+    </section>
+
+    <section id="chart">
+      <h2 data-i18n="learnChartTitle">Alphabet chart</h2>
+      <p class="muted" data-i18n="learnChartHint">
+        Left: Uyghur Arabic. Right: ULY Latin. Vowels may appear with ئ at the start of a syllable.
+      </p>
+      <div class="alpha-grid" role="table" aria-label="ULY alphabet">
+        <div class="alpha-head" role="row">
+          <span data-i18n="learnColArabic">Arabic</span>
+          <span data-i18n="learnColLatin">ULY</span>
+          <span data-i18n="learnColExample">Example</span>
+        </div>
+        <!-- Vowels & consonants in common teaching order -->
+        <div class="alpha-row" role="row"><span class="ar" dir="rtl">ئا / ا</span><span class="la">a</span><span class="ex" dir="rtl">ئاپا · <span class="la-inline">apa</span></span></div>
+        <div class="alpha-row" role="row"><span class="ar" dir="rtl">ئە / ە</span><span class="la">e</span><span class="ex" dir="rtl">ئەتە · <span class="la-inline">ete</span></span></div>
+        <div class="alpha-row" role="row"><span class="ar" dir="rtl">ب</span><span class="la">b</span><span class="ex" dir="rtl">بالا · <span class="la-inline">bala</span></span></div>
+        <div class="alpha-row" role="row"><span class="ar" dir="rtl">پ</span><span class="la">p</span><span class="ex" dir="rtl">پۇل · <span class="la-inline">pul</span></span></div>
+        <div class="alpha-row" role="row"><span class="ar" dir="rtl">ت</span><span class="la">t</span><span class="ex" dir="rtl">تاش · <span class="la-inline">tash</span></span></div>
+        <div class="alpha-row" role="row"><span class="ar" dir="rtl">ج</span><span class="la">j</span><span class="ex" dir="rtl">جان · <span class="la-inline">jan</span></span></div>
+        <div class="alpha-row" role="row"><span class="ar" dir="rtl">چ</span><span class="la">ch</span><span class="ex" dir="rtl">چاي · <span class="la-inline">chay</span></span></div>
+        <div class="alpha-row" role="row"><span class="ar" dir="rtl">خ</span><span class="la">x</span><span class="ex" dir="rtl">خەت · <span class="la-inline">xet</span></span></div>
+        <div class="alpha-row" role="row"><span class="ar" dir="rtl">د</span><span class="la">d</span><span class="ex" dir="rtl">دوست · <span class="la-inline">dost</span></span></div>
+        <div class="alpha-row" role="row"><span class="ar" dir="rtl">ر</span><span class="la">r</span><span class="ex" dir="rtl">رەڭ · <span class="la-inline">reng</span></span></div>
+        <div class="alpha-row" role="row"><span class="ar" dir="rtl">ز</span><span class="la">z</span><span class="ex" dir="rtl">زاڭ · <span class="la-inline">zang</span></span></div>
+        <div class="alpha-row" role="row"><span class="ar" dir="rtl">ژ</span><span class="la">zh</span><span class="ex" dir="rtl">ژۇرنال · <span class="la-inline">zhurnal</span></span></div>
+        <div class="alpha-row" role="row"><span class="ar" dir="rtl">س</span><span class="la">s</span><span class="ex" dir="rtl">سۇ · <span class="la-inline">su</span></span></div>
+        <div class="alpha-row" role="row"><span class="ar" dir="rtl">ش</span><span class="la">sh</span><span class="ex" dir="rtl">شەھەر · <span class="la-inline">sheher</span></span></div>
+        <div class="alpha-row" role="row"><span class="ar" dir="rtl">غ</span><span class="la">gh</span><span class="ex" dir="rtl">باغ · <span class="la-inline">bagh</span></span></div>
+        <div class="alpha-row" role="row"><span class="ar" dir="rtl">ف</span><span class="la">f</span><span class="ex" dir="rtl">فىلىم · <span class="la-inline">filim</span></span></div>
+        <div class="alpha-row" role="row"><span class="ar" dir="rtl">ق</span><span class="la">q</span><span class="ex" dir="rtl">قىزىل · <span class="la-inline">qizil</span></span></div>
+        <div class="alpha-row" role="row"><span class="ar" dir="rtl">ك</span><span class="la">k</span><span class="ex" dir="rtl">كىتاب · <span class="la-inline">kitab</span></span></div>
+        <div class="alpha-row" role="row"><span class="ar" dir="rtl">گ</span><span class="la">g</span><span class="ex" dir="rtl">گۈل · <span class="la-inline">gül</span></span></div>
+        <div class="alpha-row" role="row"><span class="ar" dir="rtl">ڭ</span><span class="la">ng</span><span class="ex" dir="rtl">تاڭ · <span class="la-inline">tang</span></span></div>
+        <div class="alpha-row" role="row"><span class="ar" dir="rtl">ل</span><span class="la">l</span><span class="ex" dir="rtl">گۈل · <span class="la-inline">gül</span></span></div>
+        <div class="alpha-row" role="row"><span class="ar" dir="rtl">م</span><span class="la">m</span><span class="ex" dir="rtl">مەكتەپ · <span class="la-inline">mektep</span></span></div>
+        <div class="alpha-row" role="row"><span class="ar" dir="rtl">ن</span><span class="la">n</span><span class="ex" dir="rtl">نان · <span class="la-inline">nan</span></span></div>
+        <div class="alpha-row" role="row"><span class="ar" dir="rtl">ھ</span><span class="la">h</span><span class="ex" dir="rtl">ھاۋا · <span class="la-inline">hawa</span></span></div>
+        <div class="alpha-row" role="row"><span class="ar" dir="rtl">ئو / و</span><span class="la">o</span><span class="ex" dir="rtl">ئوت · <span class="la-inline">ot</span></span></div>
+        <div class="alpha-row" role="row"><span class="ar" dir="rtl">ئۇ / ۇ</span><span class="la">u</span><span class="ex" dir="rtl">سۇ · <span class="la-inline">su</span></span></div>
+        <div class="alpha-row" role="row"><span class="ar" dir="rtl">ئۆ / ۆ</span><span class="la">ö</span><span class="ex" dir="rtl">ئۆي · <span class="la-inline">öy</span></span></div>
+        <div class="alpha-row" role="row"><span class="ar" dir="rtl">ئۈ / ۈ</span><span class="la">ü</span><span class="ex" dir="rtl">كۈن · <span class="la-inline">kün</span></span></div>
+        <div class="alpha-row" role="row"><span class="ar" dir="rtl">ۋ</span><span class="la">w</span><span class="ex" dir="rtl">ئاۋاز · <span class="la-inline">awaz</span></span></div>
+        <div class="alpha-row" role="row"><span class="ar" dir="rtl">ئې / ې</span><span class="la">ë</span><span class="ex" dir="rtl">يېزىق · <span class="la-inline">yëziq</span></span></div>
+        <div class="alpha-row" role="row"><span class="ar" dir="rtl">ئى / ى</span><span class="la">i</span><span class="ex" dir="rtl">ئىش · <span class="la-inline">ish</span></span></div>
+        <div class="alpha-row" role="row"><span class="ar" dir="rtl">ي</span><span class="la">y</span><span class="ex" dir="rtl">يەر · <span class="la-inline">yer</span></span></div>
+        <div class="alpha-row" role="row"><span class="ar" dir="rtl">ئ</span><span class="la">'</span><span class="ex" dir="rtl">جەمئىيەت · <span class="la-inline">jem'iyet</span></span></div>
+      </div>
+    </section>
+
+    <section>
+      <h2 data-i18n="learnSpecialTitle">Digraphs and special letters</h2>
+      <ul>
+        <li data-i18n="learnSpecial1">ch sh zh gh ng are each one sound — two Latin letters, one Arabic letter.</li>
+        <li data-i18n="learnSpecial2">ë ö ü (not e o u alone) match ې ۆ ۈ. On the keyboard: long-press e / o / u.</li>
+        <li data-i18n="learnSpecial3">Apostrophe ' stands for ئ inside words (e.g. jem'iyet).</li>
+        <li data-i18n="learnSpecial4">q / x / gh are not the same as k / h / g — keep them distinct.</li>
+      </ul>
+    </section>
+
+    <section id="tutorial">
+      <h2 data-i18n="learnTutorialTitle">Short tutorial</h2>
+      <ol class="tutorial-steps">
+        <li>
+          <strong data-i18n="learnStep1Title">Learn vowels first</strong>
+          <p data-i18n="learnStep1Body">
+            Memorize a e ë i o ö u ü with their Arabic pairs. Most words are built around these eight
+            vowels.
+          </p>
+        </li>
+        <li>
+          <strong data-i18n="learnStep2Title">Add common consonants</strong>
+          <p data-i18n="learnStep2Body">
+            Practice b p t d s sh l m n y — then digraphs ch gh ng. Read a short word letter by
+            letter.
+          </p>
+        </li>
+        <li>
+          <strong data-i18n="learnStep3Title">Read Arabic → write Latin</strong>
+          <p data-i18n="learnStep3Body">
+            Cover the Latin side of the chart, look at an Arabic word, and write the ULY form. Check
+            against the examples below.
+          </p>
+        </li>
+        <li>
+          <strong data-i18n="learnStep4Title">Type on the keyboard</strong>
+          <p data-i18n="learnStep4Body">
+            Enable ULY Künupka, type the Latin form, and use suggestions to confirm spelling.
+            Long-press for ë ö ü and digraphs.
+          </p>
+        </li>
+      </ol>
+    </section>
+
+    <section id="practice">
+      <h2 data-i18n="learnPracticeTitle">Practice words</h2>
+      <p class="muted" data-i18n="learnPracticeHint">Try converting Arabic → ULY, then type them in the app.</p>
+      <div class="practice-list">
+        <div class="practice-card">
+          <span class="ar" dir="rtl">سالام</span>
+          <span class="la">salam</span>
+        </div>
+        <div class="practice-card">
+          <span class="ar" dir="rtl">ئانا</span>
+          <span class="la">ana</span>
+        </div>
+        <div class="practice-card">
+          <span class="ar" dir="rtl">كىتاب</span>
+          <span class="la">kitab</span>
+        </div>
+        <div class="practice-card">
+          <span class="ar" dir="rtl">چاي</span>
+          <span class="la">chay</span>
+        </div>
+        <div class="practice-card">
+          <span class="ar" dir="rtl">گۈل</span>
+          <span class="la">gül</span>
+        </div>
+        <div class="practice-card">
+          <span class="ar" dir="rtl">يېزىق</span>
+          <span class="la">yëziq</span>
+        </div>
+        <div class="practice-card">
+          <span class="ar" dir="rtl">ئۇيغۇر</span>
+          <span class="la">uyghur</span>
+        </div>
+        <div class="practice-card">
+          <span class="ar" dir="rtl">شەھەر</span>
+          <span class="la">sheher</span>
+        </div>
+        <div class="practice-card">
+          <span class="ar" dir="rtl">باغ</span>
+          <span class="la">bagh</span>
+        </div>
+        <div class="practice-card">
+          <span class="ar" dir="rtl">كۆڭۈل</span>
+          <span class="la">köngül</span>
+        </div>
+        <div class="practice-card">
+          <span class="ar" dir="rtl">جەمئىيەت</span>
+          <span class="la">jem'iyet</span>
+        </div>
+        <div class="practice-card">
+          <span class="ar" dir="rtl">ياخشىمۇسىز</span>
+          <span class="la">yaxshimusiz</span>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 data-i18n="learnKeysTitle">Typing on ULY Künupka</h2>
+      <ul>
+        <li data-i18n="tip1">Long-press e / o / u → ë ö ü</li>
+        <li data-i18n="tip2">Long-press c / s / z / g / n → ch sh zh gh ng</li>
+        <li data-i18n="learnKeys3">Tap a suggestion to complete or correct a word.</li>
+      </ul>
+      <p>
+        <a href="support.html" data-lang-link data-i18n="learnKeysSupport">Keyboard setup &amp; support →</a>
+      </p>
+    </section>
+
+    <script src="i18n.js"></script>
+  </body>
+</html>
