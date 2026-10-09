@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.UyghurULY" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/host_accent</item>
+        <item name="android:statusBarColor">@color/host_bg</item>
+        <item name="android:navigationBarColor">@color/host_bg</item>
+        <item name="android:windowBackground">@color/host_bg</item>
+        <item name="android:textColorPrimary">@color/host_ink</item>
+    </style>
+</resources>

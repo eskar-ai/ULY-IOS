@@ -30,5 +30,6 @@ harmonyos/**/oh_modules/
 *.app
 *.apk
 *.aab
+!android/gradle/wrapper/gradle-wrapper.jar
 
 harmonyos/smoke-output.txt
