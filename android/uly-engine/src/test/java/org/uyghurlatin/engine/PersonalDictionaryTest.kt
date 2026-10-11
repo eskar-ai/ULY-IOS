@@ -15,4 +15,16 @@ class PersonalDictionaryTest {
         personal.clear()
         assertFalse(personal.contains("uyghurlar"))
     }
+
+    @Test
+    fun learnBigram_and_opener_rank_nextWords() {
+        val personal = PersonalDictionary(context = null)
+        personal.learnBigram("salam", "yaxshimusiz", 5)
+        personal.learnOpener("essalamu'eleykum", 20)
+        val next = personal.nextWords("salam", 5)
+        assertTrue(next.any { it.first == "yaxshimusiz" })
+        val openers = personal.rankedOpeners(5)
+        assertTrue(openers.any { it.first.contains("essalam") || it.first.contains("eleykum") })
+        personal.clear()
+    }
 }

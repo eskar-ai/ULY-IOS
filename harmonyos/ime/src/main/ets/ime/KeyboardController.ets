@@ -71,27 +71,52 @@ export class KeyboardController {
       return { candidates: [], isMisspelled: false, mode: 'empty' };
     }
     const clipped = before.length > 64 ? before.substring(before.length - 64) : before;
-    const { partial, previous } = KeyboardController.contextWords(clipped);
-    return this.engine.suggest(partial, previous, limit);
+    const ctx = KeyboardController.contextWords(clipped);
+    return this.engine.suggest(ctx.partial, ctx.previous, limit, ctx.sentenceStart);
   }
 
   suggestFromBefore(before: string, limit: number = 8): string[] {
     return this.suggestDetailed(before, limit).candidates;
   }
 
-  learnSelection(word: string): void {
+  learnSelection(word: string, before: string = ''): void {
     if (this.privateField) {
       return;
     }
-    this.engine?.learnSelection(word);
+    const ctx = KeyboardController.contextWords(before);
+    this.engine?.learnSelection(word, ctx.previous, ctx.sentenceStart);
   }
 
-  static contextWords(before: string): { partial: string; previous: string | null } {
+  learnCommitted(before: string): void {
+    if (this.privateField) {
+      return;
+    }
+    const ctx = KeyboardController.contextWords(before);
+    if (ctx.partial.length > 0) {
+      this.engine?.learnCommittedWord(ctx.partial, ctx.previous, ctx.sentenceStart);
+    }
+  }
+
+  static contextWords(before: string): { partial: string; previous: string | null; sentenceStart: boolean } {
     let i = before.length;
     while (i > 0 && isWordChar(before.charAt(i - 1))) {
       i--;
     }
     const partial = before.substring(i);
+
+    let boundary = i;
+    while (boundary > 0 && /\s/.test(before.charAt(boundary - 1))) {
+      boundary--;
+    }
+    let sentenceStart = boundary === 0;
+    if (!sentenceStart) {
+      const ch = before.charAt(boundary - 1);
+      sentenceStart = ch === '.' || ch === '!' || ch === '?' || ch === '…' ||
+        ch === ':' || ch === ';' || ch === '\n';
+    }
+    if (sentenceStart) {
+      return { partial, previous: null, sentenceStart: true };
+    }
 
     let j = i;
     while (j > 0 && /\s/.test(before.charAt(j - 1))) {
@@ -102,6 +127,6 @@ export class KeyboardController {
       k--;
     }
     const previous = k < j ? lookupKey(before.substring(k, j)) : null;
-    return { partial, previous };
+    return { partial, previous, sentenceStart: false };
   }
 }

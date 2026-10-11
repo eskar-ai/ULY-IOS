@@ -37,7 +37,8 @@
 "height_compact" = "Compact";
 "height_regular" = "Regular";
 "height_tall" = "Tall";
-"appearance_footer" = "After changing height, dismiss the keyboard completely (tap outside or hide), then open it again. Theme/height stay on this device.";
+"height_drag_hint" = "Drag preview up or down to resize";
+"appearance_footer" = "Drag the keyboard preview up/down to set a custom height, or tap a preset. Then fully dismiss the ULY keyboard and open it again so the change applies. Theme and height stay on this device only.";
 
 "section_lab" = "Try it";
 "lab_open" = "Typing & suggestions lab";
@@ -112,7 +113,7 @@
 "privacy_not_collect_title" = "Data we do not collect";
 "privacy_not_collect_body" = "We do not collect, transmit, or sell keystrokes, message contents, contacts, location, or advertising identifiers.";
 "privacy_local_title" = "On-device storage";
-"privacy_local_body" = "Theme, height, and words you accept into suggestions may be stored locally on this device. This data is not uploaded by the app.";
+"privacy_local_body" = "Theme, height, and words you accept into suggestions are stored on this device and shared with the keyboard via the Keychain. The app does not upload this data.";
 "privacy_network_title" = "Internet access";
 "privacy_network_body" = "Typing features work offline. The app does not need network access for suggestions or spell check.";
 "privacy_children_title" = "Children’s privacy";
@@ -130,3 +131,22 @@
 "credits_missing" = "Third-party notices file not found in the app bundle.";
 "about_sources" = "Lexicon sources: UyghurEdit++ & imlalughet (MIT), umsc (Apache-2.0). See Credits for details.";
 "version_format" = "Version %@ (%@)";
+
+"section_status" = "Keyboard status";
+"status_enabled" = "ULY keyboard is added";
+"status_disabled" = "ULY keyboard is not added yet";
+"status_enabled_footer" = "In any text field, tap or hold 🌐 to switch to Uyghur ULY.";
+"status_disabled_footer" = "Follow the steps, then come back here.";
+"sound_label" = "Key clicks";
+"haptics_label" = "Key haptics";
+"autocorrect_label" = "Autocorrect on space";
+"settings_apply_note" = "Theme, height, clicks, haptics, autocorrect and scenario settings apply the next time the keyboard opens.";
+"haptics_note" = "Without Full Access, iOS may not deliver keyboard haptics.";
+"dictionary_open" = "Dictionary & personal words";
+"dictionary_nav_title" = "Dictionary";
+"dictionary_search" = "Search personal words";
+"section_personal_words" = "Personal words";
+"section_transfer" = "Export & import";
+"dictionary_no_match" = "No personal word matches.";
+"about_open" = "About, credits & contributing";
+"about_nav_title" = "About";

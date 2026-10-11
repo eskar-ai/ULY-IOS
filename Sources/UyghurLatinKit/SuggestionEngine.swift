@@ -50,6 +50,22 @@ public final class SuggestionEngine {
         invalidateCache()
     }
 
+    /// Build spell-check indexes ahead of the first typo. Thread-safe; call off the engine queue.
+    public func prewarm() {
+        store.spellChecker.prewarm()
+    }
+
+    /// Write pending personal learning to storage now.
+    public func flushPersonal() {
+        personal.flush()
+    }
+
+    /// Pick up edits the host app made to the personal dictionary.
+    public func reloadPersonal() {
+        personal.reloadFromStorage()
+        invalidateCache()
+    }
+
     /// - Parameters:
     ///   - partial: characters of the word currently being typed (may be empty after space)
     ///   - previousWord: last committed word for bigram prediction
@@ -103,10 +119,8 @@ public final class SuggestionEngine {
                 // Personal openers dominate sentence start.
                 ranked.append(contentsOf: personal.rankedOpeners(limit: limit * 2))
                 // Light boost for general personal words the user types often.
-                let topPersonal = personal.wordScores
-                    .sorted { $0.value > $1.value }
-                    .prefix(limit)
-                    .map { ($0.key, $0.value + 40_000) }
+                let topPersonal = personal.topWords(limit: limit)
+                    .map { ($0.0, $0.1 + 40_000) }
                 ranked.append(contentsOf: topPersonal)
             } else {
                 ranked.append(contentsOf: personal.nextWords(

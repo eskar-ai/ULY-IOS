@@ -1,13 +1,15 @@
 {
-  "version": "1.2.0",
+  "version": "1.4.0",
   "script": "ULY-2008",
   "wordCount": 120000,
-  "correctionCount": 3415,
-  "bigramCount": 13699,
+  "correctionCount": 3362,
+  "bigramCount": 40000,
   "sources": [
     "https://github.com/gheyret/UyghurEditPP (MIT)",
     "https://github.com/gheyret/imlalughet (MIT)",
-    "https://github.com/neouyghur/Uyghur-Multi-Script-Converter / umsc (Apache-2.0)"
+    "https://github.com/neouyghur/Uyghur-Multi-Script-Converter / umsc (Apache-2.0)",
+    "data/corpus/*.txt (project MIT curated ULY phrases)",
+    "Uyghur Wikipedia dump (CC BY-SA 4.0) — word / bigram counts only, via tools/extract_wiki_corpus.py"
   ],
-  "notes": "Arabic lemmas converted with umsc UAS→ULS; é→ë; productive clitic expansion for top stems."
+  "notes": "Arabic lemmas converted with umsc UAS→ULS; quality-filtered; selective OCR merge; productive morph expansion; corpus-ranked frequencies with attested-word swap-in under the word cap; real corpus bigrams (curated chat pairs first)."
 }

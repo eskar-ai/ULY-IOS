@@ -93,6 +93,11 @@ targets:
           - UIInterfaceOrientationPortrait
           - UIInterfaceOrientationLandscapeLeft
           - UIInterfaceOrientationLandscapeRight
+        UISupportedInterfaceOrientations~ipad:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationPortraitUpsideDown
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
 
   UyghurLatinKeyboard:
     type: app-extension
@@ -107,7 +112,8 @@ targets:
           - PrivacyInfo.xcprivacy
           - "*.entitlements"
       - path: Shared
-      - path: UyghurLatinKeyboard/Resources/lexicon.json
+      # Compiled by tools/compile_lexicon_bin.py; memory-mapped at load. JSON stays for web/tests/tools.
+      - path: UyghurLatinKeyboard/Resources/lexicon.bin
         buildPhase: resources
       - path: UyghurLatinKeyboard/Resources/meta.json
         buildPhase: resources

@@ -115,18 +115,29 @@ function setStatus(text: string, kind: "error" | "" = "") {
   statusEl.className = `status ${kind}`.trim();
 }
 
-function getContext(): { partial: string; previous: string | null } {
+function getContext(): { partial: string; previous: string | null; sentenceStart: boolean } {
   const value = editor.value;
   const caret = editor.selectionStart ?? value.length;
   let i = caret;
   while (i > 0 && isWordChar(value[i - 1]!)) i--;
   const partial = value.slice(i, caret);
+  let boundary = i;
+  while (boundary > 0 && /\s/.test(value[boundary - 1]!)) boundary--;
+  const sentenceStart =
+    boundary === 0 || /[.!?:;…\n]/.test(value[boundary - 1] ?? "");
+  if (sentenceStart) return { partial, previous: null, sentenceStart: true };
   let j = i;
   while (j > 0 && /\s/.test(value[j - 1]!)) j--;
   let k = j;
   while (k > 0 && isWordChar(value[k - 1]!)) k--;
   const previous = k < j ? lookupKey(value.slice(k, j)) : null;
-  return { partial, previous };
+  return { partial, previous, sentenceStart: false };
+}
+
+function commitCurrentWord(): void {
+  if (!engine) return;
+  const { partial, previous, sentenceStart } = getContext();
+  if (partial) engine.learnCommittedWord(partial, previous, sentenceStart);
 }
 
 function clearLongPressMenus() {
@@ -136,8 +147,8 @@ function clearLongPressMenus() {
 function renderCandidates() {
   candidatesEl.innerHTML = "";
   if (!engine) return;
-  const { partial, previous } = getContext();
-  const result = engine.suggest(partial, previous, 3);
+  const { partial, previous, sentenceStart } = getContext();
+  const result = engine.suggest(partial, previous, 3, sentenceStart);
   const words = result.candidates.slice(0, 3);
 
   const slots = [0, 1, 2];
@@ -175,6 +186,7 @@ function renderCandidates() {
 }
 
 function applyCandidate(word: string, partial: string) {
+  const { previous, sentenceStart } = getContext();
   const value = editor.value;
   const caret = editor.selectionStart ?? value.length;
   const start = caret - partial.length;
@@ -184,7 +196,7 @@ function applyCandidate(word: string, partial: string) {
   editor.value = before + insert + after;
   const pos = (before + insert).length;
   editor.setSelectionRange(pos, pos);
-  engine?.learnSelection(word);
+  engine?.learnSelection(word, previous, sentenceStart);
   shift = false;
   renderKeyboard();
   renderCandidates();
@@ -259,9 +271,11 @@ function handleAction(action: string) {
       backspace();
       break;
     case "space":
+      commitCurrentWord();
       insertText(" ");
       break;
     case "return":
+      commitCurrentWord();
       insertText("\n");
       break;
     case "shift":

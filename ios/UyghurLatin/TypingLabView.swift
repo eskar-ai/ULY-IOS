@@ -82,7 +82,7 @@ struct TypingLabView: View {
         }
         DispatchQueue.global(qos: .userInitiated).async {
             do {
-                let store = try LexiconStore(bundle: .main)
+                let store = try LexiconStore(bundle: Self.lexiconBundle)
                 let loaded = SuggestionEngine(store: store)
                 DispatchQueue.main.async {
                     self.engine = loaded
@@ -97,11 +97,28 @@ struct TypingLabView: View {
         }
     }
 
+    /// The lexicon ships only inside the keyboard extension; the host reads it from there.
+    private static var lexiconBundle: Bundle {
+        if let plugins = Bundle.main.builtInPlugInsURL,
+           let appex = Bundle(url: plugins.appendingPathComponent("UyghurLatinKeyboard.appex")) {
+            return appex
+        }
+        return .main
+    }
+
     private func refreshSuggestions() {
         guard let engine else { return }
         let ctx = parseContext(text)
-        let result = engine.suggest(partial: ctx.partial, previousWord: ctx.previous, limit: 8)
-        candidates = Array(result.candidates.prefix(5))
+        let result = engine.suggest(
+            partial: ctx.partial,
+            previousWord: ctx.previous,
+            beforePreviousWord: ctx.beforePrevious,
+            sentenceStart: ctx.sentenceStart,
+            limit: 8
+        )
+        candidates = result.candidates.prefix(5).map {
+            CasingPolicy.apply(word: $0, partial: ctx.partial, sentenceStart: ctx.sentenceStart)
+        }
         misspelled = result.isMisspelled
         switch result.mode {
         case .completion: modeLabel = language.string("lab_mode_completion")
@@ -121,34 +138,44 @@ struct TypingLabView: View {
         refreshSuggestions()
     }
 
-    private func parseContext(_ full: String) -> (partial: String, previous: String?) {
-        let before = full
-        var i = before.endIndex
-        while i > before.startIndex {
-            let prev = before.index(before: i)
-            let ch = before[prev]
-            guard let scalar = ch.unicodeScalars.first,
-                  ULYNormalizer.isWordCharacter(scalar) else { break }
-            i = prev
-        }
-        let partial = String(before[i...])
+    private struct LabContext {
+        var partial: String
+        var previous: String?
+        var beforePrevious: String?
+        var sentenceStart: Bool
+    }
 
-        var j = i
-        while j > before.startIndex {
-            let prev = before.index(before: j)
-            if !before[prev].isWhitespace { break }
-            j = prev
+    private static func isWordCharacter(_ ch: Character) -> Bool {
+        guard let scalar = ch.unicodeScalars.first else { return false }
+        return ULYNormalizer.isWordCharacter(scalar)
+    }
+
+    /// Mirrors the keyboard: the current partial word, up to two previous words in the
+    /// same sentence, and whether the partial starts a sentence.
+    private func parseContext(_ full: String) -> LabContext {
+        var i = full.endIndex
+        while i > full.startIndex, Self.isWordCharacter(full[full.index(before: i)]) {
+            i = full.index(before: i)
         }
-        var k = j
-        while k > before.startIndex {
-            let prev = before.index(before: k)
-            let ch = before[prev]
-            guard let scalar = ch.unicodeScalars.first,
-                  ULYNormalizer.isWordCharacter(scalar) else { break }
-            k = prev
+        let partial = String(full[i...])
+        let before = full[..<i]
+
+        let sentence: Substring
+        if let end = before.lastIndex(where: { ".!?\n".contains($0) }) {
+            sentence = before[before.index(after: end)...]
+        } else {
+            sentence = before
         }
-        let previous = k < j ? ULYNormalizer.lookupKey(String(before[k..<j])) : nil
-        return (partial, previous)
+        let words = sentence
+            .split(whereSeparator: { !Self.isWordCharacter($0) })
+            .map { ULYNormalizer.lookupKey(String($0)) }
+
+        return LabContext(
+            partial: partial,
+            previous: words.last,
+            beforePrevious: words.count >= 2 ? words[words.count - 2] : nil,
+            sentenceStart: words.isEmpty
+        )
     }
 }
 

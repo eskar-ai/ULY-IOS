@@ -116,12 +116,12 @@ class UlyImeService : InputMethodService(), KeyboardLayoutView.Listener {
     }
 
     override fun onSpace() {
-        currentInputConnection?.commitText(" ", 1)
-        scheduleSuggest()
+        commitWordThen(" ")
     }
 
     override fun onReturn() {
         val ic = currentInputConnection ?: return
+        learnCommittedFromContext()
         val info = currentInputEditorInfo
         val action = info?.imeOptions?.and(EditorInfo.IME_MASK_ACTION) ?: EditorInfo.IME_ACTION_NONE
         if (action != EditorInfo.IME_ACTION_NONE && action != EditorInfo.IME_ACTION_UNSPECIFIED) {
@@ -139,18 +139,32 @@ class UlyImeService : InputMethodService(), KeyboardLayoutView.Listener {
     override fun onCandidate(word: String) {
         if (privateField) return
         val ic = currentInputConnection ?: return
-        val (partial, _) = contextWords()
+        val ctx = typingContext()
         ic.beginBatchEdit()
         try {
-            if (partial.isNotEmpty()) {
-                ic.deleteSurroundingText(partial.length, 0)
+            if (ctx.partial.isNotEmpty()) {
+                ic.deleteSurroundingText(ctx.partial.length, 0)
             }
             ic.commitText("$word ", 1)
         } finally {
             ic.endBatchEdit()
         }
-        engine?.learnSelection(word)
+        engine?.learnSelection(word, ctx.previous, ctx.sentenceStart)
         scheduleSuggest()
+    }
+
+    private fun commitWordThen(separator: String) {
+        learnCommittedFromContext()
+        currentInputConnection?.commitText(separator, 1)
+        scheduleSuggest()
+    }
+
+    private fun learnCommittedFromContext() {
+        if (privateField) return
+        val ctx = typingContext()
+        if (ctx.partial.isNotEmpty()) {
+            engine?.learnCommittedWord(ctx.partial, ctx.previous, ctx.sentenceStart)
+        }
     }
 
     private fun scheduleSuggest() {
@@ -172,10 +186,10 @@ class UlyImeService : InputMethodService(), KeyboardLayoutView.Listener {
             view.updateCandidates(emptyList(), false)
             return
         }
-        val (partial, previous) = contextWords()
+        val ctx = typingContext()
         val gen = suggestGeneration.incrementAndGet()
         suggestExecutor.execute {
-            val result = eng.suggest(partial, previous, limit = 8)
+            val result = eng.suggest(ctx.partial, ctx.previous, limit = 8, sentenceStart = ctx.sentenceStart)
             if (gen != suggestGeneration.get()) return@execute
             mainHandler.post {
                 if (gen != suggestGeneration.get()) return@post
@@ -184,8 +198,14 @@ class UlyImeService : InputMethodService(), KeyboardLayoutView.Listener {
         }
     }
 
-    private fun contextWords(): Pair<String, String?> {
-        val ic = currentInputConnection ?: return "" to null
+    private data class TypingContext(
+        val partial: String,
+        val previous: String?,
+        val sentenceStart: Boolean,
+    )
+
+    private fun typingContext(): TypingContext {
+        val ic = currentInputConnection ?: return TypingContext("", null, true)
         val before = ic.getTextBeforeCursor(64, 0)?.toString() ?: ""
         var i = before.length
         while (i > 0 && UlyNormalizer.isWordChar(before[i - 1])) {
@@ -193,12 +213,22 @@ class UlyImeService : InputMethodService(), KeyboardLayoutView.Listener {
         }
         val partial = before.substring(i)
 
+        // Boundary before current partial (after skipping whitespace) — used for sentence start.
+        var boundary = i
+        while (boundary > 0 && before[boundary - 1].isWhitespace()) boundary--
+        val sentenceStart = boundary == 0 || before[boundary - 1].let { ch ->
+            ch == '.' || ch == '!' || ch == '?' || ch == '…' || ch == ':' || ch == ';' || ch == '\n'
+        }
+        if (sentenceStart) {
+            return TypingContext(partial, null, true)
+        }
+
         var j = i
         while (j > 0 && before[j - 1].isWhitespace()) j--
         var k = j
         while (k > 0 && UlyNormalizer.isWordChar(before[k - 1])) k--
         val previous = if (k < j) UlyNormalizer.lookupKey(before.substring(k, j)) else null
-        return partial to previous
+        return TypingContext(partial, previous, false)
     }
 
     private fun isPrivateEditor(info: EditorInfo?): Boolean {

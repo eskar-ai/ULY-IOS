@@ -21,6 +21,12 @@ This project bundles or derives data from the following open-source works.
 - Used at build time to convert Arabic-script lemmas to Uyghur Latin Script
 - License: Apache License 2.0
 
+## Uyghur Wikipedia (word and bigram statistics)
+
+- Source: https://ug.wikipedia.org/ (article dump, https://dumps.wikimedia.org/ugwiki/)
+- Used at build time to count word and adjacent-word frequencies; only those counts are shipped, no article text
+- License: CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/), © Wikipedia contributors
+
 ## Alphabet reference
 
 - Uyghur Latin alphabet (ULY), 2008 revision (`ë`, `zh`, digraphs `ch/sh/zh/gh/ng`)

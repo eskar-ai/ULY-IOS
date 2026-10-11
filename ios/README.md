@@ -32,7 +32,7 @@ The host app can switch **English · 简体中文 · ئۇيغۇرچە · Uyghurc
 ## Appearance
 
 - Follows the system Light/Dark appearance by default.
-- Tap **◐** on the suggestion bar to override: System → Light → Dark.
+- Override it (System / Light / Dark) in the host app, together with keyboard height, sound, haptics and autocorrect.
 - Layout and chrome intentionally mirror the stock iOS keyboard (key colors, QuickType candidate bar, SF Symbols for shift/delete/globe).
 
 ## App Store

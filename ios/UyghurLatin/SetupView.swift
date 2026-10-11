@@ -4,83 +4,34 @@ import UyghurLatinKit
 
 struct SetupView: View {
     @EnvironmentObject private var language: LanguageStore
-    @State private var metaText = ""
+    @Environment(\.scenePhase) private var scenePhase
     @State private var theme = KeyboardPreferences.theme
-    @State private var height = KeyboardPreferences.height
-    @State private var personalWords: [String] = []
+    @State private var heightScale = KeyboardPreferences.heightScale
+    @State private var soundEnabled = KeyboardPreferences.soundEnabled
+    @State private var hapticsEnabled = KeyboardPreferences.hapticsEnabled
+    @State private var autocorrectEnabled = KeyboardPreferences.autocorrectEnabled
+    @State private var keyboardAdded = false
     @State private var personalWordCount = 0
-    @State private var newPersonalWord = ""
-    @State private var exportShareURL: URL?
-    @State private var showShareSheet = false
-    @State private var showImportPicker = false
-    @State private var showExportToFiles = false
-    @State private var exportToFilesURL: URL?
-    @State private var transferMessage: String?
+
+    private static let keyboardBundleID = "com.esqer.uyghurlatin.app.keyboard"
 
     var body: some View {
         NavigationStack {
             List {
-                Section {
-                    VStack(alignment: .leading, spacing: 8) {
-                        HStack(spacing: 12) {
-                            Image("AppIconMarketing")
-                                .resizable()
-                                .frame(width: 64, height: 64)
-                                .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 14, style: .continuous)
-                                        .strokeBorder(Color.primary.opacity(0.08), lineWidth: 1)
-                                )
-                                .accessibilityHidden(true)
+                header
 
-                            VStack(alignment: .leading, spacing: 4) {
-                                Text(language.string("app_title"))
-                                    .font(.title2.weight(.semibold))
-                                Text(language.string("app_tagline"))
-                                    .font(.subheadline)
-                                    .foregroundStyle(.secondary)
-                                    .fixedSize(horizontal: false, vertical: true)
-                            }
-                        }
+                Section {
+                    Label {
+                        Text(language.string(keyboardAdded ? "status_enabled" : "status_disabled"))
+                    } icon: {
+                        Image(systemName: keyboardAdded ? "checkmark.circle.fill" : "exclamationmark.circle.fill")
+                            .foregroundStyle(keyboardAdded ? .green : .orange)
                     }
-                    .padding(.vertical, 6)
-                }
-
-                Section {
-                    Picker(selection: Binding(
-                        get: { language.language },
-                        set: { language.language = $0 }
-                    )) {
-                        ForEach(AppLanguage.allCases) { lang in
-                            Text(pickerLabel(for: lang)).tag(lang)
-                        }
-                    } label: {
-                        Text(language.string("section_language"))
+                    if !keyboardAdded {
+                        labeledStep(1, language.string("enable_step_1"))
+                        labeledStep(2, language.string("enable_step_2"))
+                        labeledStep(3, language.string("enable_step_3"))
                     }
-                } footer: {
-                    Text(language.string("language_picker_footer"))
-                }
-
-                Section {
-                    Label(language.string("trust_1"), systemImage: "lock.shield.fill")
-                    Label(language.string("trust_2"), systemImage: "wifi.slash")
-                    Label(language.string("trust_3"), systemImage: "eye.slash")
-                    Label(language.string("trust_4"), systemImage: "checkmark.seal.fill")
-                    if let url = URL(string: "https://github.com/eskar-ai/ULY-IOS") {
-                        Link(destination: url) {
-                            Label(language.string("github_open"), systemImage: "chevron.left.forwardslash.chevron.right")
-                        }
-                    }
-                } header: {
-                    Text(language.string("section_trust"))
-                } footer: {
-                    Text(language.string("github_footer"))
-                }
-
-                Section {
-                    labeledStep(1, language.string("enable_step_1"))
-                    labeledStep(2, language.string("enable_step_2"))
-                    labeledStep(3, language.string("enable_step_3"))
                     Button {
                         if let url = URL(string: UIApplication.openSettingsURLString) {
                             UIApplication.shared.open(url)
@@ -89,7 +40,9 @@ struct SetupView: View {
                         Label(language.string("open_settings"), systemImage: "gear")
                     }
                 } header: {
-                    Text(language.string("section_enable"))
+                    Text(language.string("section_status"))
+                } footer: {
+                    Text(language.string(keyboardAdded ? "status_enabled_footer" : "status_disabled_footer"))
                 }
 
                 Section {
@@ -116,20 +69,23 @@ struct SetupView: View {
                         KeyboardPreferences.theme = newValue
                     }
 
-                    Picker(selection: $height) {
-                        Text(language.string("height_compact")).tag(KeyboardHeightPreference.compact)
-                        Text(language.string("height_regular")).tag(KeyboardHeightPreference.regular)
-                        Text(language.string("height_tall")).tag(KeyboardHeightPreference.tall)
-                    } label: {
-                        Text(language.string("height_label"))
-                    }
-                    .onChange(of: height) { newValue in
-                        KeyboardPreferences.height = newValue
-                    }
+                    KeyboardHeightAdjustView(scale: $heightScale, theme: theme)
+                        .onChange(of: heightScale) { newValue in
+                            KeyboardPreferences.heightScale = newValue
+                        }
+
+                    Toggle(language.string("sound_label"), isOn: $soundEnabled)
+                        .onChange(of: soundEnabled) { KeyboardPreferences.soundEnabled = $0 }
+                    Toggle(language.string("haptics_label"), isOn: $hapticsEnabled)
+                        .onChange(of: hapticsEnabled) { KeyboardPreferences.hapticsEnabled = $0 }
+                    Toggle(language.string("autocorrect_label"), isOn: $autocorrectEnabled)
+                        .onChange(of: autocorrectEnabled) { KeyboardPreferences.autocorrectEnabled = $0 }
                 } header: {
                     Text(language.string("section_appearance"))
                 } footer: {
-                    Text(language.string("appearance_footer"))
+                    Text(language.string("appearance_footer") + "\n\n"
+                        + language.string("settings_apply_note") + " "
+                        + language.string("haptics_note"))
                 }
 
                 Section {
@@ -145,100 +101,27 @@ struct SetupView: View {
                 }
 
                 Section {
-                    Text(language.string("typing_1"))
-                    Text(language.string("typing_2"))
-                    Text(language.string("typing_3"))
-                    Text(language.string("typing_4"))
-                } header: {
-                    Text(language.string("section_typing"))
-                }
-
-                Section {
-                    Text(metaText.isEmpty ? language.string("meta_fallback") : metaText)
-                    Text(language.string("dictionary_privacy"))
-                        .font(.footnote)
-                        .foregroundStyle(.secondary)
-                    Text(language.format("personal_words_count", personalWordCount))
-                        .font(.footnote)
-                        .foregroundStyle(.secondary)
-
-                    HStack {
-                        TextField(language.string("personal_word_placeholder"), text: $newPersonalWord)
-                            .textInputAutocapitalization(.never)
-                            .autocorrectionDisabled()
-                        Button(language.string("personal_word_add")) {
-                            addPersonalWord()
-                        }
-                        .disabled(newPersonalWord.trimmingCharacters(in: .whitespacesAndNewlines).count < 2)
-                    }
-
-                    Button {
-                        sharePersonalDictionary()
+                    NavigationLink {
+                        DictionaryView()
                     } label: {
-                        Label(language.string("personal_words_share"), systemImage: "square.and.arrow.up")
-                    }
-                    .disabled(personalWordCount == 0)
-
-                    Button {
-                        exportPersonalDictionaryToFiles()
-                    } label: {
-                        Label(language.string("personal_words_save_files"), systemImage: "folder.badge.plus")
-                    }
-                    .disabled(personalWordCount == 0)
-
-                    Button {
-                        showImportPicker = true
-                    } label: {
-                        Label(language.string("personal_words_import"), systemImage: "square.and.arrow.down")
-                    }
-
-                    if let transferMessage {
-                        Text(transferMessage)
-                            .font(.footnote)
-                            .foregroundStyle(.secondary)
-                    }
-
-                    if personalWords.isEmpty {
-                        Text(language.string("personal_words_empty"))
-                            .font(.footnote)
-                            .foregroundStyle(.secondary)
-                    } else {
-                        ForEach(personalWords, id: \.self) { word in
-                            Text(word)
-                                .swipeActions(edge: .trailing, allowsFullSwipe: true) {
-                                    Button(role: .destructive) {
-                                        removePersonalWord(word)
-                                    } label: {
-                                        Text(language.string("personal_word_delete"))
-                                    }
-                                }
-                        }
-                        Button(role: .destructive) {
-                            clearPersonalWords()
+                        LabeledContent {
+                            Text("\(personalWordCount)")
+                                .monospacedDigit()
                         } label: {
-                            Text(language.string("personal_words_clear"))
+                            Label(language.string("dictionary_open"), systemImage: "character.book.closed")
                         }
                     }
                 } header: {
                     Text(language.string("section_dictionary"))
                 } footer: {
-                    Text(language.string("personal_words_footer"))
+                    Text(language.string("dictionary_privacy"))
                 }
 
                 Section {
-                    Text(language.string("future_ai_body"))
-                        .font(.footnote)
-                        .foregroundStyle(.secondary)
-                } header: {
-                    Text(language.string("section_future"))
-                } footer: {
-                    Text(language.string("future_ai_footer"))
-                }
-
-                Section {
-                    Text(language.string("privacy_body"))
-                        .font(.footnote)
-                        .foregroundStyle(.secondary)
+                    Label(language.string("trust_1"), systemImage: "lock.shield.fill")
+                    Label(language.string("trust_2"), systemImage: "wifi.slash")
+                    Label(language.string("trust_3"), systemImage: "eye.slash")
+                    Label(language.string("trust_4"), systemImage: "checkmark.seal.fill")
                     NavigationLink {
                         PrivacyView()
                     } label: {
@@ -246,80 +129,92 @@ struct SetupView: View {
                     }
                 } header: {
                     Text(language.string("section_privacy"))
-                }
-
-                Section {
-                    Text(language.string("contribute_body"))
-                    if let url = URL(string: "https://github.com/eskar-ai/ULY-IOS/blob/main/CONTRIBUTING.md") {
-                        Link(destination: url) {
-                            Label(language.string("contribute_open"), systemImage: "person.3")
-                        }
-                    }
-                } header: {
-                    Text(language.string("section_contribute"))
                 } footer: {
-                    Text(language.string("contribute_footer"))
+                    Text(language.string("privacy_body"))
                 }
 
                 Section {
-                    NavigationLink {
-                        CreditsView()
-                    } label: {
-                        Text(language.string("credits_open"))
-                    }
-                    if let url = URL(string: "https://github.com/eskar-ai/ULY-IOS") {
-                        Link(destination: url) {
-                            Label(language.string("github_open"), systemImage: "link")
+                    Picker(selection: Binding(
+                        get: { language.language },
+                        set: { language.language = $0 }
+                    )) {
+                        ForEach(AppLanguage.allCases) { lang in
+                            Text(pickerLabel(for: lang)).tag(lang)
                         }
+                    } label: {
+                        Text(language.string("section_language"))
                     }
-                    Text(language.string("about_sources"))
-                        .font(.footnote)
-                        .foregroundStyle(.secondary)
-                    if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String,
-                       let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String {
-                        Text(language.format("version_format", version, build))
-                            .font(.footnote)
-                            .foregroundStyle(.secondary)
+                    NavigationLink {
+                        AboutView()
+                    } label: {
+                        Label(language.string("about_open"), systemImage: "info.circle")
                     }
                 } header: {
                     Text(language.string("section_about"))
+                } footer: {
+                    Text(language.string("language_picker_footer"))
                 }
             }
             .listStyle(.insetGrouped)
             .navigationTitle(language.string("nav_keyboard"))
             .navigationBarTitleDisplayMode(.large)
-            .onAppear {
-                loadMeta()
-                reloadPersonalWords()
+            .onAppear(perform: refresh)
+            .onChange(of: scenePhase) { phase in
+                if phase == .active { refresh() }
             }
-            .onChange(of: language.language) { _ in
-                loadMeta()
-            }
-            .sheet(isPresented: $showShareSheet) {
-                if let exportShareURL {
-                    ActivityShareSheet(items: [exportShareURL])
-                }
-            }
-            .sheet(isPresented: $showImportPicker) {
-                PersonalDictionaryImportPicker { result in
-                    showImportPicker = false
-                    handleImport(result)
-                }
-                .ignoresSafeArea()
-            }
-            .sheet(isPresented: $showExportToFiles) {
-                if let exportToFilesURL {
-                    PersonalDictionaryExportPicker(fileURL: exportToFilesURL) {
-                        showExportToFiles = false
-                        transferMessage = language.string("personal_words_export_done")
-                    }
-                    .ignoresSafeArea()
-                }
+            .onReceive(NotificationCenter.default.publisher(for: UITextInputMode.currentInputModeDidChangeNotification)) { _ in
+                refreshKeyboardAdded()
             }
         }
         .environment(\.layoutDirection, language.activeLanguage.layoutDirection)
         .environment(\.locale, language.effectiveLocale)
         .id(language.activeLanguage.rawValue)
+    }
+
+    private var header: some View {
+        Section {
+            HStack(spacing: 12) {
+                Image("AppIconMarketing")
+                    .resizable()
+                    .frame(width: 64, height: 64)
+                    .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 14, style: .continuous)
+                            .strokeBorder(Color.primary.opacity(0.08), lineWidth: 1)
+                    )
+                    .accessibilityHidden(true)
+
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(language.string("app_title"))
+                        .font(.title2.weight(.semibold))
+                    Text(language.string("app_tagline"))
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+            }
+            .padding(.vertical, 6)
+        }
+    }
+
+    private func refresh() {
+        theme = KeyboardPreferences.theme
+        heightScale = KeyboardPreferences.heightScale
+        soundEnabled = KeyboardPreferences.soundEnabled
+        hapticsEnabled = KeyboardPreferences.hapticsEnabled
+        autocorrectEnabled = KeyboardPreferences.autocorrectEnabled
+        personalWordCount = PersonalDictionary().wordCount
+        refreshKeyboardAdded()
+    }
+
+    /// Whether the user has added this keyboard in Settings (no Full Access needed).
+    private func refreshKeyboardAdded() {
+        let identifier = Selector(("identifier"))
+        keyboardAdded = UITextInputMode.activeInputModes.contains { mode in
+            guard mode.responds(to: identifier),
+                  let id = mode.value(forKey: "identifier") as? String else { return false }
+            return id.hasPrefix(Self.keyboardBundleID)
+        }
     }
 
     private func pickerLabel(for lang: AppLanguage) -> String {
@@ -340,91 +235,4 @@ struct SetupView: View {
             Text(text)
         }
     }
-
-    private func loadMeta() {
-        if let url = Bundle.main.url(forResource: "meta", withExtension: "json"),
-           let data = try? Data(contentsOf: url),
-           let obj = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
-           let count = obj["wordCount"] as? Int,
-           let script = obj["script"] as? String,
-           let version = obj["version"] as? String {
-            metaText = language.format("meta_format", count, script, version)
-        } else {
-            metaText = language.string("meta_fallback")
-        }
-    }
-
-    private func reloadPersonalWords() {
-        let dict = PersonalDictionary()
-        personalWords = dict.allWords
-        personalWordCount = dict.wordCount
-    }
-
-    private func addPersonalWord() {
-        let word = newPersonalWord.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard word.count >= 2 else { return }
-        let dict = PersonalDictionary()
-        dict.add(word)
-        newPersonalWord = ""
-        reloadPersonalWords()
-    }
-
-    private func removePersonalWord(_ word: String) {
-        let dict = PersonalDictionary()
-        dict.remove(word)
-        reloadPersonalWords()
-    }
-
-    private func clearPersonalWords() {
-        PersonalDictionary().clear()
-        transferMessage = nil
-        reloadPersonalWords()
-    }
-
-    private func sharePersonalDictionary() {
-        do {
-            exportShareURL = try PersonalDictionaryTransfer.makeExportURL()
-            showShareSheet = true
-            transferMessage = nil
-        } catch {
-            transferMessage = language.string("personal_words_export_failed")
-        }
-    }
-
-    private func exportPersonalDictionaryToFiles() {
-        do {
-            exportToFilesURL = try PersonalDictionaryTransfer.makeExportURL()
-            showExportToFiles = true
-            transferMessage = nil
-        } catch {
-            transferMessage = language.string("personal_words_export_failed")
-        }
-    }
-
-    private func handleImport(_ result: Result<URL, Error>) {
-        switch result {
-        case .failure:
-            transferMessage = language.string("personal_words_import_failed")
-        case .success(let url):
-            do {
-                let data = try Data(contentsOf: url)
-                let merged = try PersonalDictionary().mergeImport(from: data)
-                reloadPersonalWords()
-                transferMessage = language.format("personal_words_import_done", merged)
-            } catch {
-                transferMessage = language.string("personal_words_import_failed")
-            }
-        }
-    }
-}
-
-/// UIKit share sheet bridge for exporting files.
-private struct ActivityShareSheet: UIViewControllerRepresentable {
-    let items: [Any]
-
-    func makeUIViewController(context: Context) -> UIActivityViewController {
-        UIActivityViewController(activityItems: items, applicationActivities: nil)
-    }
-
-    func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {}
 }

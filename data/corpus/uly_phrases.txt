@@ -1,0 +1,787 @@
+# Curated ULY phrase corpus for offline bigram / next-word learning.
+# Latin ULY (2008). One sentence or phrase per line. Comments start with #.
+# License: project MIT; hand-authored for keyboard prediction.
+
+# --- greetings / chat ---
+salam yaxshimusiz
+essalamu'eleykum we'eleykum'essalam
+yaxshimusizlar ehwalliringizmu
+qandaq ehwallar
+rehmet sizge
+teshekkür qilimen
+kechürüng men kéchim qaptimen
+xoshqaling körüshkiche
+men yaxshi sizchu
+ular yaxshimu
+bügün nime qiliwatisiz
+men ishlep yürümen
+telefon qilay
+mesej ewetey
+söhbet qilayli
+chüshendim rehmet
+bilmeymen kechürüng
+toghrimu emismu
+bolidu men kelimen
+yoq men baralmaymen
+wah nahayiti yaxshi
+ehe qiziq iken
+he'e shundaq
+yaq undaq emes
+
+# --- daily life ---
+men bügün ertte turdum
+u chay ichidu
+biz tamaq yeymiz
+ular öyde olturidu
+men bazaragha barimen
+u aptomobil haydaydu
+biz avtobusqa chiqimiz
+men su ichimen
+hawa bügün issiq
+ete yaghmur yaghishi mumkin
+kün batmaqta
+kechke yeqin boldi
+men uxlaymen
+u kitap oquydu
+biz kinogha barimiz
+u muzika anglaydu
+men sport oynaymen
+ular baghchida oynaydu
+
+# --- school / work ---
+men mektepke bardim
+u derske qatnashidu
+biz imtihan tapshurimiz
+muellim ders ötküzidu
+oqughuchilar kitap oquydu
+men öy wäzipisi ishleymen
+u doklad yazidu
+biz yighin ötküzimiz
+xizmet nahayiti köp
+men kompüter ishleymen
+u email ewetidu
+biz loyihe tügitiwättuq
+dersxana tinch
+kutupxana ochuq
+universitet chong
+til öginish muhim
+matematika qiyin
+tarix qiziqarliq
+
+# --- places / xinjiang ---
+ürümchi chong sheher
+qeshqer kona sheher
+xoten gilam bilen meshhur
+ghulja gözel sheher
+aqsu bazar köp
+qumul qoghun bilen meshhur
+turpan üzüm köp
+altay taghliq jay
+qaraqash deryasi
+bostan köl chong
+täklimakan qumlluqi
+men ürümchide tughulghan
+u qeshqerde yashaydu
+biz xotenge barimiz
+ular ghuljidin kelgen
+bu yer nahayiti chirayliq
+sheher merkezi din
+yiraq emes
+
+# --- family / people ---
+ata ana we balilar
+mening a'ilem chong
+aka uka we singil
+qérindashlar yighildi
+dostlar bilen uchrashtuq
+u manga yardem qildi
+men uni kördum
+biz bilen keling
+ular birge oynaydu
+hörmet qiling
+izzet hörmet muhim
+qérindashliq munasiwiti
+
+# --- language / writing ---
+uyghur tili chirayliq
+uyghurche sözleydu
+latin yeziqi qulay
+uyghur latin yeziqi
+imla tekshürüsh muhim
+bu söz toghrimu
+men uyghurche yazimen
+u arabche oquydu
+biz tillarni öginimiz
+yeziqimiz muhim
+sözlük paydiliq
+teklip sözler yaxshi
+
+# --- food ---
+nan we kawap yaxshi
+laghmen mezilik
+polo tamaqning shahi
+manta issiq
+chay shirin bolsun
+qatiq ichimen
+üzüm tatliq
+qoghun shirin
+gosh bilen göshsiz
+mehman kütiwéliş
+
+# --- time / calendar ---
+bügün dushanbe
+ete seyshenbe
+ötken hepte
+kelgüsi ay
+bu yil yaxshi
+saet on boldi
+chüshte uchrashayli
+kechte öyde bolimen
+ertte turush qiyin
+waqit ötti
+
+# --- travel ---
+men musapirge chiqimen
+u ayroplan bilen baridu
+biz poyizgha chiqimiz
+yol nahayiti uzaq
+méhmanxana yaxshi
+bilet éliwalay
+pasport kérek
+chegera ötümüz
+dölet ichide seper
+sheherdin sheherge
+
+# --- health / feelings ---
+salametlik muhim
+men aghriymen
+u dokturgha baridu
+basim aghridu
+könglum yaxshi
+xushalmen
+hapa boldum
+qorqtimen
+aramiy ketti
+tinchliq bolsun
+amanliq tileymen
+
+# --- civic / common phrases ---
+dölet we millet
+hemme adem erkin
+bir birige qérindashliq
+qanun hörmiti
+hoquq teng
+yardem kérekmu
+mesile muhim
+chechimni tapalmidim
+bu ish nahayiti muhim
+pikir bildiray
+razimen
+qarshi emesmen
+
+# --- religion / polite (common greetings, non-sectarian courtesy) ---
+allaha ishenimen
+du'a qilay
+xuda saqlisun
+bismilla dep bashlaymen
+jüme mubarek bolsun
+hayit mubarek
+roza tutimen
+namaz oquymen
+rehmet xudagha
+aman bolunglar
+
+# --- tech / loanwords in ULY orthography ---
+men internet ishleymen
+u telefon aldida
+app ornatay
+wifi ulinimidu
+video körimen
+foto tartay
+kompüter üzüldi
+printer ishlemeydu
+fayl saqlay
+parol eske aldum
+email ewetey
+link eweting
+chat qilayli
+online ders
+offline ishleymen
+
+# --- questions ---
+nime qiliwatisiz
+qayerge barisiz
+qachan kelisiz
+kim bilen keldingiz
+nechinche pul
+qandaq qilimiz
+nimishqa undaq
+qaysi biri
+qanchilik waqit
+bolamdu yoqmu
+
+# --- shopping ---
+bahasi qanchilik
+arzanraq bolamdu
+men éliwalay
+pul tölidi
+kart bilen tölidi
+naxit pul
+qayturup bering
+sani köp
+sapa yaxshi
+dukan ochuqmu
+
+# --- weather / nature ---
+hawa sozuq
+boran chiqti
+yaghmur yaghdi
+qar yaghdi
+kün chiqti
+shamal küchlük
+asman tiniq
+tagh egiz
+derya éqiwatidu
+bagh gülge toldi
+
+# --- extended conversational chains ---
+salam men esqer
+yaxshimusiz bügün hawa yaxshi
+men mekteptin qaytimen
+u öyge ketti
+biz tamaq yep bolduq
+ular kinoda iken
+men kitap oquwatimen
+siz nime oquwatisiz
+bu kitab nahayiti yaxshi
+men uni tewsiye qilimen
+u mangha telefon qildi
+men keyin qayturay
+biz ete uchrashayli
+saet üchte bolsun
+men kéchip qaldim
+kechürüng mesile yoq
+rehmet dostum
+körüshkiche xosh
+men uyghurche öginiwatimen
+latin yeziqida yazimen
+imla texnikisi paydiliq
+teklip baldiqi yaxshi
+personal lughit öginidu
+sizning sözliringiz
+bizning sheherimiz
+ularning a'ilisi
+mening ishim köp
+uning pikirı toghra
+söz we mundaq
+shundaq qilayli
+undaq emes dep oylaymen
+belki ete bolushi mumkin
+eger waqitim bolsa
+men aldaqchi emes
+u rast sözlidi
+bu heqiqet
+men ishineymen
+sizge ishineymen
+birge ishleyli
+yardem qilay
+mesile hel qilindi
+netije yaxshi
+nishan'gha yettuq
+ghelibe qilduq
+xinjiangsiz uyghurlar
+medeniyet mirasi
+til we yeziq
+kitab we qelem
+mektup yazay
+dostqa ewetey
+a'ilige telefon
+öyge qaytay
+ishke chiqay
+dertxanigha baray
+doktardin soray
+dorini ichay
+saqayip ketey
+sport bilen shughullanay
+yügürüsh paydiliq
+üzmek üginimen
+top oynaymen
+muzika tingshay
+nahsha éytay
+usul oynay
+resim sizay
+süretke chüshey
+video tartay
+tor arqiliq
+uchratqan dost
+yéngi xewer
+kündilik ish
+heptide bir qétim
+ayda ikki qétim
+yilda bir seper
+ömrümde unutmaymen
+eslime yaxshi
+kelgüsi ümidlik
+bügünki kün
+ötken künler
+kéler zaman
+hazirqi zaman
+tarixiy shaher
+medeniy merkeze
+bazarning awazi
+köchnining hidi
+nan hangisi
+chayxana tinch
+kitapxana tinch
+mektep howlisi
+universitet derwazi
+sheher ayropirti
+poyiz béketi
+aptomobil yol
+piyade yol
+wélisipit minimen
+takisi chaqiray
+yol körsetkuchi
+xerite qaray
+gps ishletay
+adirisni tapalmidim
+yolni soray
+yardemchi boptu
+mehman nawati
+öy igisi
+qonaghliq
+qonaq öyi
+ashxana ochuq
+ashpez ustaz
+tamam meziligi
+ichimlik su
+gazliq ichimlik
+qehwe ichimen
+sut ichimen
+qatiq yaxshi
+péshiriliwatidu
+tawaq tayyar
+dastixan hazir
+mehman keldi
+chay quyung
+nan késing
+kawap yéng
+polo yéng
+laghmen tarting
+manta yéng
+somsa yéng
+girdé nan
+tokach nan
+girdek nan
+qordaq tatliq
+suyuq ash
+gürüch ash
+göshlüq ash
+kök ösümlük
+méwe yéng
+üzüm yéng
+alma yéng
+armut yéng
+shaftali yéng
+qoghuncak
+tarbuz yéng
+qoghun yéng
+jomurtqa
+tuxum pishurgen
+saryagh bilen
+shorpa iching
+shorpa issiq
+tamaq tinch
+ashyaq tinch
+kichik bala
+chong bala
+yash ösmür
+qéri adem
+yashlar küchi
+ayallar hoquqi
+erler mes'uliyiti
+jem'iyet tereqqiyati
+ma'arip muhim
+ilim öginish
+pen téxnika
+sen'et eserliri
+muzika asman
+resim körgüzmisi
+tiyatir oyuni
+kino zalida
+tamashe qilay
+küldüm
+yighlidim
+xush boldum
+hapa boldum
+hayajanlandim
+tinchlandim
+oyghandim
+chüsh kördum
+arzu qilimen
+ümid qilimen
+tilek tileymen
+du'a qilimen
+minnetdarliq
+hörmet bilen
+söygü bilen
+dostluq bilen
+qérindashliq bilen
+hemkarliq bilen
+birlik bilen
+tinichliq bilen
+amanliq bilen
+salametlik bilen
+bext tilimen
+muweppeqiyet tilimen
+ghelibe tilimen
+yaxshi künler bolsun
+yaxshi kechler bolsun
+yaxshi yol bolsun
+xuda saqlisun sizni
+allaha amanetsiz
+köngül xatirjem
+aramiy ketti bügün
+ishlar ongaý
+mesile yoq
+aldi bilen
+andin kéyin
+axirida
+mesilen
+yeni
+shuning üchün
+shu sewebtin
+netijide
+emma lekin
+hemde we
+yaki yaki
+eger bolsa
+bolmisa
+bolsimu
+bolmisimu
+chünki
+dep
+dep oylaymen
+dep bilimen
+dep éytimen
+soraq qilimen
+jawab bérey
+pikir bildürey
+teklip qilay
+teshebbus qilay
+qarar qilay
+ijra qilay
+tekshürey
+tüzitiy
+yaxshilay
+tereqqiy qilduray
+aldiqi qedem
+kéyinki qedem
+hazirqi qedem
+birinchi qedem
+axiriqi qedem
+nishan'gha yetish
+netije chiqirish
+ispatlesh
+delilleş
+misal keltürüsh
+sélishturush
+yechim tapish
+mesile hel qilish
+kelishüwélish
+kelishmezlik
+muzakire qilish
+söhbet ötküzüsh
+yighin échish
+doklat berish
+doklat tingshash
+soal sorash
+jawab béish
+bahs qilish
+pikir almashturush
+tecrube almashturush
+bilim almashturush
+medeniyet almashturush
+til almashturush
+dostluq ornitish
+hemkarliq ornitish
+ishenchni kücheytish
+munasiwetni saqlash
+ariliqni qisqartish
+chegera échish
+eshik échish
+qollarni échip
+qollarni tutup
+yol bashlash
+artidin égisish
+aldida méngish
+yenida turush
+ardida qélish
+otturisida turush
+ichide bolush
+sirtida bolush
+üstide bolush
+astida bolush
+yénida bolush
+uzakta bolush
+yéqinda bolush
+bu yerde
+shu yerde
+u yerde
+her yerde
+hich yerde
+qayerdiken
+qayerdin kelgen
+qayerge kétidu
+nege barisiz
+qachan qaytisiz
+nime üchün
+qandaq qilip
+qaysi yol
+qaysi kün
+qaysi ay
+qaysi yil
+nechinche kishi
+nechinche qétim
+nechinche saet
+nechinche kün
+qanchilik yol
+qanchilik waqit
+qanchilik pul
+arzanmu
+qimmetmu
+yaxshimu
+yamanmu
+toghrimu
+xataimu
+mumkinmu
+mümkin emesmu
+kérekmu
+kérek emesmu
+bolamdu
+bolmaydighanmu
+kelamdu
+ketemdu
+baramdu
+yoqmidu
+baramidu
+kelgenmidu
+ketkenmidu
+qilghanmidu
+éytqanmidu
+körgenmidu
+anglaghanmidu
+oqughanmidu
+yazghanmidu
+ishligenmidu
+tamaq yéghenmidu
+chay ichkenmidu
+uxlighanmidu
+oyghanghanmidu
+chüshengenmidu
+bilgenmidu
+bilmegenmidu
+depoydighanmidu
+shundaqmidu
+undaqmidu
+emismidu
+toghrimidu
+xataimidu
+
+# --- enhanced conversational chains (v1.3.1) ---
+salam dostum qandaq ehwallar
+men bügün ishqa chiqtim
+u telefondin gép qilidu
+biz ete mektepke barimiz
+ular öyde tamaq yeywatidu
+bu mesile nahayiti muhim iken
+men latin yeziqida yézishni öginimen
+uyghurche sözlesh qulay boldi
+imla tekshürgich yardem qilidu
+teklip sözler toghra chiqiwatidu
+personal lughitim ösüp kétti
+sizning pikirngizni anglashni xalaymen
+men razimen bu qarardin
+u qarshi emes bu ishqa
+biz birge ishlesek yaxshi bolidu
+yardem kérek bolsa éytng
+mesile yoq men qilalaymen
+netije chiqti biz ghelibe qilduq
+ürümchidin qeshqerge poyiz baridu
+xotende gilam sotulidu
+ghuljining howasi yaxshi
+turpan üzümliri meshhur
+qumul qoghuni tatliq
+altayda qar köp
+aqsuda bazar janliq
+men bankigha bardi
+pulni kart bilen tölimen
+maash shu hepte chüshidu
+shirkette yighin bar
+ishxana saet toqquzda échilidu
+doxturgha körsettim
+dorixanidin dora aldim
+keselxana yiraq emes
+température yuqiri iken
+saqiyip kettingizmu
+jüme küni tinich ötti
+hayit mubarek bolsun
+roza tutush üchün
+namaz waqti boldi
+mesjitke barduq
+allaha shükri
+xuda saqlisun hemmini
+men aptomobil haydaymen
+u awtobusqa chiqti
+biz ayroplan bilen uchiduq
+takisi chaqirdim
+bilet éliwélin'ghay
+yol uzaq emma chirayliq
+haydighuchi ehtiyatliq
+wélisipit bilen mektepke
+mototsikl awazi chiqti
+fizika dersi qiyin
+ximiye laboratoriye
+biyologiye kitabi
+jughrapiye xeritesi
+edinbiyati oquymiz
+dasturlashni öginiwatimen
+kutubxanida oquymen
+yurtaxanida uxlaymen
+ashxanida tamaq yeymen
+sportzalda top oynaymen
+depterge yazimen
+qelem bilen belgilimen
+imtihan'namisini tapshurdum
+bahalar yuqiri chiqti
+oqughuchilar tinich
+muellimler yardemchan
+pul az qaldi
+bahasi arzanraq bolsun
+qimmet iken bu
+péyda köp emes
+ziyan tartmayli
+hisabni tekshürey
+naxit bilen töleymen
+banka ochuqmu
+kart ishlewatidu
+sotush köpeywatidu
+sétish yaxshi ketti
+bazargha chiqayli
+hahaha qiziq iken
+hehe chüshendim
+wahwah nahayiti yaxshi
+rastmu shundaqmu
+bolidimu ete
+keliduqme biz
+ketiduqme ular
+bariduq mektepke
+qiliduq bu ishni
+köriduq kinoni
+éytiduq heqiqetni
+anglayduq xewerni
+soraq soraymen
+jawab bérey
+xewer anglidim
+awaz chiqiwatidu
+süret chirayliq
+qisqa video
+uzun yol
+yéngi kitap
+kona dost
+kichik bala
+chong sheher
+tez yürüng
+asta söyling
+köp rehmet
+az qaldi
+hemme keldi
+hichkim yoq
+hichnime bilmeymen
+herkim bilidu
+hernime mumkin
+hazir kelimen
+héli uxlaydu
+téxi kelmidi
+yene bir qétim
+awwal oylap baqay
+axirida qarar qilduq
+andin kéyin tamaq yeyli
+shunga men keldim
+chünki waqitim yoq
+belki ete bolushi mumkin
+nawada yaghmur yaghsa
+yaxshiken bu plan
+yaxshikensiz bügün
+bolghan ishlar
+bolidighan ish
+qilghan xizmet
+kelgen mehman
+ketken dost
+baridighan yer
+oquydighan kitap
+yazidighan xet
+köridighan kino
+éytidighan söz
+anglaydighan muzika
+men uyghurche we xenzuche bilimen
+u inglizche sözliyelmeydu
+biz üch tilni öginimiz
+til öginish ömürlük
+yeziq medeniyetning asasi
+latin yeziqi yashlar üchün qulay
+arab yeziqi milliy miras
+ikkyüzlük yeziq paydiliq
+sözlükni ochuq tutung
+teklipni qobul qiling
+xataliqni tüziting
+toghriliqni saqlang
+imla muhim
+sözleshmu muhim
+oquishmu muhim
+yézishmu muhim
+anglishmu muhim
+chüshinish eng muhim
+dostlar bilen söhbet
+a'ile bilen tamaq
+balilar bilen oyun
+ata ana bilen gép
+qérindashlar bilen bayram
+mehman bilen chay
+muellim bilen ders
+ishdesh bilen yighin
+doxtur bilen tekshürüsh
+sodiger bilen söwda
+haydighuchi bilen seper
+méhmanxana bilen qonush
+ashxana bilen tamaq
+banka bilen ish
+shirket bilen hemkarliq
+mektup ewettim dostumgha
+email oqudum
+mesej qaldurdum
+telefon qilalmidim
+keyin qayturimen
+saet üchte uchrashayli
+men kéchip qalsam
+siz awwal bashlang
+mesile chiqsa éytng
+yardemge teyyar
+köngül xatirjem bolsun
+aramiy ketti bügün
+ishlar ongaý ketti
+rehim qiling
+kechürüng maqul
+teshekkür sizge
+rehmet dostum
+xoshqaling
+körüshkiche
+aman bolung
+saqayip kéting
+yaxshi yol
+yaxshi kün
+yaxshi kech
+yaxshi chüsh
+yaxshi hepte
+yaxshi ay
+yaxshi yil

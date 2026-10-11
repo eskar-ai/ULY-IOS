@@ -1,1 +1,28 @@
 "candidate_add" = "+ 添加";
+"status_loading" = "正在加载词库…";
+"status_failed" = "词库加载失败";
+
+"return_default" = "换行";
+"return_go" = "前往";
+"return_search" = "搜索";
+"return_send" = "发送";
+"return_done" = "完成";
+"return_next" = "下一项";
+"return_join" = "加入";
+"return_route" = "路线";
+"return_continue" = "继续";
+"return_emergency" = "紧急";
+
+"a11y_delete" = "删除";
+"a11y_space" = "空格";
+"a11y_return" = "换行";
+"a11y_shift" = "大写";
+"a11y_caps_lock" = "大写锁定";
+"a11y_next_keyboard" = "下一个键盘";
+"a11y_dismiss" = "隐藏键盘";
+"a11y_symbols" = "数字与符号";
+"a11y_letters" = "字母";
+"a11y_uly" = "维吾尔字母";
+"a11y_add_word" = "添加到词库";
+
+"key_space" = "空格";

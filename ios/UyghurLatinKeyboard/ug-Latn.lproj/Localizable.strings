@@ -1,1 +1,28 @@
 "candidate_add" = "+ Qosh";
+"status_loading" = "Söz ambiri yükliniwatidu…";
+"status_failed" = "Söz ambirini yükligili bolmidi";
+
+"return_default" = "qur";
+"return_go" = "bar";
+"return_search" = "izde";
+"return_send" = "yolla";
+"return_done" = "tamam";
+"return_next" = "këyinki";
+"return_join" = "qoshul";
+"return_route" = "yol";
+"return_continue" = "dawamlash";
+"return_emergency" = "jiddiy";
+
+"a11y_delete" = "Öchürüsh";
+"a11y_space" = "Boshluq";
+"a11y_return" = "Qur almashturush";
+"a11y_shift" = "Chong herp";
+"a11y_caps_lock" = "Chong herp qulupi";
+"a11y_next_keyboard" = "Këyinki kunupka taxtisi";
+"a11y_dismiss" = "Kunupka taxtisini yoshurush";
+"a11y_symbols" = "San we belge";
+"a11y_letters" = "Herpler";
+"a11y_uly" = "Uyghurche herpler";
+"a11y_add_word" = "Söz ambirigha qosh";
+
+"key_space" = "boshluq";

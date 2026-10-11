@@ -1,1 +1,28 @@
 "candidate_add" = "+ Add";
+"status_loading" = "Loading dictionary…";
+"status_failed" = "Dictionary failed to load";
+
+"return_default" = "return";
+"return_go" = "go";
+"return_search" = "search";
+"return_send" = "send";
+"return_done" = "done";
+"return_next" = "next";
+"return_join" = "join";
+"return_route" = "route";
+"return_continue" = "continue";
+"return_emergency" = "SOS";
+
+"a11y_delete" = "Delete";
+"a11y_space" = "Space";
+"a11y_return" = "Return";
+"a11y_shift" = "Shift";
+"a11y_caps_lock" = "Caps Lock";
+"a11y_next_keyboard" = "Next keyboard";
+"a11y_dismiss" = "Hide keyboard";
+"a11y_symbols" = "Numbers and symbols";
+"a11y_letters" = "Letters";
+"a11y_uly" = "Uyghur letters";
+"a11y_add_word" = "Add word to dictionary";
+
+"key_space" = "space";

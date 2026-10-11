@@ -21,6 +21,12 @@
 - 构建时将阿拉伯字母词条转换为维吾尔拉丁文（ULY）
 - 许可：Apache License 2.0
 
+## 维吾尔语维基百科（词频与二元组统计）
+
+- 来源：https://ug.wikipedia.org/（条目转储，https://dumps.wikimedia.org/ugwiki/）
+- 仅在构建时统计词频和相邻词频率；随应用分发的只有这些统计数字，不含条目正文
+- 许可：CC BY-SA 4.0（https://creativecommons.org/licenses/by-sa/4.0/），© 维基百科贡献者
+
 ## 字母表参考
 
 - 维吾尔拉丁字母（ULY），2008 修订（`ë`、`zh`，双字母 `ch/sh/zh/gh/ng`）

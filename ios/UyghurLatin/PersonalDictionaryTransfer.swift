@@ -6,8 +6,8 @@ enum PersonalDictionaryTransfer {
     static let utType = UTType.json
     static let exportFilename = "uyghur-uly-personal-words.json"
 
-    static func makeExportURL() throws -> URL {
-        let data = try PersonalDictionary().exportJSONData()
+    static func makeExportURL(from dictionary: PersonalDictionary) throws -> URL {
+        let data = try dictionary.exportJSONData()
         let url = FileManager.default.temporaryDirectory.appendingPathComponent(exportFilename)
         try data.write(to: url, options: .atomic)
         return url

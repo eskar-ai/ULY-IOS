@@ -10,6 +10,8 @@
 	<array>
 		<string>en</string>
 		<string>zh-Hans</string>
+		<string>ug</string>
+		<string>ug-Latn</string>
 	</array>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>

@@ -30,7 +30,21 @@ def main() -> int:
     need(ROOT / "ios/UyghurLatinKeyboard/PrivacyInfo.xcprivacy", "Keyboard privacy manifest")
     icon = ROOT / "ios/UyghurLatin/Assets.xcassets/AppIcon.appiconset/AppIcon-1024.png"
     need(icon, "App icon 1024")
-    need(ROOT / "ios/UyghurLatinKeyboard/Resources/lexicon.json", "Keyboard lexicon")
+    need(ROOT / "data/generated/lexicon.json", "Lexicon source (tools/build_lexicon.py)")
+    need(ROOT / "ios/UyghurLatinKeyboard/Resources/lexicon.bin", "Keyboard compiled lexicon (tools/compile_lexicon_bin.py)")
+    for stray in (
+        ROOT / "ios/UyghurLatinKeyboard/Resources/lexicon.json",
+        ROOT / "ios/UyghurLatin/Resources/lexicon.json",
+    ):
+        if stray.exists():
+            ERRORS.append(f"iOS ships only lexicon.bin; remove {stray.relative_to(ROOT)}")
+    lex_bin = ROOT / "ios/UyghurLatinKeyboard/Resources/lexicon.bin"
+    if lex_bin.exists():
+        import struct
+
+        header = lex_bin.read_bytes()[:8]
+        if header[:4] != b"ULYB" or struct.unpack("<I", header[4:8])[0] != 2:
+            ERRORS.append("lexicon.bin is stale (expected ULYB v2); run ios/scripts/sync-lexicon.sh")
     need(ROOT / "store/APP_STORE_LISTING.md", "Store listing")
     need(ROOT / "store/PRIVACY_POLICY.md", "Privacy draft")
     need(ROOT / "store/site/privacy.html", "Hostable privacy page")
@@ -45,7 +59,7 @@ def main() -> int:
         except ImportError:
             WARNINGS.append("Install pillow to verify icon dimensions")
 
-    lex = ROOT / "ios/UyghurLatinKeyboard/Resources/lexicon.json"
+    lex = ROOT / "data/generated/lexicon.json"
     if lex.exists():
         data = json.loads(lex.read_text(encoding="utf-8"))
         wc = data.get("meta", {}).get("wordCount", 0)

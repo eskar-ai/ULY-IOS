@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-"""Patch existing lexicon.json with morphology seeds + informal corrections (no umsc)."""
+"""Patch existing lexicon.json with morphology seeds + informal corrections (no umsc).
+
+Prefer `tools/enrich_lexicon.py` for corpus bigrams + expanded morph (v1.3+).
+This script remains as a lighter fallback.
+"""
 
 from __future__ import annotations
 
@@ -190,18 +194,25 @@ def main() -> None:
     )
     (OUT / "meta.json").write_text(json.dumps(meta, ensure_ascii=False, indent=2), encoding="utf-8")
 
-    for dest in (WEB_PUBLIC, IOS_RES, ANDROID_ASSETS, HARMONY_RAWFILE):
+    for dest in (WEB_PUBLIC, ANDROID_ASSETS, HARMONY_RAWFILE):
         if dest in (ANDROID_ASSETS, HARMONY_RAWFILE):
             platform = ROOT / ("android" if dest == ANDROID_ASSETS else "harmonyos")
             if not platform.exists():
                 continue
         dest.mkdir(parents=True, exist_ok=True)
         shutil.copy2(OUT / "lexicon.json", dest / "lexicon.json")
-        if dest in (WEB_PUBLIC, IOS_RES):
+        if dest == WEB_PUBLIC:
             shutil.copy2(OUT / "meta.json", dest / "meta.json")
 
+    # iOS ships only lexicon.bin.
+    IOS_RES.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(OUT / "meta.json", IOS_RES / "meta.json")
     if IOS_HOST_META.parent.exists():
         shutil.copy2(OUT / "meta.json", IOS_HOST_META)
+
+    from compile_lexicon_bin import compile_lexicon
+
+    (IOS_RES / "lexicon.bin").write_bytes(compile_lexicon(out_payload))
 
     print(f"Patched lexicon: {len(words)} words (+{added} morph forms), {len(corrections)} corrections")
     for w in ("yaxshiturding", "yaxshiturdigizmu", "yaxshimu", "yaxshimusiz"):

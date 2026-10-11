@@ -30,7 +30,7 @@ The keyboard may store limited preferences and learned words **locally** on your
 - Theme preference (System / Light / Dark)  
 - Words you accept from suggestions (to improve local suggestions)
 
-This data stays in the keyboard’s sandbox and is not uploaded by the app.
+This data is stored only on your device (in the Keychain, shared between the app and its keyboard) and is not uploaded by the app. You can view, export or delete your learned words in the app under Dictionary.
 
 ## Internet access
 

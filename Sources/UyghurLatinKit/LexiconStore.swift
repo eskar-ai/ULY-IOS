@@ -56,65 +56,72 @@ enum LexiconValue: Codable {
 
 public final class LexiconStore {
     public let meta: LexiconMeta
+    public let words: WordTable
     public let trie: PrefixTrie
     public let spellChecker: SpellChecker
     public let predictor: NGramPredictor
-    public let vocabulary: [String]
-    public let frequencies: [String: Int]
 
-    public init(data: Data) throws {
+    private init(binary: LexiconBinary) {
+        meta = binary.meta
+        words = WordTable(binary: binary)
+        trie = PrefixTrie(binary: binary, words: words)
+        spellChecker = SpellChecker(trie: trie, binary: binary)
+        predictor = NGramPredictor(binary: binary, trie: trie)
+    }
+
+    /// Compiled `lexicon.bin` bytes.
+    public convenience init(binaryData: Data) throws {
+        self.init(binary: try LexiconBinary(data: binaryData))
+    }
+
+    /// Memory-mapped `lexicon.bin`.
+    public convenience init(binaryURL: URL) throws {
+        self.init(binary: try LexiconBinary(contentsOf: binaryURL))
+    }
+
+    /// `lexicon.json` bytes (compiled to the binary layout in memory).
+    public convenience init(data: Data) throws {
         let decoded = try JSONDecoder().decode(LexiconFile.self, from: data)
-        self.meta = decoded.meta
-
-        var freqs: [String: Int] = [:]
-        var vocab: [String] = []
-        let trie = PrefixTrie()
-        for row in decoded.words {
-            guard row.count >= 2,
-                  let w = row[0].stringValue,
-                  let f = row[1].intValue else { continue }
-            let key = ULYNormalizer.lookupKey(w)
-            freqs[key] = f
-            vocab.append(key)
-            trie.insert(key, frequency: f)
+        let words: [(String, Int)] = decoded.words.compactMap { row in
+            guard row.count >= 2, let w = row[0].stringValue, let f = row[1].intValue else { return nil }
+            return (w, f)
         }
-        self.trie = trie
-        self.vocabulary = vocab
-        self.frequencies = freqs
-
-        var bigramTuples: [(String, String, Int)] = []
-        for row in decoded.bigrams {
+        let bigrams: [(String, String, Int)] = decoded.bigrams.compactMap { row in
             guard row.count >= 3,
                   let a = row[0].stringValue,
                   let b = row[1].stringValue,
-                  let c = row[2].intValue else { continue }
-            bigramTuples.append((a, b, c))
+                  let c = row[2].intValue else { return nil }
+            return (a, b, c)
         }
-
-        self.spellChecker = SpellChecker(
-            trie: trie,
-            vocabulary: vocab,
-            corrections: decoded.corrections
+        let bin = try LexiconBinaryBuilder.build(
+            meta: decoded.meta,
+            words: words,
+            corrections: decoded.corrections,
+            bigrams: bigrams
         )
-        self.predictor = NGramPredictor(
-            bigramTuples: bigramTuples,
-            unigrams: freqs.map { ($0.key, $0.value) }
-        )
+        try self.init(binaryData: bin)
     }
 
     public convenience init(url: URL) throws {
-        let data = try Data(contentsOf: url)
-        try self.init(data: data)
+        if url.pathExtension == "bin" {
+            try self.init(binaryURL: url)
+        } else {
+            try self.init(data: Data(contentsOf: url))
+        }
     }
 
+    /// Prefers `<resource>.bin` (memory-mapped), falls back to `<resource>.json`.
     public convenience init(bundle: Bundle = .main, resource: String = "lexicon") throws {
-        guard let url = bundle.url(forResource: resource, withExtension: "json") else {
+        if let bin = bundle.url(forResource: resource, withExtension: "bin") {
+            try self.init(binaryURL: bin)
+        } else if let json = bundle.url(forResource: resource, withExtension: "json") {
+            try self.init(url: json)
+        } else {
             throw NSError(
                 domain: "UyghurLatinKit",
                 code: 1,
-                userInfo: [NSLocalizedDescriptionKey: "lexicon.json not found in bundle"]
+                userInfo: [NSLocalizedDescriptionKey: "lexicon.bin / lexicon.json not found in bundle"]
             )
         }
-        try self.init(url: url)
     }
 }

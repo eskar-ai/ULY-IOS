@@ -21,6 +21,12 @@ Bu tür töwendiki ochuq menbe eserlerini oraydu yaki ulardin sanliq melumat ali
 - Qurush waqtida Ereb yéziqidiki sözlerni Uyghur Latin yéziqigha aylandurush üchün ishlitildi
 - Ijazetname: Apache License 2.0
 
+## Uyghurche Wikipédiye (söz we qoshma söz statistikisi)
+
+- Menbe: https://ug.wikipedia.org/ (maqale zapisi, https://dumps.wikimedia.org/ugwiki/)
+- Qurush waqtida söz we yandash söz chastotisini sanash üchünla ishlitildi; ilachigha peqet shu sanlar kiridu, maqale tékisti kirmeydu
+- Ijazetname: CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/), © Wikipédiye töhpikarliri
+
 ## Herp-belge paydilinish
 
 - Uyghur Latin élipbesi (ULY), 2008 tüzitilmisi (`ë`, `zh`, qoshmaq `ch/sh/zh/gh/ng`)

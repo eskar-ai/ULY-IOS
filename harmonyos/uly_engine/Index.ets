@@ -5,3 +5,4 @@ export { NGramPredictor } from './src/main/ets/engine/NGram';
 export { LexiconStore, LexiconMeta, LexiconBundle } from './src/main/ets/engine/Lexicon';
 export { SuggestionEngine, SuggestionResult, SuggestionMode } from './src/main/ets/engine/Suggest';
 export { PersonalDictionary } from './src/main/ets/engine/Personal';
+export { MorphologyExpander } from './src/main/ets/engine/Morph';

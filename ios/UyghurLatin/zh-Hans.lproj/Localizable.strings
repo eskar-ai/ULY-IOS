@@ -37,7 +37,8 @@
 "height_compact" = "紧凑";
 "height_regular" = "标准";
 "height_tall" = "较高";
-"appearance_footer" = "修改高度后请先完全收起键盘（点空白处或隐藏），再重新打开才会生效。主题与高度仅保存在本机。";
+"height_drag_hint" = "上下拖动预览可自定义高度";
+"appearance_footer" = "在预览区上下滑动可自定义键盘高度，也可点紧凑/标准/较高。修改后请完全收起 ULY 键盘再打开才会生效。主题与高度仅保存在本机。";
 
 "section_lab" = "试用";
 "lab_open" = "输入与联想测试";
@@ -112,7 +113,7 @@
 "privacy_not_collect_title" = "我们不收集的数据";
 "privacy_not_collect_body" = "我们不会收集、传输或出售击键内容、消息正文、通讯录、位置或广告标识符。";
 "privacy_local_title" = "设备本地存储";
-"privacy_local_body" = "主题、高度以及您从候选中采纳的词可能保存在本机。应用不会上传这些数据。";
+"privacy_local_body" = "主题、高度以及您从候选中采纳的词保存在本机，并通过钥匙串与键盘共享。应用不会上传这些数据。";
 "privacy_network_title" = "网络访问";
 "privacy_network_body" = "输入功能可离线使用。联想与拼写检查不需要联网。";
 "privacy_children_title" = "儿童隐私";
@@ -130,3 +131,22 @@
 "credits_missing" = "应用包中未找到第三方声明文件。";
 "about_sources" = "词库来源：UyghurEdit++、imlalughet（MIT），umsc（Apache-2.0）。详见致谢页。";
 "version_format" = "版本 %@（%@）";
+
+"section_status" = "键盘状态";
+"status_enabled" = "已添加 ULY 键盘";
+"status_disabled" = "尚未添加 ULY 键盘";
+"status_enabled_footer" = "在任意输入框点按或长按 🌐，即可切换到 Uyghur ULY。";
+"status_disabled_footer" = "按以下步骤添加后回到这里。";
+"sound_label" = "按键音";
+"haptics_label" = "按键触感";
+"autocorrect_label" = "空格自动纠错";
+"settings_apply_note" = "主题、高度、按键音、触感、自动纠错和场景等设置在下次打开键盘时生效。";
+"haptics_note" = "未开启「完全访问」时，iOS 可能不提供键盘触感。";
+"dictionary_open" = "词库与个人词";
+"dictionary_nav_title" = "词库";
+"dictionary_search" = "搜索个人词";
+"section_personal_words" = "个人词";
+"section_transfer" = "导出与导入";
+"dictionary_no_match" = "没有匹配的个人词。";
+"about_open" = "关于、致谢与贡献";
+"about_nav_title" = "关于";

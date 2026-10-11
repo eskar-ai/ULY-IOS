@@ -37,7 +37,8 @@
 "height_compact" = "Qisqa";
 "height_regular" = "Normal";
 "height_tall" = "Égiz";
-"appearance_footer" = "Égizlikni özgertkendin kéyin künupkini toluq yoshurup, qayta éching. Tengshekler peqet bu üskünide qalidu.";
+"height_drag_hint" = "Égizlikni özleştürüş üchün aldinkörünüshni yuqiri-tömenge sürüng";
+"appearance_footer" = "Aldinkörünüshni yuqiri-tömenge sürüp özléghen égizlik belgileng, yaki qisqa/normal/égiz ni béising. Özgertkendin kéyin ULY künupkisini toluq yoshurup qayta éching. Tengshekler peqet bu üskünide qalidu.";
 
 "section_lab" = "Sinash";
 "lab_open" = "Kirgüzüsh we teklip siniqi";
@@ -112,7 +113,7 @@
 "privacy_not_collect_title" = "Biz toplimaydighan sanliq melumat";
 "privacy_not_collect_body" = "Biz künupka bésish, uchur mezmuni, alaqidash, orun yaki élan perqlendürgüchini toplimaymiz, yollimaymiz yaki satmaymiz.";
 "privacy_local_title" = "Üsküne ichide saqlash";
-"privacy_local_body" = "Uslub mayillighi we teklipin qobul qilghan sözler künupka qum sanduqida yerlikte saqlinishi mumkin. Yumtal bu sanliq melumatni yükliméydu.";
+"privacy_local_body" = "Uslub, égizlik we tekliptin qobul qilghan sözler peqet bu üskünide saqlinidu we achquch zënjiri arqiliq künupka bilen ortaqlishidu. Yumtal bu sanliq melumatni yükliméydu.";
 "privacy_network_title" = "Tor ziyariti";
 "privacy_network_body" = "Kirgüzüsh iqtidari torsiz ishleydü. Teklip yaki imla tekshürüsh üchün tor ketmeydu.";
 "privacy_children_title" = "Balilar shexsiyiti";
@@ -130,3 +131,22 @@
 "credits_missing" = "Yumtal boghchisida üchinchi terep uqturushi tépilmidi.";
 "about_sources" = "Lughët menbesi: UyghurEdit++ we imlalughet (MIT), umsc (Apache-2.0). Tepsilati teshhekkür bétide.";
 "version_format" = "Neshri %@ (%@)";
+
+"section_status" = "Künupka haliti";
+"status_enabled" = "ULY künupkisi qoshuldi";
+"status_disabled" = "ULY künupkisi téxi qoshulmidi";
+"status_enabled_footer" = "Xalighan kirgüzüsh ramkisida 🌐 ni bésip Uyghur ULY gha almashturung.";
+"status_disabled_footer" = "Töwendiki qedemler boyiche qoshup, bu yerge qayting.";
+"sound_label" = "Künupka awazi";
+"haptics_label" = "Künupka titrishi";
+"autocorrect_label" = "Boshluqta aptomatik tüzitish";
+"settings_apply_note" = "Uslub, égizlik, awaz, titresh, aptomatik tüzitish we sinariye tengshekliri künupka kéyinki qétim échilghanda küchke ige bolidu.";
+"haptics_note" = "Toluq ziyaret échilmisa, iOS künupka titrishini teminlimesliki mumkin.";
+"dictionary_open" = "Söz ambiri we shexsiy sözler";
+"dictionary_nav_title" = "Söz ambiri";
+"dictionary_search" = "Shexsiy söz izdesh";
+"section_personal_words" = "Shexsiy sözler";
+"section_transfer" = "Chiqirish we kirgüzüsh";
+"dictionary_no_match" = "Mas kélidighan shexsiy söz yoq.";
+"about_open" = "Heqqide, teshekkür we töhpe";
+"about_nav_title" = "Heqqide";

@@ -1,22 +1,22 @@
-# Extra high-value ULY surface forms (word TAB freq). MIT-compatible hand curation.
-# Merged at build/patch time; used to thicken greetings, questions, and common conjugations.
+# Extra high-value ULY surface forms (word TAB/space freq).
+# Domains: greetings, chat, places, school, tech loanwords, daily life.
+# Merged at build/enrich time.
+
+# --- greetings / chat ---
 yaxshimusizlar	9000
 yaxshimusiler	8500
 ehwalliringiz	8000
 ehwalliringizmu	7800
-qandaqehwal	7500
 raxmet	12000
 rehmet	14000
 teshekkür	11000
-kechürünglar	7000
+kechürüngler	7000
 essalamu'eleykum	13000
 we'eleykum'essalam	12000
-xoshqalgaysiler	6500
 xoshqaling	7000
-köriishayli	6000
+körüsheyli	6000
 körüshkiche	6200
 ishleringizmu	6800
-tamaqyedingizmu	5500
 qayerdin	8000
 qanchilik	7000
 boluwatidu	7500
@@ -60,3 +60,352 @@ chüshinelsiz	7000
 yaxshiturdigizmu	11000
 yaxshiturdingizmu	10500
 salamueleykum	9000
+mesej	9000
+söhbet	8500
+telefon	10000
+chüshendimmu	7000
+
+# --- places ---
+ürümchi	18000
+qeshqer	16000
+xoten	14000
+ghulja	12000
+aqsu	11000
+qumul	10000
+turpan	11000
+altay	9000
+qaraqash	8000
+bostan	7500
+täklimakan	7000
+xinjiang	9000
+sheher	14000
+bazar	12000
+köcha	8000
+yol	10000
+öy	15000
+mektep	14000
+universitet	11000
+kutupxana	8500
+ayropirt	7000
+béket	7500
+
+# --- school / work ---
+ders	12000
+imtihan	10000
+mu'ellim	11000
+oqughuchi	10000
+öywäzipisi	7000
+doklad	8000
+yighin	8500
+xizmet	12000
+loyihe	7500
+matematika	7000
+tarix	8000
+til	15000
+ilim	9000
+ma'arip	8000
+
+# --- food ---
+nan	14000
+kawap	10000
+laghmen	11000
+polo	10000
+manta	9500
+chay	14000
+qatiq	8000
+üzüm	9000
+qoghun	8500
+gösh	9000
+shorpa	8000
+ashxana	7500
+
+# --- tech / loanwords (ULY orthography) ---
+kompüter	12000
+internet	11000
+wifi	8000
+email	8500
+app	7000
+video	9000
+foto	8500
+fayl	7500
+parol	7000
+link	6500
+chat	8000
+online	7500
+offline	7000
+printer	6000
+gps	5500
+pasport	7000
+bilet	8000
+méhmanngah	6500
+méhmanxana	7500
+
+# --- family / people ---
+ata	12000
+ana	12000
+bala	13000
+aka	9000
+uka	8500
+singil	8000
+dost	11000
+a'ile	10000
+mehman	9000
+
+# --- time / weather ---
+bügün	40000
+ete	12000
+hepte	9000
+ay	10000
+yil	11000
+sa'et	10000
+hawa	12000
+yaghmur	9000
+qar	8000
+issiq	9000
+soghuq	8500
+shamal	7500
+
+# --- verbs / high-value surfaces ---
+barimen	10000
+kelimen	10000
+qilimen	11000
+oquymen	9500
+yazimen	9000
+ichimen	9000
+yeymen	8500
+uxlaymen	8000
+ishleymen	9000
+körimen	8500
+anglaimen	7500
+söyleymen	8000
+öginimen	8500
+yardem	10000
+teklip	9000
+pikir	8500
+mesile	9000
+netije	8000
+qarar	7500
+
+# --- more places / orgs ---
+korla	9000
+qarghiliq	7000
+poskam	6500
+yeken	8000
+maralbeshi	6500
+kuchar	7500
+bay	6000
+aqsu	7000
+shinjang	8500
+junggo	9000
+béyjing	8000
+shanghai	7000
+almuta	6500
+tashkent	6000
+istanbul	7000
+mekke	6500
+medine	6000
+
+# --- chat / emoji-era spoken ---
+hahaha	5000
+hehe	4500
+wahwah	5000
+rastmu	9000
+chüshendimu	8500
+bolidimu	8000
+keliduq	7500
+ketiduq	7000
+bariduq	7000
+qiliduq	7500
+köriduq	7000
+éytiduq	6500
+anglayduq	6000
+soraq	8000
+jawab	8500
+xewer	9000
+ün'alghu	5500
+awaz	8000
+süret	8500
+qisqa	7000
+uzun	7500
+yéngi	10000
+kona	8000
+kichik	9000
+chong	11000
+tez	8500
+asta	7500
+köp	12000
+az	9000
+hemme	10000
+hichkim	7000
+hichnime	6500
+herkim	7000
+hernime	6500
+
+# --- school subjects / campus ---
+fizika	7000
+ximiye	6500
+biyologiye	6000
+jughrapiye	6500
+edinbiyati	7000
+tilshunasliq	5500
+kompyutér	7000
+dasturlash	6500
+laboratoriye	5500
+kutubxana	8000
+yurtaxana	7000
+ashxana	7500
+sportzal	6000
+derslik	7500
+depter	8000
+qelem	8500
+silka	5500
+imtihan'namisi	5000
+bahalar	7000
+oqughuchilar	9000
+mu'ellimler	8500
+
+# --- work / money ---
+pul	12000
+banka	9000
+hisab	8000
+kart	8500
+naxit	7000
+tölem	7500
+ma'ash	8000
+ishxana	8500
+shirket	9000
+bazargha	7000
+sotush	7500
+sétish	7000
+bahasi	8000
+arzan	9000
+qimmet	8500
+péyda	7000
+ziyan	6500
+
+# --- health ---
+doxtur	9000
+dorixana	7500
+dora	8000
+keselxana	8000
+température	5500
+basim	7000
+yürek	7500
+öpke	5000
+ashqazan	6000
+saqayish	7000
+dawalash	7500
+emgek	6500
+
+# --- religion / calendar courtesy ---
+jüme	9000
+peychenbe	7000
+charshenbe	6500
+seyshenbe	7000
+dushanbe	7500
+shenbe	7000
+yekshenbe	7500
+hayit	8500
+roza	8000
+namaz	8500
+mesjit	7500
+quran	7000
+du'a	8000
+amin	7500
+mubarek	9000
+berekellah	7000
+
+# --- transport ---
+aptomobil	9000
+mashina	10000
+awtobus	8500
+poyiz	8000
+ayroplan	7500
+wélisipit	7000
+mototsikl	6500
+taksi	8000
+yoluchi	7000
+haydighuchi	6500
+bilet	8000
+bélet	7000
+
+# --- common conjugated surfaces ---
+kelgen	9000
+ketken	8500
+baridighan	8000
+qilidighan	8500
+oquydighan	7500
+yazidighan	7000
+köridighan	7500
+éytidighan	7000
+bolghan	10000
+bolidighan	9000
+qilghan	9500
+kelgenlik	7000
+ketkenlik	6500
+baridighanliq	6000
+yaxshiken	8000
+yaxshikensiz	7500
+yaxshikensiler	7000
+nawada	6500
+belki	9000
+chünki	9500
+shunga	9000
+shuningüchün	8000
+andin	8500
+andin'kéyin	7500
+awwal	8000
+axirida	7500
+hazir	11000
+héli	9000
+téxi	8500
+yene	9000
+pütük	6000
+
+# Domain gaps the corpus does not cover (news / admin / medical words with real
+# Wikipedia evidence are swapped in by build_lexicon.py automatically).
+
+# --- medical (low corpus coverage) ---
+sëstira	6000
+tumaw	6500
+ukol	5000
+ichek	4500
+tughutxana	4000
+allërgiye	4000
+
+# --- personal names (rare in ugwiki) ---
+süleyman	4500
+mirzat	4000
+güljamal	3500
+xadiche	4000
+pazile	3500
+mukerrem	3500
+nurmuhemmed	4000
+mihrigül	3500
+gülnar	4500
+nurgül	4000
+patigül	4500
+aygül	4500
+
+# --- mixed Latin / Chinese-English chat (keeps space-autocorrect off them: ok ≠ oq) ---
+ok	9000
+okey	7500
+haha	8000
+hahaha	6000
+emoji	5000
+selfie	4500
+wechat	7000
+douyin	5500
+tiktok	5500
+taobao	5000
+youtube	5500
+google	5500
+iphone	6000
+android	5000
+huawei	5000
+xiaomi	4500
+vip	4500
+shoji	5000
+dapanji	4000
+goshnan	4500
+lengpung	4000

@@ -10,9 +10,14 @@ public final class MorphologyExpander {
         "turdigizmu", "turdingizmu", "turdingiz", "turdigiz", "turding",
         "turdum", "turduq", "turdi", "turdu", "tur",
         "digizmu", "dingizmu", "dingiz", "digiz", "gizmu", "izmu",
+        "watimen", "watisen", "watisiz", "watidu", "watimiz", "watidilar",
+        "uwatimen", "uwatidu", "iwatimen", "iwatidu",
         "ding", "dum", "duq", "di", "du",
         "musiler", "musiz", "misiz", "musen",
         "siler", "siz", "sen", "men", "miz",
+        "imen", "isen", "isiz", "idu", "imiz", "idilar",
+        "ayli", "eyli", "ay", "ey", "ingiz", "ing", "sun",
+        "lar", "ler", "ning", "ni", "gha", "qa", "da", "de", "din", "tin",
         "mu", "chu", "ghu", "ken", "im",
     ]
 
@@ -22,8 +27,12 @@ public final class MorphologyExpander {
         ["siz", "sen", "men", "siler", "miz"],
         ["ding", "dingiz", "dingizmu", "digizmu", "digiz", "gizmu", "izmu"],
         ["di", "du", "dum", "duq", "ding", "dingiz"],
-        ["turding", "turdingiz", "turdingizmu", "turdigizmu", "turdigiz", "turdi", "turdu", "turdum"],
+        ["turding", "turdingiz", "turdingizmu", "turdigizmu", "turdigiz", "turdi", "turdu", "turdum", "turduq"],
         ["tur", "turdi", "turdu", "turding", "turdum"],
+        ["watimen", "watisen", "watisiz", "watidu", "watimiz", "watidilar"],
+        ["imen", "isen", "isiz", "idu", "imiz", "idilar"],
+        ["ay", "ey", "ayli", "eyli", "ing", "ingiz", "sun"],
+        ["lar", "ler", "ning", "ni", "gha", "qa", "da", "de", "din", "tin"],
         ["chu", "ghu", "ken", "mu"],
     ]
 
@@ -50,7 +59,6 @@ public final class MorphologyExpander {
             ranked.append((w, score))
         }
 
-        // Walk candidate stems from longest prefix of `key` down to min length.
         let chars = Array(key)
         var stemEnd = chars.count
         var stemsFound = 0
@@ -65,8 +73,6 @@ public final class MorphologyExpander {
             stemEnd -= 1
         }
 
-        // If the whole partial is unknown but a shorter stem exists inside correction
-        // forms, still try treating the longest trie word that is a prefix.
         if stemsFound == 0 {
             stemEnd = chars.count - 1
             while stemEnd >= Self.minStemLength {
@@ -96,19 +102,16 @@ public final class MorphologyExpander {
         for suffix in Self.suffixes {
             let form = stem + suffix
             if remainder.isEmpty {
-                // Bare stem: prefer short productive clitics.
                 let score = stemFreq / 4 - suffix.count * 10
                 consider(form, score)
                 continue
             }
             if suffix.hasPrefix(remainder) {
-                // Prefix completion: yaxshimu → yaxshimusiz
                 let score = stemFreq / 2 - (suffix.count - remainder.count) * 5
                 consider(form, score)
             }
         }
 
-        // Related-family alternates: yaxshiturding → yaxshiturdigizmu
         if !remainder.isEmpty {
             for family in Self.families {
                 let matched = family.contains { $0 == remainder || $0.hasPrefix(remainder) || remainder.hasPrefix($0) }
@@ -116,7 +119,6 @@ public final class MorphologyExpander {
                 for alt in family {
                     guard alt != remainder else { continue }
                     let form = stem + alt
-                    // Prefer longer / polite question forms slightly when remainder is complete.
                     let boost = family.contains(remainder) ? 200 : 0
                     let score = stemFreq / 3 - abs(alt.count - remainder.count) * 8 + boost
                     consider(form, score)
@@ -125,7 +127,6 @@ public final class MorphologyExpander {
         }
     }
 
-    /// True when candidate shares stem with typed and is a family alternate (not a prefix).
     private func isRelatedAlternate(typed: String, candidate: String) -> Bool {
         guard !candidate.hasPrefix(typed) else { return true }
         let chars = Array(typed)

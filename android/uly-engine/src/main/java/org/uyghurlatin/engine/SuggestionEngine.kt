@@ -17,23 +17,31 @@ class SuggestionEngine(
     private val store: LexiconStore,
     private val personal: PersonalDictionary = PersonalDictionary(),
 ) {
+    private val morphology = MorphologyExpander(store.trie)
+
     val meta: LexiconMeta get() = store.meta
 
-    /** Tiny LRU-ish cache: same (partial|prev|limit) within a burst of key events. */
     private var cacheKey: String? = null
     private var cacheValue: SuggestionResult? = null
 
-    fun suggest(partial: String, previousWord: String?, limit: Int = 3): SuggestionResult {
+    fun suggest(
+        partial: String,
+        previousWord: String?,
+        limit: Int = 3,
+        sentenceStart: Boolean = false,
+    ): SuggestionResult {
         val p = UlyNormalizer.lookupKey(partial)
         val prevKey = previousWord?.let { UlyNormalizer.lookupKey(it) }
-        val key = "$p|${prevKey.orEmpty()}|$limit"
+        val key = "$p|${prevKey.orEmpty()}|$sentenceStart|$limit"
         cacheValue?.let { cached ->
-            if (cacheKey == key) return cached
+            if (cacheKey == key && p.isNotEmpty()) return cached
         }
 
-        val result = suggestUncached(p, prevKey, limit)
-        cacheKey = key
-        cacheValue = result
+        val result = suggestUncached(p, prevKey, limit, sentenceStart)
+        if (p.isNotEmpty()) {
+            cacheKey = key
+            cacheValue = result
+        }
         return result
     }
 
@@ -42,21 +50,42 @@ class SuggestionEngine(
         cacheValue = null
     }
 
-    private fun suggestUncached(p: String, previousWord: String?, limit: Int): SuggestionResult {
+    private fun suggestUncached(
+        p: String,
+        previousWord: String?,
+        limit: Int,
+        sentenceStart: Boolean,
+    ): SuggestionResult {
         if (p.isEmpty()) {
-            val next = store.predictor.nextWords(previousWord, limit)
+            val ranked = mutableListOf<Pair<String, Int>>()
+            if (sentenceStart || previousWord.isNullOrEmpty()) {
+                ranked += personal.rankedOpeners(limit * 2)
+                ranked += personal.wordScores.entries
+                    .sortedByDescending { it.value }
+                    .take(limit)
+                    .map { it.key to (it.value + 40_000) }
+            } else {
+                ranked += personal.nextWords(previousWord, limit)
+            }
+            val staticNext = store.predictor.nextWords(
+                if (sentenceStart) null else previousWord,
+                limit * 2,
+            )
+            staticNext.forEachIndexed { idx, w -> ranked += w to (10_000 - idx) }
+            ranked.sortByDescending { it.second }
+            val words = unique(ranked.map { it.first }, limit)
             return SuggestionResult(
-                candidates = next,
+                candidates = words,
                 isMisspelled = false,
-                mode = if (next.isNotEmpty()) SuggestionMode.NEXT_WORD else SuggestionMode.EMPTY,
+                mode = if (words.isNotEmpty()) SuggestionMode.NEXT_WORD else SuggestionMode.EMPTY,
             )
         }
 
-        // Completions first — never pay for spell-check while the trie still matches.
-        val comps = (
-            personal.rankedPrefix(p, limit) +
-                store.trie.completions(p, limit * 3)
-            ).sortedByDescending { it.second }
+        var comps = personal.rankedPrefix(p, limit) + store.trie.completions(p, limit * 3)
+        if (comps.size < limit) {
+            comps = comps + morphology.expansions(p, limit * 2)
+        }
+        comps = comps.sortedByDescending { it.second }
 
         val words = unique(comps.map { it.first }, limit)
         if (words.isNotEmpty()) {
@@ -68,11 +97,21 @@ class SuggestionEngine(
             )
         }
 
-        // No prefix hits: corrections (skipped for very short prefixes inside SpellChecker).
         if (p.length >= 3) {
             val corr = store.spellChecker.suggestions(p, limit)
             if (corr.isNotEmpty()) {
-                return SuggestionResult(corr, isMisspelled = true, mode = SuggestionMode.CORRECTION)
+                val ranked = mutableListOf<Pair<String, Int>>()
+                corr.forEachIndexed { idx, c ->
+                    ranked += c to (500_000 - idx * 10)
+                    for ((m, score) in morphology.expansions(c, limit)) {
+                        ranked += m to (score + 100_000 - idx * 10)
+                    }
+                }
+                ranked.sortByDescending { it.second }
+                val morphWords = unique(ranked.map { it.first }, limit)
+                if (morphWords.isNotEmpty()) {
+                    return SuggestionResult(morphWords, isMisspelled = true, mode = SuggestionMode.CORRECTION)
+                }
             }
         }
 
@@ -83,8 +122,38 @@ class SuggestionEngine(
         )
     }
 
-    fun learnSelection(word: String) {
-        personal.learn(word, 5)
+    fun learnSelection(
+        word: String,
+        previous: String? = null,
+        sentenceStart: Boolean = false,
+    ) {
+        personal.learn(word, 6)
+        if (sentenceStart || previous.isNullOrEmpty()) {
+            personal.learnOpener(word, 22)
+        } else {
+            personal.learnBigram(previous, word, 4)
+        }
+        invalidateCache()
+    }
+
+    fun learnCommittedWord(
+        word: String,
+        previous: String?,
+        sentenceStart: Boolean = false,
+    ) {
+        val key = UlyNormalizer.lookupKey(word)
+        if (key.length < 2) return
+        val boost = when {
+            personal.contains(key) -> 2
+            store.trie.contains(key) -> 1
+            else -> 12
+        }
+        personal.learn(key, boost)
+        if (sentenceStart || previous.isNullOrEmpty()) {
+            personal.learnOpener(key, if (sentenceStart) 24 else 14)
+        } else {
+            personal.learnBigram(previous, key, if (boost >= 12) 4 else 2)
+        }
         invalidateCache()
     }
 

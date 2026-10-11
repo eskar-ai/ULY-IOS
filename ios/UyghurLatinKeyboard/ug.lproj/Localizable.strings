@@ -1,1 +1,28 @@
 "candidate_add" = "+ قوش";
+"status_loading" = "سۆز ئامبىرى يۈكلىنىۋاتىدۇ…";
+"status_failed" = "سۆز ئامبىرىنى يۈكلىگىلى بولمىدى";
+
+"return_default" = "قۇر";
+"return_go" = "بار";
+"return_search" = "ئىزدە";
+"return_send" = "يوللا";
+"return_done" = "تامام";
+"return_next" = "كېيىنكى";
+"return_join" = "قوشۇل";
+"return_route" = "يول";
+"return_continue" = "داۋاملاش";
+"return_emergency" = "جىددىي";
+
+"a11y_delete" = "ئۆچۈرۈش";
+"a11y_space" = "بوشلۇق";
+"a11y_return" = "قۇر ئالماشتۇرۇش";
+"a11y_shift" = "چوڭ ھەرپ";
+"a11y_caps_lock" = "چوڭ ھەرپ قۇلۇپى";
+"a11y_next_keyboard" = "كېيىنكى كۇنۇپكا تاختىسى";
+"a11y_dismiss" = "كۇنۇپكا تاختىسىنى يوشۇرۇش";
+"a11y_symbols" = "سان ۋە بەلگە";
+"a11y_letters" = "ھەرپلەر";
+"a11y_uly" = "ئۇيغۇرچە ھەرپلەر";
+"a11y_add_word" = "سۆز ئامبىرىغا قوش";
+
+"key_space" = "بوشلۇق";

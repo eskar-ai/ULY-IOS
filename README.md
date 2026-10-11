@@ -65,7 +65,7 @@ The extension sets `RequestsOpenAccess = false`. All prediction and spell-check 
 ### Appearance
 
 - **Default: follow system** Light/Dark (same as the stock keyboard).
-- On the suggestion bar, tap **◐** to cycle **System → Light → Dark** (stored in the keyboard sandbox).
+- To override, open the **Uyghur ULY** app and pick **System / Light / Dark** (plus keyboard height, sound, haptics and autocorrect). Settings are stored on device and shared with the keyboard through the Keychain; switch keyboards once to apply.
 - Visual style matches the system keyboard: gray chassis, white/dark keycaps, QuickType-style candidates.
 
 > This Cloud Agent environment is Linux and cannot run the iOS Simulator. Use Xcode Simulator / a device on a Mac for native install testing; use the public web demo (`/demo/`) for theme and layout checks.

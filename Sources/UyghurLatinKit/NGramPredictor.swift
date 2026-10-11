@@ -6,10 +6,9 @@ import Foundation
 /// which are dictionary headwords — not natural sentence openers. This predictor
 /// uses a curated starter list + light rotation instead.
 public final class NGramPredictor {
-    private var bigrams: [String: [(String, Int)]] = [:]
-    private var unigrams: [(String, Int)] = []
-    private var starters: [(String, Int)]
-    private var unigramFreq: [String: Int] = [:]
+    private let bin: LexiconBinary
+    private let trie: PrefixTrie
+    private var starters: [(String, Int)] = []
     /// Recently suggested next-words (for light diversity across opens).
     private var recentRing: [String] = []
     private let recentCap = 24
@@ -17,25 +16,13 @@ public final class NGramPredictor {
     /// Natural ULY openers / high-utility next words (not imla color lemmas).
     public static let defaultSentenceStarters: [String] = SuggestionScenario.general.bundledStarters
 
-    public init(
-        bigramTuples: [(String, String, Int)],
-        unigrams: [(String, Int)],
+    init(
+        binary: LexiconBinary,
+        trie: PrefixTrie,
         sentenceStarters: [String] = NGramPredictor.defaultSentenceStarters
     ) {
-        var map: [String: [(String, Int)]] = [:]
-        for (a, b, c) in bigramTuples {
-            let key = ULYNormalizer.lookupKey(a)
-            let next = ULYNormalizer.lookupKey(b)
-            map[key, default: []].append((next, c))
-        }
-        for (k, list) in map {
-            self.bigrams[k] = list.sorted { $0.1 > $1.1 }
-        }
-        self.unigrams = unigrams.sorted { $0.1 > $1.1 }
-        self.unigramFreq = Dictionary(uniqueKeysWithValues: unigrams.map {
-            (ULYNormalizer.lookupKey($0.0), $0.1)
-        })
-        self.starters = []
+        self.bin = binary
+        self.trie = trie
         updateStarters(sentenceStarters)
     }
 
@@ -44,7 +31,7 @@ public final class NGramPredictor {
         starters = sentenceStarters.enumerated().compactMap { idx, raw in
             let w = ULYNormalizer.lookupKey(raw)
             guard !w.isEmpty else { return nil }
-            let lex = unigramFreq[w] ?? 0
+            let lex = trie.frequency(of: w)
             return (w, 1_000_000 - idx * 1_000 + min(lex, 50_000))
         }
     }
@@ -64,9 +51,7 @@ public final class NGramPredictor {
             ranked.append(contentsOf: starters)
         } else if let prev = previous {
             let key = ULYNormalizer.lookupKey(prev)
-            if let list = bigrams[key], !list.isEmpty {
-                ranked.append(contentsOf: list.map { ($0.0, $0.1 + 200_000) })
-            }
+            ranked.append(contentsOf: bin.bigrams(after: key).map { ($0.0, $0.1 + 200_000) })
             // Soft back-off: a few starters so prediction never feels stuck.
             if ranked.count < limit {
                 ranked.append(contentsOf: starters.prefix(limit).map { ($0.0, $0.1 / 20) })
@@ -103,15 +88,22 @@ public final class NGramPredictor {
             "men", "sen", "siz", "biz", "ular", "bu", "u", "shu", "bir",
             "we", "emma", "lekin", "hem", "yene", "bolidu", "bar", "yoq",
         ]
-        var hits = unigrams.filter { allow.contains($0.0) }
+        var hits: [(String, Int)] = allow.compactMap { w in
+            let f = trie.frequency(of: w)
+            return f > 0 ? (w, f) : nil
+        }
+        hits.sort { $0.1 > $1.1 }
         if hits.count < limit {
-            // Last resort: mid-frequency content words, skip ultra-head of list.
-            let skip = Set(unigrams.prefix(80).map(\.0))
-            for (w, f) in unigrams.dropFirst(80) {
-                if skip.contains(w) { continue }
-                if w.count < 3 { continue }
-                hits.append((w, f / 100))
-                if hits.count >= limit { break }
+            // Last resort: mid-frequency content words, skip the ultra-head of the list
+            // (word ids are frequency-sorted).
+            let words = trie.words
+            var id = 80
+            while id < words.count, hits.count < limit {
+                let w = words.word(at: id)
+                if w.count >= 3 {
+                    hits.append((w, words.frequency(at: id) / 100))
+                }
+                id += 1
             }
         }
         return Array(hits.prefix(limit))
