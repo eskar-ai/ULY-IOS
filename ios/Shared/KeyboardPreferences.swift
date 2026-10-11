@@ -136,8 +136,9 @@ enum KeyboardPreferences {
             // iPad — stock keyboard is taller in landscape (wider keys, same aspect).
             return isLandscape ? 400 : 348
         }
-        // iPhone — tuned to stock English keyboard + QuickType bar (~32 pt rows in landscape).
-        return isLandscape ? 206 : 292
+        // iPhone — measured against the stock iOS 26 keyboard: 44 pt keys, 11 pt row gaps,
+        // QuickType bar on top (~32 pt rows in landscape).
+        return isLandscape ? 206 : 266
     }
 
     static func resolvedKeyboardHeight(

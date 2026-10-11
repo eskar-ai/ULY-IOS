@@ -3,7 +3,7 @@ import UIKit
 /// `UIInputView` that reports a real intrinsic height so iOS honors custom keyboard sizing.
 /// A bare height constraint alone is often ignored; `allowsSelfSizing` + intrinsic size works.
 final class SelfSizingInputView: UIInputView {
-    var preferredHeight: CGFloat = 292 {
+    var preferredHeight: CGFloat = 266 {
         didSet {
             guard abs(oldValue - preferredHeight) > 0.5 else { return }
             invalidateIntrinsicContentSize()

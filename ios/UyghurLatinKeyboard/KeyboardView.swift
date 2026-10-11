@@ -13,8 +13,12 @@ final class KeyboardView: UIView {
         case backspace, deleteWord, space, returnKey, shift, capsLock, symbols, uly, letters, nextKeyboard, dismiss
     }
 
-    /// QuickType columns; the engine is asked for exactly this many candidates.
-    static let candidateSlots = 3
+    /// Most candidates the bar can show; the engine is asked for this many and the bar
+    /// keeps as many as fit their measured widths.
+    static let candidateSlots = 8
+    /// Minimum horizontal padding per side and minimum cell width in the candidate bar.
+    private static let candidatePadding: CGFloat = 14
+    private static let candidateMinWidth: CGFloat = 64
 
     enum Status {
         case none
@@ -27,16 +31,16 @@ final class KeyboardView: UIView {
 
     weak var delegate: KeyboardViewDelegate?
 
-    /// Solid fill under the system rounded top so backdrop blur cannot show through.
+    /// Top padding above the candidate bar (transparent; the system material shows through).
     private let chromeFill = UIView()
     private let candidateBar = UIView()
-    private let candidatesStack = UIStackView()
+    private let candidatesRow = CandidateRowView()
     private var candidateButtons: [UIButton] = []
-    /// Word per candidate column; `addSlot` marks the "+ Add" column, "" an empty column.
-    private var slotWords = ["", "", ""]
+    /// Hairline on the leading edge of each cell after the first.
+    private var candidateSeparators: [UIView] = []
+    /// Candidate per cell; `addSlot` marks the "+ Add" cell.
+    private var slotWords: [String] = []
     private static let addSlot = "\u{0}add"
-    private let sep1 = UIView()
-    private let sep2 = UIView()
     private let statusLabel = UILabel()
     private let divider = UIView()
     private let rowsStack = UIStackView()
@@ -47,7 +51,9 @@ final class KeyboardView: UIView {
     private var layerMode: Layer = .letters
     private var fieldKind: FieldKind = .text
     private var returnTitle = NSLocalizedString("return_default", comment: "Return key")
+    private var returnSymbol: String? = "return.left"
     private var returnEmphasized = false
+    private var returnEnabled = true
     private var palette = KeyboardPalette.palette(style: .light)
     private var preference: KeyboardThemePreference = .system
     private var lastCandidates: [String] = []
@@ -132,8 +138,10 @@ final class KeyboardView: UIView {
         candidateHeightConstraint?.constant = (36 * min(max(s, 0.9), 1.12)).rounded()
         rowsTopConstraint?.constant = (8 * min(max(s, 0.85), 1.2)).rounded()
         rowsBottomConstraint?.constant = (-(5 * min(max(s, 0.85), 1.2))).rounded()
-        rowsStack.spacing = (7 * min(max(s, 0.85), 1.25)).rounded()
-        let inset: CGFloat = traits.horizontalSizeClass == .regular ? 6 : 3
+        // Stock iOS 26 phone portrait: ~11 pt between rows, ~7 pt side margins.
+        let rowGap: CGFloat = traits.verticalSizeClass == .compact ? 5 : 11
+        rowsStack.spacing = (rowGap * min(max(s, 0.85), 1.25)).rounded()
+        let inset: CGFloat = traits.horizontalSizeClass == .regular ? 6 : 7
         rowsLeadingConstraint?.constant = inset
         rowsTrailingConstraint?.constant = -inset
     }
@@ -159,17 +167,29 @@ final class KeyboardView: UIView {
         rebuildKeys()
     }
 
-    /// Return-key label/emphasis and extra keys from the host field's traits.
-    func setInputTraits(returnTitle: String, emphasized: Bool, fieldKind: FieldKind) {
+    /// Return-key label/icon/emphasis and extra keys from the host field's traits.
+    /// `returnSymbol` (SF Symbol) replaces the title when set, like the stock keyboard.
+    func setInputTraits(returnTitle: String, returnSymbol: String?, emphasized: Bool, fieldKind: FieldKind) {
         let kindChanged = self.fieldKind != fieldKind
+        let faceChanged = self.returnTitle != returnTitle
+            || self.returnSymbol != returnSymbol
+            || self.returnEmphasized != emphasized
         self.returnTitle = returnTitle
+        self.returnSymbol = returnSymbol
         self.returnEmphasized = emphasized
         self.fieldKind = fieldKind
         if kindChanged {
             rebuildKeys()
-        } else {
+        } else if faceChanged {
             refreshKeyFaces()
         }
+    }
+
+    /// Gray, inert return key while an `enablesReturnKeyAutomatically` field is empty.
+    func setReturnEnabled(_ enabled: Bool) {
+        guard returnEnabled != enabled else { return }
+        returnEnabled = enabled
+        refreshKeyFaces()
     }
 
     /// Stop key repeat / popups (keyboard hidden or touches lost).
@@ -183,20 +203,19 @@ final class KeyboardView: UIView {
         let style = preference.resolvedStyle(for: traits)
         palette = KeyboardPalette.palette(style: style)
 
-        // Fully opaque stack — translucent views let the iOS keyboard material
-        // frost the QuickType row (exactly the blur seen in screenshots).
-        isOpaque = true
-        backgroundColor = palette.background
-        chromeFill.isOpaque = true
-        chromeFill.backgroundColor = palette.background
-        candidateBar.isOpaque = true
-        candidateBar.backgroundColor = palette.candidateBar
-        candidatesStack.backgroundColor = palette.candidateBar
-        divider.backgroundColor = palette.separator
-        sep1.backgroundColor = palette.separator
-        sep2.backgroundColor = palette.separator
+        // Transparent chrome: the system keyboard material and its rounded corners show
+        // through, so the backdrop matches the stock keyboard exactly.
+        isOpaque = false
+        backgroundColor = .clear
+        chromeFill.isOpaque = false
+        chromeFill.backgroundColor = .clear
+        candidateBar.isOpaque = false
+        candidateBar.backgroundColor = .clear
+        candidatesRow.backgroundColor = .clear
+        divider.backgroundColor = .clear
+        candidateSeparators.forEach { $0.backgroundColor = palette.separator }
         statusLabel.textColor = palette.candidateSecondary
-        statusLabel.backgroundColor = palette.candidateBar
+        statusLabel.backgroundColor = .clear
         applyCandidatePresentation()
     }
 
@@ -213,71 +232,111 @@ final class KeyboardView: UIView {
         applyCandidatePresentation()
     }
 
-    // MARK: - Candidate bar (3 reused buttons)
+    // MARK: - Candidate bar (reused buttons, as many as fit)
 
-    private func candidateFont(emphasized: Bool, add: Bool) -> UIFont {
+    private func candidateFont(add: Bool) -> UIFont {
         let base = (add ? 15 : 17) * min(max(heightScale, 0.9), 1.15)
-        let font = UIFont.systemFont(ofSize: base, weight: add || emphasized ? .semibold : .regular)
+        let font = UIFont.systemFont(ofSize: base, weight: .regular)
         return UIFontMetrics(forTextStyle: .body).scaledFont(for: font, maximumPointSize: base * 1.35, compatibleWith: traitCollection)
     }
 
     private func applyCandidatePresentation() {
         switch status {
-        case .loading:
-            statusLabel.text = NSLocalizedString("status_loading", comment: "Lexicon loading")
+        case .loading, .failed:
+            let key = status == .loading ? "status_loading" : "status_failed"
+            statusLabel.text = NSLocalizedString(key, comment: "Lexicon status")
             statusLabel.isHidden = false
-            candidatesStack.isHidden = true
-            sep1.isHidden = true
-            sep2.isHidden = true
-            return
-        case .failed:
-            statusLabel.text = NSLocalizedString("status_failed", comment: "Lexicon failed to load")
-            statusLabel.isHidden = false
-            candidatesStack.isHidden = true
-            sep1.isHidden = true
-            sep2.isHidden = true
+            candidatesRow.isHidden = true
             return
         case .none:
             statusLabel.isHidden = true
-            candidatesStack.isHidden = false
+            candidatesRow.isHidden = false
         }
 
-        // Stock QuickType: 3 equal-width columns; hairlines drawn as overlays.
-        // When the typed word is unknown, reserve the last column for "+ Add".
-        let candidateLimit = canAddWord ? Self.candidateSlots - 1 : Self.candidateSlots
-        var slots = Array(lastCandidates.prefix(candidateLimit))
-        while slots.count < candidateLimit { slots.append("") }
+        // When the typed word is unknown, the last cell is "+ Add".
+        var slots = lastCandidates.filter { !$0.isEmpty }
         if canAddWord { slots.append(Self.addSlot) }
-        slotWords = slots
+        slotWords = Array(slots.prefix(Self.candidateSlots))
 
         for (idx, button) in candidateButtons.enumerated() {
-            let word = slots[idx]
-            button.backgroundColor = palette.candidateBar
+            guard idx < slotWords.count else {
+                button.isHidden = true
+                button.isAccessibilityElement = false
+                continue
+            }
+            let word = slotWords[idx]
             if word == Self.addSlot {
                 button.setTitle(NSLocalizedString("candidate_add", comment: "Add unknown word"), for: .normal)
-                button.titleLabel?.font = candidateFont(emphasized: false, add: true)
+                button.titleLabel?.font = candidateFont(add: true)
                 button.setTitleColor(palette.candidateSecondary, for: .normal)
                 button.setTitleColor(palette.candidateSecondary.withAlphaComponent(0.55), for: .highlighted)
-                button.isEnabled = true
                 button.accessibilityLabel = NSLocalizedString("a11y_add_word", comment: "")
-                button.isAccessibilityElement = true
             } else {
-                let emphasized = idx == 0 && !word.isEmpty
-                let color: UIColor = word.isEmpty
-                    ? .clear
-                    : (lastMisspelled && idx == 0 ? palette.misspelled : palette.candidateText)
-                button.setTitle(word.isEmpty ? " " : word, for: .normal)
-                button.titleLabel?.font = candidateFont(emphasized: emphasized, add: false)
+                let color = lastMisspelled && idx == 0 ? palette.misspelled : palette.candidateText
+                button.setTitle(word, for: .normal)
+                button.titleLabel?.font = candidateFont(add: false)
                 button.setTitleColor(color, for: .normal)
                 button.setTitleColor(color.withAlphaComponent(0.55), for: .highlighted)
-                button.isEnabled = !word.isEmpty
                 button.accessibilityLabel = word
-                button.isAccessibilityElement = !word.isEmpty
             }
         }
-        let hasAny = slots.contains { !$0.isEmpty }
-        sep1.isHidden = !hasAny
-        sep2.isHidden = !hasAny
+        candidatesRow.setNeedsLayout()
+        candidatesRow.layoutIfNeeded()
+    }
+
+    /// Fit as many candidates as their text widths allow (each keeps ≥ `candidatePadding`
+    /// per side and ≥ `candidateMinWidth`); "+ Add" is always kept. Cells share the bar
+    /// equally when they all fit that way (stock QuickType look), otherwise each gets its
+    /// own width plus an equal share of the leftover space.
+    private func layoutCandidates() {
+        let bounds = candidatesRow.bounds
+        candidateButtons.forEach { $0.isHidden = true; $0.isAccessibilityElement = false }
+        candidateSeparators.forEach { $0.isHidden = true }
+        guard !slotWords.isEmpty, bounds.width > 0 else { return }
+
+        let needs: [CGFloat] = slotWords.enumerated().map { idx, word in
+            let button = candidateButtons[idx]
+            let font = button.titleLabel?.font ?? candidateFont(add: false)
+            let title = button.title(for: .normal) ?? word
+            let text = ceil((title as NSString).size(withAttributes: [.font: font]).width)
+            return max(Self.candidateMinWidth, text + 2 * Self.candidatePadding)
+        }
+
+        let hasAdd = slotWords.last == Self.addSlot
+        let wordCount = hasAdd ? slotWords.count - 1 : slotWords.count
+        var used: CGFloat = hasAdd ? needs[slotWords.count - 1] : 0
+        var shown: [Int] = []
+        for idx in 0..<wordCount {
+            guard used + needs[idx] <= bounds.width || shown.isEmpty && !hasAdd else { break }
+            shown.append(idx)
+            used += needs[idx]
+        }
+        if hasAdd { shown.append(slotWords.count - 1) }
+        guard !shown.isEmpty else { return }
+
+        let count = CGFloat(shown.count)
+        let widest = shown.map { needs[$0] }.max() ?? 0
+        let equal = widest * count <= bounds.width
+        let extra = max(0, (bounds.width - shown.reduce(0) { $0 + needs[$1] }) / count)
+
+        var x = bounds.minX
+        for (position, idx) in shown.enumerated() {
+            let isLast = position == shown.count - 1
+            var width = equal ? bounds.width / count : needs[idx] + extra
+            if isLast { width = bounds.maxX - x }
+            let button = candidateButtons[idx]
+            button.frame = CGRect(x: x, y: bounds.minY, width: max(0, width), height: bounds.height)
+            button.isHidden = false
+            button.isAccessibilityElement = true
+            if position > 0 {
+                let sep = candidateSeparators[idx]
+                let hairline = 1 / max(UIScreen.main.scale, 2)
+                let h = min(20, bounds.height * 0.55)
+                sep.frame = CGRect(x: x - hairline / 2, y: bounds.midY - h / 2, width: hairline, height: h)
+                sep.isHidden = false
+            }
+            x += width
+        }
     }
 
     @objc private func candidateTapped(_ sender: UIButton) {
@@ -299,15 +358,12 @@ final class KeyboardView: UIView {
         candidateBar.translatesAutoresizingMaskIntoConstraints = false
         divider.translatesAutoresizingMaskIntoConstraints = false
 
-        candidatesStack.axis = .horizontal
-        candidatesStack.alignment = .fill
-        candidatesStack.spacing = 0
-        candidatesStack.distribution = .fillEqually
-        candidatesStack.translatesAutoresizingMaskIntoConstraints = false
+        candidatesRow.translatesAutoresizingMaskIntoConstraints = false
+        candidatesRow.onLayout = { [weak self] in self?.layoutCandidates() }
         for idx in 0..<Self.candidateSlots {
             let button = UIButton(type: .custom)
             button.tag = idx
-            button.isOpaque = true
+            button.isHidden = true
             button.titleLabel?.lineBreakMode = .byTruncatingTail
             button.titleLabel?.textAlignment = .center
             button.titleLabel?.adjustsFontForContentSizeCategory = true
@@ -315,26 +371,21 @@ final class KeyboardView: UIView {
             button.accessibilityTraits = [.button, .keyboardKey]
             button.addTarget(self, action: #selector(candidateTapped(_:)), for: .touchUpInside)
             candidateButtons.append(button)
-            candidatesStack.addArrangedSubview(button)
+            candidatesRow.addSubview(button)
+
+            let sep = UIView()
+            sep.isHidden = true
+            sep.isUserInteractionEnabled = false
+            candidateSeparators.append(sep)
         }
+        candidateSeparators.forEach { candidatesRow.addSubview($0) }
 
         statusLabel.translatesAutoresizingMaskIntoConstraints = false
         statusLabel.font = .systemFont(ofSize: 15, weight: .medium)
         statusLabel.textAlignment = .center
         statusLabel.isHidden = true
-        statusLabel.isOpaque = true
 
-        for sep in [sep1, sep2] {
-            sep.translatesAutoresizingMaskIntoConstraints = false
-            sep.isOpaque = true
-            sep.isHidden = true
-            sep.isUserInteractionEnabled = false
-        }
-
-        candidateBar.addSubview(candidatesStack)
-        // Hairlines ride on the left edge of columns 2 and 3 so they follow safe-area insets.
-        candidateButtons[1].addSubview(sep1)
-        candidateButtons[2].addSubview(sep2)
+        candidateBar.addSubview(candidatesRow)
         candidateBar.addSubview(statusLabel)
 
         rowsStack.axis = .vertical
@@ -347,6 +398,8 @@ final class KeyboardView: UIView {
         addSubview(candidateBar)
         addSubview(divider)
         addSubview(rowsStack)
+        // The stock keyboard has no rule under QuickType; the view only anchors spacing.
+        divider.isHidden = true
 
         let hairline = 1 / max(UIScreen.main.scale, 2)
         let chromeH = chromeFill.heightAnchor.constraint(equalToConstant: 8)
@@ -376,20 +429,10 @@ final class KeyboardView: UIView {
             candidateBar.trailingAnchor.constraint(equalTo: trailingAnchor),
             candH,
 
-            candidatesStack.leadingAnchor.constraint(equalTo: candidateBar.safeAreaLayoutGuide.leadingAnchor),
-            candidatesStack.trailingAnchor.constraint(equalTo: candidateBar.safeAreaLayoutGuide.trailingAnchor),
-            candidatesStack.topAnchor.constraint(equalTo: candidateBar.topAnchor),
-            candidatesStack.bottomAnchor.constraint(equalTo: candidateBar.bottomAnchor),
-
-            sep1.widthAnchor.constraint(equalToConstant: hairline),
-            sep1.heightAnchor.constraint(equalToConstant: 20),
-            sep1.centerYAnchor.constraint(equalTo: candidateButtons[1].centerYAnchor),
-            sep1.centerXAnchor.constraint(equalTo: candidateButtons[1].leadingAnchor),
-
-            sep2.widthAnchor.constraint(equalToConstant: hairline),
-            sep2.heightAnchor.constraint(equalToConstant: 20),
-            sep2.centerYAnchor.constraint(equalTo: candidateButtons[2].centerYAnchor),
-            sep2.centerXAnchor.constraint(equalTo: candidateButtons[2].leadingAnchor),
+            candidatesRow.leadingAnchor.constraint(equalTo: candidateBar.safeAreaLayoutGuide.leadingAnchor),
+            candidatesRow.trailingAnchor.constraint(equalTo: candidateBar.safeAreaLayoutGuide.trailingAnchor),
+            candidatesRow.topAnchor.constraint(equalTo: candidateBar.topAnchor),
+            candidatesRow.bottomAnchor.constraint(equalTo: candidateBar.bottomAnchor),
 
             statusLabel.leadingAnchor.constraint(equalTo: candidateBar.leadingAnchor, constant: 12),
             statusLabel.trailingAnchor.constraint(equalTo: candidateBar.trailingAnchor, constant: -12),
@@ -642,12 +685,25 @@ final class KeyboardView: UIView {
         btn.item = item
         btn.configuration = nil
         btn.isOpaque = true
-        btn.layer.cornerRadius = isRegularWidth ? 7 : 5
+        // iOS 26 keys: rounder, flat (no bottom shadow).
+        btn.layer.cornerRadius = isRegularWidth ? 8 : 7
         btn.layer.cornerCurve = .continuous
-        btn.layer.shadowOpacity = 1
-        btn.layer.shadowOffset = CGSize(width: 0, height: 1)
-        btn.layer.shadowRadius = 0
+        btn.layer.shadowOpacity = 0
         btn.clipsToBounds = false
+
+        if item.key == .space {
+            let tag = UILabel()
+            tag.text = "ULY"
+            tag.font = .systemFont(ofSize: 11, weight: .semibold)
+            tag.translatesAutoresizingMaskIntoConstraints = false
+            tag.isAccessibilityElement = false
+            btn.addSubview(tag)
+            btn.spaceTag = tag
+            NSLayoutConstraint.activate([
+                tag.trailingAnchor.constraint(equalTo: btn.trailingAnchor, constant: -8),
+                tag.bottomAnchor.constraint(equalTo: btn.bottomAnchor, constant: -4),
+            ])
+        }
         btn.isAccessibilityElement = true
         btn.accessibilityTraits = [.keyboardKey]
         btn.titleLabel?.adjustsFontSizeToFitWidth = true
@@ -715,8 +771,28 @@ final class KeyboardView: UIView {
             let special = isSpecial(item.key)
             var background = special ? palette.keySpecial : palette.keyFace
             var textColor = palette.keyText
+            btn.isUserInteractionEnabled = true
 
-            if item.key == .shift {
+            if item.key == .returnKey {
+                if !returnEnabled {
+                    background = palette.returnDisabled
+                    textColor = palette.returnDisabledText
+                    btn.isUserInteractionEnabled = false
+                } else if returnEmphasized {
+                    background = .systemBlue
+                    textColor = .white
+                }
+                if let symbol = returnSymbol {
+                    setSymbol(symbol, on: btn, scale: glyphScale)
+                } else {
+                    btn.setImage(nil, for: .normal)
+                    btn.setTitle(returnTitle, for: .normal)
+                    btn.titleLabel?.font = .systemFont(ofSize: (16 * glyphScale).rounded(), weight: .regular)
+                    btn.setTitleColor(textColor, for: .normal)
+                }
+                btn.accessibilityLabel = returnTitle
+                btn.accessibilityTraits = returnEnabled ? [.keyboardKey] : [.keyboardKey, .notEnabled]
+            } else if item.key == .shift {
                 let symbol = capsLocked ? "capslock.fill" : (shiftOn ? "shift.fill" : "shift")
                 setSymbol(symbol, on: btn, scale: glyphScale)
                 if shiftOn || capsLocked { background = palette.keyFace }
@@ -726,27 +802,14 @@ final class KeyboardView: UIView {
                 setSymbol(item.title, on: btn, scale: glyphScale)
                 btn.accessibilityLabel = accessibilityName(for: item.key)
             } else {
-                let title: String
-                switch item.key {
-                case .space: title = NSLocalizedString("key_space", comment: "Space bar label")
-                case .returnKey:
-                    title = returnTitle
-                    if returnEmphasized {
-                        background = .systemBlue
-                        textColor = .white
-                    }
-                default: title = item.isLetter ? cased(item.title) : item.title
-                }
+                // Stock space bar is blank apart from the small language tag.
+                let title = item.key == .space ? "" : (item.isLetter ? cased(item.title) : item.title)
                 btn.setImage(nil, for: .normal)
                 btn.setTitle(title, for: .normal)
-                let base: CGFloat
-                if item.key == .space || item.key == .returnKey {
-                    base = 15
-                } else {
-                    base = title.count > 2 ? 15 : (title.count == 2 ? 17 : (isRegularWidth ? 24 : 22.5))
-                }
+                let base: CGFloat = title.count > 2 ? 15 : (title.count == 2 ? 17 : (isRegularWidth ? 23 : 21))
                 btn.titleLabel?.font = .systemFont(ofSize: (base * glyphScale).rounded(), weight: .regular)
                 btn.setTitleColor(textColor, for: .normal)
+                btn.spaceTag?.textColor = palette.spaceTag
                 btn.accessibilityLabel = isSpecial(item.key) ? accessibilityName(for: item.key) : title
             }
             btn.restingColor = background
@@ -798,9 +861,9 @@ final class KeyboardView: UIView {
 
     @objc private func keyDown(_ btn: KeyButton) {
         pressFeedback()
-        btn.backgroundColor = btn.item.map { isSpecial($0.key) } == true
-            ? palette.keyFace
-            : palette.keySpecial.withAlphaComponent(0.55)
+        if btn.item?.key != .returnKey || !returnEmphasized {
+            btn.backgroundColor = palette.keyPressed
+        }
         if let item = btn.item, !isSpecial(item.key) {
             showKeyPreview(for: btn)
         }
@@ -836,7 +899,7 @@ final class KeyboardView: UIView {
 
     @objc private func deleteDown(_ btn: KeyButton) {
         pressFeedback()
-        btn.backgroundColor = palette.keyFace
+        btn.backgroundColor = palette.keyPressed
         endDeleteRepeat()
         deleteStartedAt = CACurrentMediaTime()
         delegate?.keyboardView(self, didTapKey: .backspace)
@@ -1006,4 +1069,15 @@ final class KeyboardView: UIView {
 private final class KeyButton: UIButton {
     var item: KeyboardView.KeyItem?
     var restingColor: UIColor?
+    var spaceTag: UILabel?
+}
+
+/// Lays out candidate cells by measured text width whenever its size changes.
+private final class CandidateRowView: UIView {
+    var onLayout: (() -> Void)?
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        onLayout?()
+    }
 }

@@ -39,8 +39,7 @@ final class KeyboardViewController: UIInputViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Opaque keyboard canvas — prevents iOS material blur washing out QuickType.
-        view.isOpaque = true
+        view.isOpaque = false
         if let input = view as? UIInputView {
             input.allowsSelfSizing = true
         }
@@ -77,7 +76,7 @@ final class KeyboardViewController: UIInputViewController {
         // a proper opaque input surface for custom keys + QuickType.
         let input = SelfSizingInputView(frame: .zero, inputViewStyle: .keyboard)
         input.allowsSelfSizing = true
-        input.isOpaque = true
+        input.isOpaque = false
         input.preferredHeight = KeyboardPreferences.resolvedKeyboardHeight(
             traits: .current,
             landscape: Self.isLandscape(UIScreen.main.bounds.size)
@@ -154,11 +153,19 @@ final class KeyboardViewController: UIInputViewController {
         case .URL, .webSearch: kind = .url
         default: kind = .text
         }
+        let returnSymbol: String?
+        switch proxy.returnKeyType ?? .default {
+        case .default: returnSymbol = "return.left"
+        case .send: returnSymbol = "arrow.up"
+        default: returnSymbol = nil
+        }
         keyboardView.setInputTraits(
             returnTitle: NSLocalizedString(titleKey, comment: "Return key"),
+            returnSymbol: returnSymbol,
             emphasized: emphasized,
             fieldKind: kind
         )
+        updateReturnEnabled()
         if type != lastKeyboardType {
             lastKeyboardType = type
             switch type {
@@ -168,6 +175,13 @@ final class KeyboardViewController: UIInputViewController {
                 if keyboardView.currentLayer == .symbols { keyboardView.setLayer(.letters) }
             }
         }
+    }
+
+    /// Mirror `enablesReturnKeyAutomatically`: return is inert while the field is empty.
+    private func updateReturnEnabled() {
+        let proxy = textDocumentProxy
+        let automatic = proxy.enablesReturnKeyAutomatically == true
+        keyboardView.setReturnEnabled(!automatic || proxy.hasText)
     }
 
     private var isSecure: Bool {
@@ -225,12 +239,22 @@ final class KeyboardViewController: UIInputViewController {
         }
     }
 
+    /// Transparent chrome over the system keyboard material; a forced theme overrides the
+    /// material's appearance too so keys and backdrop always agree.
     private func applyChrome() {
-        let style = KeyboardPreferences.theme.resolvedStyle(for: traitCollection)
-        let color = KeyboardPalette.palette(style: style).background
-        view.isOpaque = true
-        view.backgroundColor = color
-        keyboardView?.backgroundColor = color
+        let preference = KeyboardPreferences.theme
+        let override: UIUserInterfaceStyle
+        switch preference {
+        case .system: override = .unspecified
+        case .light: override = .light
+        case .dark: override = .dark
+        }
+        if view.overrideUserInterfaceStyle != override {
+            view.overrideUserInterfaceStyle = override
+        }
+        view.isOpaque = false
+        view.backgroundColor = .clear
+        keyboardView?.backgroundColor = .clear
     }
 
     // MARK: - Engine
@@ -430,6 +454,7 @@ final class KeyboardViewController: UIInputViewController {
 
     private func scheduleSuggest() {
         updateAutoShift()
+        updateReturnEnabled()
         if isSecure {
             suggestWorkItem?.cancel()
             suggestGeneration &+= 1
