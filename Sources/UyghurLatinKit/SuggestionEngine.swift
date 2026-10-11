@@ -19,14 +19,21 @@ public final class SuggestionEngine {
     private let store: LexiconStore
     private let personal: PersonalDictionary
     private let morphology: MorphologyExpander
+    private let starterPrefs: StarterPreferences
 
     private var cacheKey: String?
     private var cacheValue: SuggestionResult?
 
-    public init(store: LexiconStore, personal: PersonalDictionary = PersonalDictionary()) {
+    public init(
+        store: LexiconStore,
+        personal: PersonalDictionary = PersonalDictionary(),
+        starterPreferences: StarterPreferences = StarterPreferences()
+    ) {
         self.store = store
         self.personal = personal
         self.morphology = MorphologyExpander(trie: store.trie)
+        self.starterPrefs = starterPreferences
+        store.predictor.updateStarters(starterPreferences.activeStarters())
     }
 
     public var lexiconMeta: LexiconMeta { store.meta }
@@ -34,31 +41,47 @@ public final class SuggestionEngine {
     /// Exposed for host-app dictionary management UI.
     public var personalDictionary: PersonalDictionary { personal }
 
+    public var starterPreferences: StarterPreferences { starterPrefs }
+
+    /// Reload scenario / custom starters from Keychain (call when keyboard appears).
+    public func reloadStarterPreferences() {
+        starterPrefs.reload()
+        store.predictor.updateStarters(starterPrefs.activeStarters())
+        invalidateCache()
+    }
+
     /// - Parameters:
     ///   - partial: characters of the word currently being typed (may be empty after space)
     ///   - previousWord: last committed word for bigram prediction
     ///   - beforePreviousWord: word before that, for personal trigrams
+    ///   - sentenceStart: true at empty field or after sentence punctuation
     public func suggest(
         partial: String,
         previousWord: String?,
         beforePreviousWord: String? = nil,
+        sentenceStart: Bool = false,
         limit: Int = 3
     ) -> SuggestionResult {
         let p = ULYNormalizer.lookupKey(partial)
         let prevKey = previousWord.map { ULYNormalizer.lookupKey($0) } ?? ""
         let prev2Key = beforePreviousWord.map { ULYNormalizer.lookupKey($0) } ?? ""
-        let key = "\(p)|\(prevKey)|\(prev2Key)|\(limit)"
-        if let cached = cacheValue, cacheKey == key {
+        // Next-word / sentence-start uses a rotating predictor — skip cache there.
+        let cacheable = !p.isEmpty
+        let key = "\(p)|\(prevKey)|\(prev2Key)|\(sentenceStart)|\(limit)"
+        if cacheable, let cached = cacheValue, cacheKey == key {
             return cached
         }
         let result = suggestUncached(
             partial: p,
             previousWord: prevKey.isEmpty ? nil : prevKey,
             beforePreviousWord: prev2Key.isEmpty ? nil : prev2Key,
+            sentenceStart: sentenceStart,
             limit: limit
         )
-        cacheKey = key
-        cacheValue = result
+        if cacheable {
+            cacheKey = key
+            cacheValue = result
+        }
         return result
     }
 
@@ -71,15 +94,32 @@ public final class SuggestionEngine {
         partial p: String,
         previousWord: String?,
         beforePreviousWord: String?,
+        sentenceStart: Bool,
         limit: Int
     ) -> SuggestionResult {
         if p.isEmpty {
-            var ranked = personal.nextWords(
-                after: previousWord,
-                beforePrevious: beforePreviousWord,
-                limit: limit
+            var ranked: [(String, Int)] = []
+            if sentenceStart || previousWord == nil {
+                // Personal openers dominate sentence start.
+                ranked.append(contentsOf: personal.rankedOpeners(limit: limit * 2))
+                // Light boost for general personal words the user types often.
+                let topPersonal = personal.wordScores
+                    .sorted { $0.value > $1.value }
+                    .prefix(limit)
+                    .map { ($0.key, $0.value + 40_000) }
+                ranked.append(contentsOf: topPersonal)
+            } else {
+                ranked.append(contentsOf: personal.nextWords(
+                    after: previousWord,
+                    beforePrevious: beforePreviousWord,
+                    limit: limit
+                ))
+            }
+            let staticNext = store.predictor.nextWords(
+                after: sentenceStart ? nil : previousWord,
+                sentenceStart: sentenceStart || previousWord == nil,
+                limit: limit * 2
             )
-            let staticNext = store.predictor.nextWords(after: previousWord, limit: limit * 2)
             for (idx, w) in staticNext.enumerated() {
                 ranked.append((w, 10_000 - idx))
             }
@@ -122,9 +162,16 @@ public final class SuggestionEngine {
         return SuggestionResult(candidates: [], isMisspelled: !store.trie.contains(p) && !personal.contains(p), mode: .empty)
     }
 
-    public func learnSelection(_ word: String, previous: String? = nil, beforePrevious: String? = nil) {
+    public func learnSelection(
+        _ word: String,
+        previous: String? = nil,
+        beforePrevious: String? = nil,
+        sentenceStart: Bool = false
+    ) {
         personal.learn(word, boost: 6)
-        if let previous, !previous.isEmpty {
+        if sentenceStart || previous == nil || previous?.isEmpty == true {
+            personal.learnOpener(word, boost: 22)
+        } else if let previous, !previous.isEmpty {
             personal.learnBigram(previous: previous, word: word, boost: 4)
             if let beforePrevious, !beforePrevious.isEmpty {
                 personal.learnTrigram(w1: beforePrevious, w2: previous, w3: word, boost: 3)
@@ -134,10 +181,14 @@ public final class SuggestionEngine {
     }
 
     /// Learn a word the user finished typing (space / return).
-    public func learnCommittedWord(_ word: String, previous: String?, beforePrevious: String? = nil) {
+    public func learnCommittedWord(
+        _ word: String,
+        previous: String?,
+        beforePrevious: String? = nil,
+        sentenceStart: Bool = false
+    ) {
         let key = ULYNormalizer.lookupKey(word)
         guard key.count >= 2 else { return }
-        // Unknown typed words enter the personal lexicon aggressively.
         let boost: Int
         if personal.contains(key) {
             boost = 2
@@ -147,7 +198,10 @@ public final class SuggestionEngine {
             boost = 12
         }
         personal.learn(key, boost: boost)
-        if let previous, !previous.isEmpty {
+        if sentenceStart || previous == nil || previous?.isEmpty == true {
+            // Strong opener learning — this is what makes cold-start feel personal.
+            personal.learnOpener(key, boost: sentenceStart ? 24 : 14)
+        } else if let previous, !previous.isEmpty {
             personal.learnBigram(previous: previous, word: key, boost: boost >= 12 ? 4 : 2)
             if let beforePrevious, !beforePrevious.isEmpty {
                 personal.learnTrigram(w1: beforePrevious, w2: previous, w3: key, boost: 2)

@@ -9,17 +9,30 @@ public struct PersonalDictionarySnapshot: Codable, Equatable, Sendable {
     public var bigrams: [String: Int]
     /// Optional trigram keys: `"w1\u{1f}w2\u{1f}w3"`.
     public var trigrams: [String: Int]
+    /// Words learned specifically as sentence openers.
+    public var openers: [String: Int]
 
     public init(
         version: Int = 1,
         words: [String: Int] = [:],
         bigrams: [String: Int] = [:],
-        trigrams: [String: Int] = [:]
+        trigrams: [String: Int] = [:],
+        openers: [String: Int] = [:]
     ) {
         self.version = version
         self.words = words
         self.bigrams = bigrams
         self.trigrams = trigrams
+        self.openers = openers
+    }
+
+    public init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        version = try c.decodeIfPresent(Int.self, forKey: .version) ?? 1
+        words = try c.decodeIfPresent([String: Int].self, forKey: .words) ?? [:]
+        bigrams = try c.decodeIfPresent([String: Int].self, forKey: .bigrams) ?? [:]
+        trigrams = try c.decodeIfPresent([String: Int].self, forKey: .trigrams) ?? [:]
+        openers = try c.decodeIfPresent([String: Int].self, forKey: .openers) ?? [:]
     }
 }
 
@@ -32,16 +45,19 @@ public final class PersonalDictionary {
     private let wordsKey = "uyghurlatin.personalWords"
     private let bigramsKey = "uyghurlatin.personalBigrams"
     private let trigramsKey = "uyghurlatin.personalTrigrams"
+    private let openersKey = "uyghurlatin.personalOpeners"
     private let keychainService = "com.esqer.uyghurlatin.personal"
     private let keychainWordsAccount = "words"
     private let keychainBigramsAccount = "bigrams"
     private let keychainTrigramsAccount = "trigrams"
+    private let keychainOpenersAccount = "openers"
     /// Matches DEVELOPMENT_TEAM + shared keychain group in iOS entitlements.
     private let keychainAccessGroup = "QCZ38FF75B.com.esqer.uyghurlatin.shared"
 
     private var words: [String: Int]
     private var bigrams: [String: Int]
     private var trigrams: [String: Int]
+    private var openers: [String: Int]
 
     /// - Parameters:
     ///   - defaults: persistence for words/n-grams (and migration source).
@@ -70,6 +86,13 @@ public final class PersonalDictionary {
             defaultsKey: "uyghurlatin.personalTrigrams",
             useKeychain: useKeychain,
             account: "trigrams",
+            accessGroup: "QCZ38FF75B.com.esqer.uyghurlatin.shared"
+        )
+        self.openers = Self.loadScores(
+            defaults: defaults,
+            defaultsKey: "uyghurlatin.personalOpeners",
+            useKeychain: useKeychain,
+            account: "openers",
             accessGroup: "QCZ38FF75B.com.esqer.uyghurlatin.shared"
         )
     }
@@ -111,13 +134,38 @@ public final class PersonalDictionary {
         persistTrigrams()
     }
 
+    /// Stronger signal: word used to start a sentence / after punctuation.
+    public func learnOpener(_ word: String, boost: Int = 18) {
+        let key = ULYNormalizer.lookupKey(word)
+        guard key.count >= 2 else { return }
+        openers[key, default: 0] += boost
+        // Also bump general personal lexicon lightly so prefix completion benefits.
+        words[key, default: 0] += max(1, boost / 4)
+        persistOpeners()
+        persistWords()
+    }
+
+    /// Ranked personal sentence openers (high score first).
+    public func rankedOpeners(limit: Int) -> [(String, Int)] {
+        guard limit > 0 else { return [] }
+        return openers
+            .map { ($0.key, $0.value + 120_000) }
+            .sorted { $0.1 > $1.1 }
+            .prefix(limit)
+            .map { $0 }
+    }
+
+    public var openerCount: Int { openers.count }
+
     public func clear() {
         words.removeAll()
         bigrams.removeAll()
         trigrams.removeAll()
+        openers.removeAll()
         persistWords()
         persistBigrams()
         persistTrigrams()
+        persistOpeners()
     }
 
     public func contains(_ word: String) -> Bool {
@@ -182,7 +230,13 @@ public final class PersonalDictionary {
     // MARK: - Export / import
 
     public func snapshot() -> PersonalDictionarySnapshot {
-        PersonalDictionarySnapshot(version: 1, words: words, bigrams: bigrams, trigrams: trigrams)
+        PersonalDictionarySnapshot(
+            version: 2,
+            words: words,
+            bigrams: bigrams,
+            trigrams: trigrams,
+            openers: openers
+        )
     }
 
     public func exportJSONData() throws -> Data {
@@ -219,9 +273,18 @@ public final class PersonalDictionary {
             trigrams[k] = max(before, score)
             if before == 0 { addedOrBoosted += 1 }
         }
+        for (w, score) in snap.openers {
+            let key = ULYNormalizer.lookupKey(w)
+            guard !key.isEmpty else { continue }
+            let before = openers[key] ?? 0
+            let next = max(before, score)
+            if next != before { addedOrBoosted += 1 }
+            openers[key] = next
+        }
         persistWords()
         persistBigrams()
         persistTrigrams()
+        persistOpeners()
         return addedOrBoosted
     }
 
@@ -258,6 +321,13 @@ public final class PersonalDictionary {
         defaults.set(trigrams, forKey: trigramsKey)
         if useKeychain {
             Self.writeKeychainDict(trigrams, service: keychainService, account: keychainTrigramsAccount, accessGroup: keychainAccessGroup)
+        }
+    }
+
+    private func persistOpeners() {
+        defaults.set(openers, forKey: openersKey)
+        if useKeychain {
+            Self.writeKeychainDict(openers, service: keychainService, account: keychainOpenersAccount, accessGroup: keychainAccessGroup)
         }
     }
 

@@ -133,6 +133,18 @@ struct SetupView: View {
                 }
 
                 Section {
+                    NavigationLink {
+                        StarterSettingsView()
+                    } label: {
+                        Label(language.string("starters_open"), systemImage: "text.badge.star")
+                    }
+                } header: {
+                    Text(language.string("section_starters"))
+                } footer: {
+                    Text(language.string("starters_footer"))
+                }
+
+                Section {
                     Text(language.string("typing_1"))
                     Text(language.string("typing_2"))
                     Text(language.string("typing_3"))

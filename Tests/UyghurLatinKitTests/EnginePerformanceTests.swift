@@ -38,9 +38,40 @@ final class EnginePerformanceTests: XCTestCase {
         XCTAssertEqual(completion.mode, .completion)
         XCTAssertTrue(completion.candidates.contains("uyghur"))
 
-        let next = engine.suggest(partial: "", previousWord: "bügün", limit: 3)
+        let next = engine.suggest(partial: "", previousWord: "bügün", sentenceStart: false, limit: 3)
         XCTAssertEqual(next.mode, .nextWord)
         XCTAssertEqual(next.candidates.first, "uyghur")
+    }
+
+    func testSentenceStartAvoidsRawUnigramHeadwords() throws {
+        let suite = "test.perf.starters.\(UUID().uuidString)"
+        let defaults = UserDefaults(suiteName: suite)!
+        defer { defaults.removePersistentDomain(forName: suite) }
+        let json: [String: Any] = [
+            "meta": [
+                "version": "test", "script": "uly", "wordCount": 5,
+                "correctionCount": 0, "bigramCount": 0, "sources": ["t"],
+            ],
+            "words": [
+                ["aq", 99_000], ["qara", 98_000], ["ata", 97_000],
+                ["salam", 100], ["men", 100],
+            ],
+            "corrections": [:],
+            "bigrams": [],
+        ]
+        let data = try JSONSerialization.data(withJSONObject: json)
+        let engine = SuggestionEngine(
+            store: try LexiconStore(data: data),
+            personal: PersonalDictionary(defaults: defaults, useKeychain: false)
+        )
+        let start = engine.suggest(partial: "", previousWord: nil, sentenceStart: true, limit: 3)
+        XCTAssertEqual(start.mode, .nextWord)
+        XCTAssertFalse(start.candidates.contains("aq"))
+        XCTAssertFalse(start.candidates.contains("qara"))
+        XCTAssertTrue(
+            start.candidates.contains("salam") || start.candidates.contains("men"),
+            "expected sentence starters, got \(start.candidates)"
+        )
     }
 
     func testSpellUsesCorrectionMapAndSkipsTinyPrefixes() throws {

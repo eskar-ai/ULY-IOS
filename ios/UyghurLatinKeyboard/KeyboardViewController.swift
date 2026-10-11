@@ -59,6 +59,7 @@ final class KeyboardViewController: UIInputViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         keyboardView.reloadPreferences(traits: traitCollection)
+        engine?.reloadStarterPreferences()
         applyChrome()
         applyPreferredHeight()
         keyboardView.setNeedsInputModeSwitchKey(needsInputModeSwitchKey)
@@ -146,7 +147,12 @@ final class KeyboardViewController: UIInputViewController {
         return String(before.suffix(64))
     }
 
-    private func context() -> (partial: String, previous: String?, beforePrevious: String?) {
+    private func context() -> (
+        partial: String,
+        previous: String?,
+        beforePrevious: String?,
+        sentenceStart: Bool
+    ) {
         let before = clippedBeforeInput()
         var i = before.endIndex
         while i > before.startIndex {
@@ -157,6 +163,19 @@ final class KeyboardViewController: UIInputViewController {
             i = prev
         }
         let partial = String(before[i...])
+
+        // Skip trailing whitespace to inspect the boundary before the current word.
+        var boundary = i
+        while boundary > before.startIndex {
+            let prev = before.index(before: boundary)
+            if !before[prev].isWhitespace { break }
+            boundary = prev
+        }
+        let sentenceStart: Bool = {
+            if boundary == before.startIndex { return true }
+            let prev = before.index(before: boundary)
+            return Self.isSentencePunctuation(before[prev])
+        }()
 
         func scanWord(endingAt end: String.Index) -> (word: String?, start: String.Index) {
             var j = end
@@ -177,10 +196,24 @@ final class KeyboardViewController: UIInputViewController {
             return (word, k)
         }
 
+        // After sentence punctuation, do not condition on the previous sentence's last word.
+        if sentenceStart {
+            return (partial, nil, nil, true)
+        }
+
         let prevScan = scanWord(endingAt: i)
         let previous = prevScan.word
         let beforePrevious = previous == nil ? nil : scanWord(endingAt: prevScan.start).word
-        return (partial, previous, beforePrevious)
+        return (partial, previous, beforePrevious, false)
+    }
+
+    private static func isSentencePunctuation(_ ch: Character) -> Bool {
+        switch ch {
+        case ".", "!", "?", "…", ":", ";", "。", "！", "？", "\n":
+            return true
+        default:
+            return false
+        }
     }
 
     private func scheduleSuggest() {
@@ -214,6 +247,7 @@ final class KeyboardViewController: UIInputViewController {
                 partial: ctx.partial,
                 previousWord: ctx.previous,
                 beforePreviousWord: ctx.beforePrevious,
+                sentenceStart: ctx.sentenceStart,
                 limit: 8
             )
             let canAdd = !ctx.partial.isEmpty
@@ -249,7 +283,8 @@ final class KeyboardViewController: UIInputViewController {
             engine?.learnCommittedWord(
                 ctx.partial,
                 previous: ctx.previous,
-                beforePrevious: ctx.beforePrevious
+                beforePrevious: ctx.beforePrevious,
+                sentenceStart: ctx.sentenceStart
             )
         }
         insert(separator)
@@ -269,7 +304,12 @@ final class KeyboardViewController: UIInputViewController {
             }
         }
         textDocumentProxy.insertText(word + " ")
-        engine?.learnSelection(word, previous: ctx.previous, beforePrevious: ctx.beforePrevious)
+        engine?.learnSelection(
+            word,
+            previous: ctx.previous,
+            beforePrevious: ctx.beforePrevious,
+            sentenceStart: ctx.sentenceStart
+        )
         scheduleSuggest()
     }
 

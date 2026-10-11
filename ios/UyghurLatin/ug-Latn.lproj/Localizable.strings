@@ -59,6 +59,24 @@
 "typing_3" = "ëöü künupkisi qoshmaq herp we ayrish belgisi (') ni achidu";
 "typing_4" = "Teklip baldighi sistema künupkisige oxshash: bésip toldurung yaki tüziting";
 
+"section_starters" = "Jümlë bashlanmisi";
+"starters_open" = "Senariye we bashlanma sözler";
+"starters_footer" = "Bosh meydan yaki tinish belgisi arqisidiki teklip üchün senariye tallang. Özingizning bashlanma sözlirini qadaplashqa bolidu; künupka jümlë béshida yazghan sözlerni öginidu. Pütünley torsiz.";
+"starters_nav_title" = "Bashlanma";
+"section_scenario" = "Senariye";
+"scenario_label" = "Teklip senariyesi";
+"scenario_general" = "Omumiy";
+"scenario_greeting" = "Salamlash";
+"scenario_chat" = "Söhbet";
+"scenario_writing" = "Yëzish";
+"scenario_footer" = "Künupkini kéyinki échishte küchke iker. Tor yoq.";
+"scenario_preview" = "Aldin körünüsh";
+"section_starter_pins" = "Qadalma bashlanma";
+"starter_pin_placeholder" = "Bashlanma söz qadang";
+"starter_pin_add" = "Qada";
+"starter_pins_empty" = "Téxi qadalma yoq. Daim ishlitidighan bashlanma sözlerni qoshung.";
+"starter_pins_footer" = "Qadalma sözler jümlë béshida eng aldi bilen körünidu.";
+
 "section_dictionary" = "Lughët";
 "dictionary_privacy" = "Shexsiy sözler bu üskünide saqlanidu we künupka bilen achquch zënjiri arqiliq ortaqlishidu (toluq ziyaret yoq, tor yoq).";
 "personal_word_placeholder" = "Shexsiy söz qoshung";

@@ -59,6 +59,24 @@
 "typing_3" = "ëöü 键可输入更多字母与隔音符号 (')";
 "typing_4" = "候选栏类似系统输入法：点选即可补全或纠错";
 
+"section_starters" = "句首推荐";
+"starters_open" = "场景与开场词";
+"starters_footer" = "为空输入框或标点后选择推荐场景。可固定常用开场词；键盘也会学习你在句首输入的词。完全离线。";
+"starters_nav_title" = "开场词";
+"section_scenario" = "场景";
+"scenario_label" = "推荐场景";
+"scenario_general" = "通用";
+"scenario_greeting" = "问候";
+"scenario_chat" = "聊天";
+"scenario_writing" = "写作";
+"scenario_footer" = "下次打开键盘时生效。不联网。";
+"scenario_preview" = "预览";
+"section_starter_pins" = "固定开场词";
+"starter_pin_placeholder" = "固定一个开场词";
+"starter_pin_add" = "固定";
+"starter_pins_empty" = "暂无固定词。添加你常用来开头的词。";
+"starter_pins_footer" = "固定词在句首优先显示，再是场景词表与已学会的开场词。";
+
 "section_dictionary" = "词库";
 "dictionary_privacy" = "个人词保存在本机，并通过钥匙串与键盘共享（不请求「完全访问」，不联网）。";
 "personal_word_placeholder" = "添加个人词";

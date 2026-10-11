@@ -59,6 +59,24 @@
 "typing_3" = "ëöü opens digraphs and apostrophe (')";
 "typing_4" = "Suggestion bar matches system QuickType: tap to complete or correct";
 
+"section_starters" = "Sentence start";
+"starters_open" = "Scenario & starter words";
+"starters_footer" = "Choose a scenario for empty-field / after-punctuation suggestions. Pin your own openers; the keyboard also learns words you type at the start of a sentence. Fully offline.";
+"starters_nav_title" = "Starters";
+"section_scenario" = "Scenario";
+"scenario_label" = "Suggestion scenario";
+"scenario_general" = "General";
+"scenario_greeting" = "Greetings";
+"scenario_chat" = "Chat";
+"scenario_writing" = "Writing";
+"scenario_footer" = "Applies the next time you open the keyboard. No network.";
+"scenario_preview" = "Preview";
+"section_starter_pins" = "Pinned openers";
+"starter_pin_placeholder" = "Pin a starter word";
+"starter_pin_add" = "Pin";
+"starter_pins_empty" = "No pins yet. Add words you often start with.";
+"starter_pins_footer" = "Pinned words appear first at sentence start, before the scenario list and learned openers.";
+
 "section_dictionary" = "Dictionary";
 "dictionary_privacy" = "Personal words stay on this device (shared with the keyboard via Keychain; no Full Access, no network).";
 "personal_word_placeholder" = "Add a personal word";
