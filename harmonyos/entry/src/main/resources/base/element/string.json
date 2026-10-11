@@ -1,0 +1,20 @@
+{
+  "string": [
+    { "name": "module_desc", "value": "Uyghur ULY keyboard host" },
+    { "name": "EntryAbility_desc", "value": "Setup host for Uyghur ULY keyboard" },
+    { "name": "EntryAbility_label", "value": "Uyghur ULY keyboard" },
+    { "name": "host_title", "value": "Uyghur ULY keyboard" },
+    {
+      "name": "host_subtitle",
+      "value": "Offline Uyghur Latin keyboard for HarmonyOS NEXT. Suggestions stay on your device."
+    },
+    {
+      "name": "host_enable",
+      "value": "Enable the input method in System settings → Keyboard & input method, then switch to Uyghur ULY keyboard while typing."
+    },
+    {
+      "name": "host_privacy",
+      "value": "Typing stays on device. Open source on GitHub."
+    }
+  ]
+}

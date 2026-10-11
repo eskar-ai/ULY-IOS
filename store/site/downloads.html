@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Downloads — Uyghur ULY keyboard</title>
+    <meta
+      name="description"
+      content="Download Uyghur ULY keyboard for iOS, Android, and HarmonyOS."
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <p class="lang-bar">
+      <a href="?lang=en" data-lang-switch="en">English</a>
+      <a href="?lang=zh" data-lang-switch="zh">中文</a>
+      <a href="?lang=ug" data-lang-switch="ug">ئۇيغۇرچە</a>
+      <a href="?lang=uly" data-lang-switch="uly">Uyghurche</a>
+    </p>
+
+    <p><a href="index.html" data-lang-link data-i18n="back">← Uyghur ULY keyboard</a></p>
+
+    <h1 data-i18n="dlTitle">Downloads</h1>
+    <p class="tag" data-i18n="dlTagline">
+      Pick your platform. iOS is available today; Android and HarmonyOS builds ship from separate
+      branches as they mature.
+    </p>
+
+    <section>
+      <h2 data-i18n="dlIosTitle">iPhone (iOS)</h2>
+      <p data-i18n="dlIosBody">
+        Install from the App Store when listed, or build from source with Xcode (see the repository
+        README).
+      </p>
+      <p>
+        <a class="btn-github" href="demo/" data-i18n="navDemo">Demo</a>
+        <a
+          class="btn-github"
+          href="https://github.com/eskar-ai/ULY-IOS"
+          rel="noopener noreferrer"
+          data-i18n="githubCta"
+          >View code on GitHub</a
+        >
+      </p>
+    </section>
+
+    <section>
+      <h2 data-i18n="dlAndroidTitle">Android</h2>
+      <p data-i18n="dlAndroidBody">
+        Sideload from GitHub Releases when an <code>android-v*</code> tag publishes an APK. Then enable
+        the IME in system keyboard settings. Until the first release, use the source branch.
+      </p>
+      <p class="muted" data-i18n="dlAndroidStatus">
+        Status: CI + release workflow ready — push tag <code>android-vX.Y.Z</code> to publish APK.
+      </p>
+      <p>
+        <a
+          class="btn-github"
+          href="https://github.com/eskar-ai/ULY-IOS/releases/latest"
+          rel="noopener noreferrer"
+          data-i18n="dlAndroidRelease"
+          >GitHub Releases (latest)</a
+        >
+        <a
+          class="btn-github"
+          href="https://github.com/eskar-ai/ULY-IOS/tree/cursor/android-uly-keyboard-9edd/android"
+          rel="noopener noreferrer"
+          data-i18n="dlAndroidSource"
+          >Android source (branch)</a
+        >
+      </p>
+    </section>
+
+    <section>
+      <h2 data-i18n="dlHarmonyTitle">HarmonyOS NEXT</h2>
+      <p data-i18n="dlHarmonyBody">
+        HarmonyOS NEXT uses a separate ArkTS Input Method Extension. Install via AppGallery Connect
+        test / enterprise signing when available — do not assume a raw HAP tap-installs on every
+        device. Until then, build from the harmonyos branch in DevEco Studio.
+      </p>
+      <p class="muted" data-i18n="dlHarmonyStatus">
+        Status: scaffold + quality gate ready — AppGallery / test channel link pending first HAP.
+      </p>
+      <p>
+        <a
+          class="btn-github"
+          href="https://developer.huawei.com/consumer/en/service/josp/agc/index.html"
+          rel="noopener noreferrer"
+          data-i18n="dlHarmonyAgc"
+          >AppGallery Connect (test / release)</a
+        >
+        <a
+          class="btn-github"
+          href="https://github.com/eskar-ai/ULY-IOS/tree/cursor/harmonyos-uly-keyboard-9edd/harmonyos"
+          rel="noopener noreferrer"
+          data-i18n="dlHarmonySource"
+          >HarmonyOS source (branch)</a
+        >
+      </p>
+      <p class="muted" data-i18n="dlHarmonyInstallNote">
+        Prefer AGC closed testing or enterprise signing. A raw HAP may not install on consumer devices
+        without the correct profile.
+      </p>
+    </section>
+
+    <footer>
+      <p class="muted" data-i18n="footerTrust">
+        MIT-licensed · Offline typing · Contact: mr.askar@icloud.com
+      </p>
+    </footer>
+    <script src="i18n.js"></script>
+  </body>
+</html>

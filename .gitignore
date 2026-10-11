@@ -1,0 +1,123 @@
+# =============================================================================
+# Uyghur Latin (ULY) — repository ignore rules
+# =============================================================================
+# Goal: keep source, lexicon tooling, and platform project definitions in git;
+# never publish local builds, IDE state, secrets, or machine-specific files.
+#
+# Already-tracked files are NOT ignored until removed from the index, e.g.:
+#   git rm -r --cached ios/build
+# =============================================================================
+
+# --- OS / editor -------------------------------------------------------------
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Cursor / local agent scratch (never publish)
+.cursor/
+agent-tools/
+
+# --- Secrets & local env -----------------------------------------------------
+.env
+.env.*
+!.env.example
+*.pem
+*.p12
+*.p8
+*.mobileprovision
+*.provisionprofile
+AuthKey_*.p8
+secrets/
+credentials.json
+
+# --- Swift Package Manager ---------------------------------------------------
+.build/
+.swiftpm/
+# Keep Package.swift / Package.resolved if you choose to commit them.
+
+# --- Web (Vite) --------------------------------------------------------------
+node_modules/
+web/dist/
+web/tsconfig.tsbuildinfo
+*.tsbuildinfo
+
+# --- Python lexicon tooling --------------------------------------------------
+__pycache__/
+*.pyc
+.venv/
+venv/
+data/raw/
+
+# --- Android -----------------------------------------------------------------
+android/.gradle/
+android/**/build/
+android/local.properties
+android/.idea/
+android/*.iml
+android/captures/
+android/.cxx/
+*.apk
+*.aab
+!android/gradle/wrapper/gradle-wrapper.jar
+
+# --- HarmonyOS NEXT ----------------------------------------------------------
+harmonyos/**/build/
+harmonyos/.hvigor/
+harmonyos/local.properties
+harmonyos/.idea/
+harmonyos/oh_modules/
+harmonyos/**/oh_modules/
+harmonyos/smoke-output.txt
+*.hap
+*.app
+
+# --- iOS / Xcode -------------------------------------------------------------
+# project.yml → xcodegen generate; do not commit generated .xcodeproj
+*.xcodeproj/
+*.xcworkspace/
+ios/UyghurLatin.xcodeproj/
+
+# Local / derived build output (includes embedded Info.plist, Entitlements.plist)
+ios/build/
+DerivedData/
+**/xcuserdata/
+*.xcuserstate
+*.xcscmblueprint
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# -----------------------------------------------------------------------------
+# Property lists (plist)
+# -----------------------------------------------------------------------------
+# Ignore generated / packaging plists under build products. Keep source plists
+# that define the app (Info.plist) and the shared export template.
+#
+# Ignored (examples):
+#   ios/build/**/*.plist
+#   DerivedSources/Entitlements.plist
+#   product Info.plist copied into .app / .appex
+#
+# Tracked on purpose:
+#   ios/UyghurLatin/Info.plist
+#   ios/UyghurLatinKeyboard/Info.plist
+#   ios/ExportOptions.plist   (no team secrets; used by archive scripts)
+#
+# If you add a *local* export options file with team IDs, name it e.g.
+# ExportOptions.local.plist so the rule below catches it.
+# -----------------------------------------------------------------------------
+ios/build/**/*.plist
+**/DerivedSources/**/*.plist
+**/Products/**/*.plist
+ExportOptions.local.plist
+**/ExportOptions.local.plist
+
+# Optional: uncomment to stop tracking the shared export template as well.
+# ios/ExportOptions.plist

@@ -1,0 +1,140 @@
+name: UyghurLatin
+options:
+  bundleIdPrefix: com.esqer.uyghurlatin
+  deploymentTarget:
+    iOS: "16.0"
+  xcodeVersion: "15.0"
+  objectVersion: 56
+  createIntermediateGroups: true
+  developmentLanguage: en
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    TARGETED_DEVICE_FAMILY: "1,2"
+    DEVELOPMENT_TEAM: "QCZ38FF75B"
+    CODE_SIGN_STYLE: Automatic
+    LOCALIZATION_PREFERS_STRING_CATALOGS: NO
+packages:
+  UyghurLatinKit:
+    path: ..
+targets:
+  UyghurLatin:
+    type: application
+    platform: iOS
+    sources:
+      - path: UyghurLatin
+        excludes:
+          - Resources/**
+          - Assets.xcassets/**
+          - "**/*.lproj/**"
+          - PrivacyInfo.xcprivacy
+          - "*.entitlements"
+      - path: Shared
+      # XcodeGen 2.46 + objectVersion 56 has been dropping top-level `resources:`;
+      # attach bundle files via sources + buildPhase instead.
+      - path: UyghurLatin/Assets.xcassets
+        buildPhase: resources
+      - path: UyghurLatin/PrivacyInfo.xcprivacy
+        buildPhase: resources
+      - path: UyghurLatin/Resources/meta.json
+        buildPhase: resources
+      - path: UyghurLatin/Resources/THIRD_PARTY_NOTICES.md
+        buildPhase: resources
+      - path: UyghurLatin/Resources/notices
+        buildPhase: resources
+      - path: UyghurLatin/en.lproj
+        buildPhase: resources
+      - path: UyghurLatin/zh-Hans.lproj
+        buildPhase: resources
+      - path: UyghurLatin/ug.lproj
+        buildPhase: resources
+      - path: UyghurLatin/ug-Latn.lproj
+        buildPhase: resources
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.esqer.uyghurlatin.app
+        INFOPLIST_FILE: UyghurLatin/Info.plist
+        CODE_SIGN_ENTITLEMENTS: UyghurLatin/UyghurLatin.entitlements
+        GENERATE_INFOPLIST_FILE: false
+        CURRENT_PROJECT_VERSION: 1
+        MARKETING_VERSION: "1.0.0"
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        INFOPLIST_KEY_LSApplicationCategoryType: public.app-category.productivity
+        INFOPLIST_KEY_CFBundleDisplayName: Uyghur ULY keyboard
+        INFOPLIST_KEY_NSHumanReadableCopyright: "Copyright © 2026 Uyghur ULY keyboard contributors"
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_UISupportedInterfaceOrientations: "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight"
+        INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad: "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight"
+        KNOWN_REGIONS:
+          - en
+          - zh-Hans
+          - ug
+          - ug-Latn
+          - Base
+    dependencies:
+      - target: UyghurLatinKeyboard
+        embed: true
+      - package: UyghurLatinKit
+        product: UyghurLatinKit
+    info:
+      path: UyghurLatin/Info.plist
+      properties:
+        CFBundleDevelopmentRegion: en
+        CFBundleLocalizations:
+          - en
+          - zh-Hans
+          - ug
+          - ug-Latn
+        CFBundleShortVersionString: "1.0.0"
+        CFBundleVersion: "1"
+        UILaunchScreen: {}
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+
+  UyghurLatinKeyboard:
+    type: app-extension
+    platform: iOS
+    sources:
+      - path: UyghurLatinKeyboard
+        excludes:
+          - Resources/**
+          - "**/*.json"
+          - "**/*.md"
+          - "**/*.lproj/**"
+          - PrivacyInfo.xcprivacy
+          - "*.entitlements"
+      - path: Shared
+      - path: UyghurLatinKeyboard/Resources/lexicon.json
+        buildPhase: resources
+      - path: UyghurLatinKeyboard/Resources/meta.json
+        buildPhase: resources
+      - path: UyghurLatinKeyboard/PrivacyInfo.xcprivacy
+        buildPhase: resources
+      - path: UyghurLatinKeyboard/en.lproj
+        buildPhase: resources
+      - path: UyghurLatinKeyboard/zh-Hans.lproj
+        buildPhase: resources
+      - path: UyghurLatinKeyboard/ug.lproj
+        buildPhase: resources
+      - path: UyghurLatinKeyboard/ug-Latn.lproj
+        buildPhase: resources
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.esqer.uyghurlatin.app.keyboard
+        INFOPLIST_FILE: UyghurLatinKeyboard/Info.plist
+        CODE_SIGN_ENTITLEMENTS: UyghurLatinKeyboard/UyghurLatinKeyboard.entitlements
+        GENERATE_INFOPLIST_FILE: false
+        CURRENT_PROJECT_VERSION: 1
+        MARKETING_VERSION: "1.0.0"
+        SKIP_INSTALL: true
+        INFOPLIST_KEY_CFBundleDisplayName: Uyghur ULY keyboard
+        LD_RUNPATH_SEARCH_PATHS:
+          - "$(inherited)"
+          - "@executable_path/Frameworks"
+          - "@executable_path/../../Frameworks"
+    dependencies:
+      - package: UyghurLatinKit
+        product: UyghurLatinKit

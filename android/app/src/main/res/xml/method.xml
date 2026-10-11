@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<input-method xmlns:android="http://schemas.android.com/apk/res/android"
+    android:settingsActivity="org.uyghurlatin.keyboard.HostMainActivity"
+    android:isDefault="false"
+    android:supportsSwitchingToNextInputMethod="true">
+    <subtype
+        android:label="@string/ime_subtype_uly"
+        android:imeSubtypeLocale="ug_Latn"
+        android:imeSubtypeMode="keyboard" />
+</input-method>

@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ug-Latn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#d1d3d9" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Uyghur ULY keyboard — demo</title>
+  </head>
+  <body>
+    <div id="app">
+      <div class="phone">
+        <header class="nav">
+          <h1>Uyghur ULY keyboard</h1>
+          <div class="nav-actions">
+            <button type="button" class="chip-btn" id="themeCycle" title="Theme">Theme: System</button>
+          </div>
+        </header>
+
+        <section class="editor-wrap">
+          <label class="sr-only" for="editor">Text</label>
+          <textarea
+            id="editor"
+            spellcheck="false"
+            autocomplete="off"
+            autocorrect="off"
+            autocapitalize="off"
+            placeholder="Type here…"
+          ></textarea>
+          <div id="status" class="status" aria-live="polite">Loading lexicon…</div>
+        </section>
+
+        <div class="keyboard-shell">
+          <div id="candidates" class="candidates" role="listbox" aria-label="Suggestions"></div>
+          <div id="keyboard" class="keyboard" aria-label="ULY keyboard"></div>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

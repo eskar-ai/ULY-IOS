@@ -1,0 +1,28 @@
+name: iOS Engine CI
+
+on:
+  push:
+    branches:
+      - "main"
+      - "cursor/ios-ime-performance-9edd"
+      - "cursor/ios-platform-and-downloads-9edd"
+    paths:
+      - "Sources/**"
+      - "Tests/**"
+      - "Package.swift"
+      - ".github/workflows/ios-engine-ci.yml"
+  pull_request:
+    branches: ["main"]
+    paths:
+      - "Sources/**"
+      - "Tests/**"
+      - "Package.swift"
+
+jobs:
+  swift-test:
+    name: UyghurLatinKit unit tests
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+      - name: Swift test
+        run: swift test --package-path .

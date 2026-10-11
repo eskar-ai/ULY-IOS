@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Uyghur ULY keyboard</string>
+    <string name="ime_name">Uyghur ULY keyboard</string>
+    <string name="ime_subtype_uly">Uyghur Latin (ULY)</string>
+    <string name="host_title">Uyghur ULY keyboard</string>
+    <string name="host_subtitle">Offline Uyghur Latin keyboard for Android. Suggestions and spell check stay on your device.</string>
+    <string name="host_enable_title">Enable the keyboard</string>
+    <string name="host_step1">1. Open system keyboard settings</string>
+    <string name="host_step2">2. Turn on Uyghur ULY keyboard</string>
+    <string name="host_step3">3. Switch to it with the keyboard picker while typing</string>
+    <string name="host_open_settings">Open keyboard settings</string>
+    <string name="host_privacy">Typing stays on device. No Full Access equivalent network permission is required. Open source on GitHub.</string>
+    <string name="host_try">Try typing below after enabling the IME</string>
+    <string name="host_hint">Type uygh or bugun…</string>
+    <string name="key_space">space</string>
+    <string name="key_return">return</string>
+</resources>

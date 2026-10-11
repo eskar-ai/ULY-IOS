@@ -1,0 +1,48 @@
+{
+  app: {
+    products: [
+      {
+        name: "default",
+        signingConfig: "default",
+        compatibleSdkVersion: "5.0.0(12)",
+        runtimeOS: "HarmonyOS",
+      },
+    ],
+    buildModeSet: [
+      { name: "debug" },
+      { name: "release" },
+    ],
+  },
+  modules: [
+    {
+      name: "entry",
+      srcPath: "./entry",
+      targets: [
+        {
+          name: "default",
+          applyToProducts: ["default"],
+        },
+      ],
+    },
+    {
+      name: "ime",
+      srcPath: "./ime",
+      targets: [
+        {
+          name: "default",
+          applyToProducts: ["default"],
+        },
+      ],
+    },
+    {
+      name: "uly_engine",
+      srcPath: "./uly_engine",
+      targets: [
+        {
+          name: "default",
+          applyToProducts: ["default"],
+        },
+      ],
+    },
+  ],
+}

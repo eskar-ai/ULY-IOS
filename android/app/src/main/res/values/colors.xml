@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="uly_bg">#F2F2F7</color>
+    <color name="uly_key">#FFFFFF</color>
+    <color name="uly_key_special">#AEB3BE</color>
+    <color name="uly_text">#1C1C1E</color>
+    <color name="uly_accent">#0A84FF</color>
+    <color name="uly_misspelled">#FF3B30</color>
+    <color name="uly_chassis">#D1D3D9</color>
+    <color name="host_bg">#F7F5F2</color>
+    <color name="host_ink">#1A1A1A</color>
+    <color name="host_muted">#5C5C5C</color>
+    <color name="host_accent">#0B5FFF</color>
+</resources>
